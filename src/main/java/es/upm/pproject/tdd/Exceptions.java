@@ -7,8 +7,15 @@ class IncorrectPINException extends Exception{
     }
 }
 
+class AlreadyRegisteredException extends Exception{
+	private static final String MSG = "Error: Crd is alrready registered in the system.";
+	public AlreadyRegisteredException() {
+		super(MSG);
+	}
+}
+
 class NotRegisteredException extends Exception{
-    private static final String MSG = "Error: Crd is not registered in the system.";
+    private static final String MSG = "Error: Card is not registered in the system.";
     public NotRegisteredException(){
         super(MSG);
     }
