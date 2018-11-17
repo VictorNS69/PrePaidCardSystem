@@ -1,6 +1,7 @@
 target/
 src/target
 .classpath
-.setings/
+.settings/
+.project
 bin/
 TODO.txt
