@@ -6,7 +6,10 @@ import java.security.MessageDigest;
 public class HashPin {
 	private String pin;
 	public HashPin(String number) throws IncorrectPinFormatException {
-		if (number.length() > 4)
+		if (number == null)
+			throw new IncorrectPinFormatException();
+		
+		if (number.length() != 4)
 			throw new IncorrectPinFormatException();
 
 		try { 
