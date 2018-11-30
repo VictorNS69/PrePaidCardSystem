@@ -10,7 +10,7 @@ public interface Interface{
 	 * @param amount
 	 * @throws AlreadyRegisteredException
 	 */
-	void buyCard(String name, String surname, String pin, int amount) throws AlreadyRegisteredException;
+	void buyCard(String name, String surname, String pin, float amount) throws AlreadyRegisteredException;
 
 	/**The user can pay an amount of money by introducing the credit card number, the amount to pay
 	 * and the PIN. The system must check whether the user have enough money in the card and, if so,
@@ -24,7 +24,7 @@ public interface Interface{
 	 * @throws NotEnoughMoneyException
 	 * @throws ExpiredCardException
 	 */
-	void pay(int number, int amount, String pin) throws NotRegisteredException, IncorrectPINException,
+	void pay(long number, float amount, String pin) throws NotRegisteredException, IncorrectPINException,
 			NotEnoughMoneyException, ExpiredCardException;
 
 	/**The user can charge some amount of money in a card. The form will ask the user for the credit
@@ -37,7 +37,7 @@ public interface Interface{
 	 * @throws IncorrectPINException
 	 * @throws ExpiredCardException
 	 */
-	void chargeMoney(int number, int amount, String pin) throws NotRegisteredException, IncorrectPINException, 
+	void chargeMoney(long number, float amount, String pin) throws NotRegisteredException, IncorrectPINException, 
 			ExpiredCardException;
 
 	/**The user can change the PIN by introducing the old PIN and the new one. If the old PIN is
@@ -55,7 +55,7 @@ public interface Interface{
 	 * @throws NotRegisteredException
 	 * @throws IncorrectPINException
 	 */
-	void consultBalance(int number, String pin) throws NotRegisteredException, IncorrectPINException;
+	void consultBalance(long number, String pin) throws NotRegisteredException, IncorrectPINException;
 
 	/** The user can consult the movements done with a card in the current session by introducing the
 	 * card number and the PIN. The movements must be shown in decreasing order, that is, the last
@@ -65,6 +65,6 @@ public interface Interface{
 	 * @throws NotRegisteredException
 	 * @throws IncorrectPINException
 	 */
-	void consultMovements(int number, String pin) throws NotRegisteredException, IncorrectPINException;
+	void consultMovements(long number, String pin) throws NotRegisteredException, IncorrectPINException;
 
 }
