@@ -5,7 +5,9 @@ import java.security.MessageDigest;
 
 public class HashPin {
 	private String pin;
-	public HashPin(String number) {
+	public HashPin(String number) throws IncorrectPinFormatException {
+		if (number.length() > 4)
+			throw new IncorrectPinFormatException();
 
 		try { 
 			// Static getInstance method is called with hashing SHA 
@@ -32,7 +34,7 @@ public class HashPin {
 			e.printStackTrace();
 		} 
 	}
-	
+
 	public String getHashPin() {
 		return this.pin;
 	}

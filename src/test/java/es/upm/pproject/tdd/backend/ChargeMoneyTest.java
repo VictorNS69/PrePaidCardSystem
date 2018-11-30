@@ -11,7 +11,7 @@ public class ChargeMoneyTest {
 	private Card card;
 	
 	@BeforeEach
-	private void init() {
+	private void init() throws IncorrectPinFormatException{
 		Card card = new Card("Victor", "Nieves", "1234", 0);
 		this.cardsList.add(card);
 		this.manager = new Manager(this.cardsList);
@@ -20,14 +20,14 @@ public class ChargeMoneyTest {
 	
     @Test
     public void testChargeMoneyOk_1() throws NotRegisteredException, 
-    		IncorrectPINException, ExpiredCardException {
+    		IncorrectPinException, ExpiredCardException {
         manager.chargeMoney(this.card.getNumber(), 10, this.card.getPin());
         assertEquals(10, this.card.getBalance());
     }
     
     @Test
     public void testChargeMoneyOk_2() throws NotRegisteredException, 
-    		IncorrectPINException, ExpiredCardException {
+    		IncorrectPinException, ExpiredCardException, IncorrectPinFormatException{
     	Card card = new Card("Daniel", "Morgera", "1234", 0);
 		this.cardsList.add(card);
 		this.init();
@@ -38,7 +38,7 @@ public class ChargeMoneyTest {
     
     @Test
     public void testChargeMoneyNullCard() throws NotRegisteredException, 
-	IncorrectPINException, ExpiredCardException {
+	IncorrectPinException, ExpiredCardException {
     	assertThrows(NotRegisteredException.class, ()->{
 			this.manager.chargeMoney(12, 10, this.card.getPin());
 		});
@@ -46,8 +46,8 @@ public class ChargeMoneyTest {
     
     @Test
     public void testChargeMoneyIncorrectPin() throws NotRegisteredException, 
-	IncorrectPINException, ExpiredCardException {
-    	assertThrows(IncorrectPINException.class, ()->{
+	IncorrectPinException, ExpiredCardException {
+    	assertThrows(IncorrectPinException.class, ()->{
 			this.manager.chargeMoney(this.card.getNumber(), 10, "ae22");
 		});
     }
@@ -55,7 +55,7 @@ public class ChargeMoneyTest {
     @Disabled
     @Test
     public void testChargeMoneyExpiredDate() throws NotRegisteredException, 
-	IncorrectPINException, ExpiredCardException {
+	IncorrectPinException, ExpiredCardException {
     	assertThrows(ExpiredCardException.class, ()->{
 			this.manager.chargeMoney(this.card.getNumber(), 10, this.card.getPin());
 		});

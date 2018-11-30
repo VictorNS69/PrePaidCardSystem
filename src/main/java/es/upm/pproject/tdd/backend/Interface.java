@@ -20,11 +20,11 @@ public interface Interface{
 	 * @param amount
 	 * @param pin
 	 * @throws NotRegisteredException
-	 * @throws IncorrectPINException
+	 * @throws IncorrectPinException
 	 * @throws NotEnoughMoneyException
 	 * @throws ExpiredCardException
 	 */
-	void pay(long number, float amount, String pin) throws NotRegisteredException, IncorrectPINException,
+	void pay(long number, float amount, String pin) throws NotRegisteredException, IncorrectPinException,
 			NotEnoughMoneyException, ExpiredCardException;
 
 	/**The user can charge some amount of money in a card. The form will ask the user for the credit
@@ -34,10 +34,10 @@ public interface Interface{
 	 * @param amount
 	 * @param pin
 	 * @throws NotRegisteredException
-	 * @throws IncorrectPINException
+	 * @throws IncorrectPinException
 	 * @throws ExpiredCardException
 	 */
-	void chargeMoney(long number, float amount, String pin) throws NotRegisteredException, IncorrectPINException, 
+	void chargeMoney(long number, float amount, String pin) throws NotRegisteredException, IncorrectPinException, 
 			ExpiredCardException;
 
 	/**The user can change the PIN by introducing the old PIN and the new one. If the old PIN is
@@ -45,17 +45,17 @@ public interface Interface{
 	 * @param oldPin
 	 * @param newPin
 	 * @throws NotRegisteredException
-	 * @throws IncorrectPINException
+	 * @throws IncorrectPinException
 	 */
-	void changePIN(String oldPin, String newPin) throws NotRegisteredException, IncorrectPINException;
+	void changePIN(String oldPin, String newPin) throws NotRegisteredException, IncorrectPinException;
 
 	/**The user can check the balance of a card by introducing the card number and its PIN
 	 * @param number
 	 * @param pin
 	 * @throws NotRegisteredException
-	 * @throws IncorrectPINException
+	 * @throws IncorrectPinException
 	 */
-	void consultBalance(long number, String pin) throws NotRegisteredException, IncorrectPINException;
+	void consultBalance(long number, String pin) throws NotRegisteredException, IncorrectPinException;
 
 	/** The user can consult the movements done with a card in the current session by introducing the
 	 * card number and the PIN. The movements must be shown in decreasing order, that is, the last
@@ -63,8 +63,8 @@ public interface Interface{
 	 * @param number
 	 * @param pin
 	 * @throws NotRegisteredException
-	 * @throws IncorrectPINException
+	 * @throws IncorrectPinException
 	 */
-	void consultMovements(long number, String pin) throws NotRegisteredException, IncorrectPINException;
+	void consultMovements(long number, String pin) throws NotRegisteredException, IncorrectPinException;
 
 }

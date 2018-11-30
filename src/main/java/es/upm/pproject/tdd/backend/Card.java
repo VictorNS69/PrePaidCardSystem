@@ -10,7 +10,8 @@ public class Card {
 	private float balance = 0, amount;
 	private Calendar expirationDate;
 
-	public Card (String name, String surname, String pin, float amount) {
+	public Card (String name, String surname, String pin, float amount) 
+			throws IncorrectPinFormatException{
 		this.number = this.generateNumberCard();
 		this.name = name;
 		this.surname = surname;

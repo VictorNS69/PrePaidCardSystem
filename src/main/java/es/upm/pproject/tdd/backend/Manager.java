@@ -28,20 +28,20 @@ public class Manager implements Interface{
 
 	@Override
 	public void pay(long number, float amount, String pin)
-			throws NotRegisteredException, IncorrectPINException, NotEnoughMoneyException, ExpiredCardException {
+			throws NotRegisteredException, IncorrectPinException, NotEnoughMoneyException, ExpiredCardException {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void chargeMoney(long number, float amount, String pin)
-			throws NotRegisteredException, IncorrectPINException, ExpiredCardException {
+			throws NotRegisteredException, IncorrectPinException, ExpiredCardException {
 		Card card = this.cards.get(number);
 		if (card == null) 
 			throw new NotRegisteredException();
 		
 		if (card.getPin() != pin)
-			throw new IncorrectPINException();
+			throw new IncorrectPinException();
 		
 		if (card.getExpirationDate().compareTo(this.calendar)<0)
 			throw new ExpiredCardException();
@@ -50,19 +50,19 @@ public class Manager implements Interface{
 	}
 
 	@Override
-	public void changePIN(String oldPin, String newPin) throws NotRegisteredException, IncorrectPINException {
+	public void changePIN(String oldPin, String newPin) throws NotRegisteredException, IncorrectPinException {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void consultBalance(long number, String pin) throws NotRegisteredException, IncorrectPINException {
+	public void consultBalance(long number, String pin) throws NotRegisteredException, IncorrectPinException {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void consultMovements(long number, String pin) throws NotRegisteredException, IncorrectPINException {
+	public void consultMovements(long number, String pin) throws NotRegisteredException, IncorrectPinException {
 		// TODO Auto-generated method stub
 		
 	}
