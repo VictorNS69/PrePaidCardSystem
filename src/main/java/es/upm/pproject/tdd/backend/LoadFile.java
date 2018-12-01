@@ -15,7 +15,8 @@ public class LoadFile {
 	private Queue <List>attributes = new LinkedList<List>();
 	private Map <Long, Card> cards = new HashMap <>();
 	
-	public LoadFile(Path path) throws IOException, IncorrectPinFormatException {
+	public LoadFile(Path path) throws IOException, IncorrectPinFormatException, NumberFormatException,
+	IncorrectPinException, ExpiredCardException {
 		//Path path = FileSystems.getDefault().getPath("src/assets/doc.txt").toAbsolutePath();
 		FileReader file = new FileReader(path.toString());
 		String line;
@@ -36,11 +37,18 @@ public class LoadFile {
 		return list;
 	}
 	
-	private void makeCards() throws IncorrectPinFormatException{
+	private void makeCards() throws IncorrectPinFormatException, NumberFormatException,
+	IncorrectPinException, ExpiredCardException{
 		List list;
 		while ((list = this.attributes.poll()) != null) {
-			Card card = new Card(Long.valueOf(list.get(0).toString()).longValue(), list.get(1).toString(), list.get(2).toString(), 
-					list.get(3).toString(), Float.valueOf(list.get(4).toString()).floatValue(), list.get(5).toString());
+			Card card = new Card(Long.valueOf(list.get(0).toString()).longValue(), 
+					list.get(1).toString(), list.get(2).toString(), 
+					list.get(3).toString(), Float.valueOf(list.get(4).toString()).floatValue(), 
+					
+					
+					
+					
+					list.get(5).toString());
 			this.cards.put(card.getNumber(), card);
 		}
 	}

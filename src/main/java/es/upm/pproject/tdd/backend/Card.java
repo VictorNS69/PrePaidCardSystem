@@ -12,9 +12,9 @@ public class Card {
 	private Calendar exD;
 
 	public Card (Long number, String name, String surname, String pin, float amount, String calendar) 
-			throws IncorrectPinFormatException{
+			throws IncorrectPinFormatException, IncorrectPinException, ExpiredCardException{
 		if (number == null)
-			this.number = this.generateNumberCard();
+			this.number = this.generateNumberCard(); 
 		
 		else
 			this.number = number;
@@ -22,12 +22,15 @@ public class Card {
 		this.name = name;
 		this.surname = surname;
 		
+		if (pin == null)
+			throw new IncorrectPinException();
+		
 		if (pin.length() == 4) {
 			HashPin hp = new HashPin(pin);
 			this.pin = hp.getHashPin();
 		}
 		else 
-			this.pin = pin;
+			throw new IncorrectPinFormatException();
 		
 		this.balance = this.balance + amount;
 		this.amount = amount;
@@ -35,8 +38,15 @@ public class Card {
 			this. exD = this.setExpirationDate(Calendar.getInstance());
 			this.expirationDate = this.dateFormat(this.exD);
 		}
-		else
-			this.expirationDate = calendar;
+		else {
+			this. exD = Calendar.getInstance();
+			String auxDate =this.dateFormat(this.exD);
+			if (this.compareDate(calendar, auxDate)) 
+				throw new ExpiredCardException();
+			
+			else
+				this.expirationDate = calendar;
+		}
 	}
 	
 
@@ -95,4 +105,24 @@ public class Card {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		return sdf.format(date);
 	}
+	
+	/* Compare if date1 is <= date2
+	 */
+	private boolean compareDate(String date1, String date2) {
+		String[] d1 = date1.split("-");
+		String[] d2 = date2.split("-");
+		if (d1[2].compareTo(d2[2]) == 0) {
+			if (d1[1].compareTo(d2[1]) == 0) {
+				if (d1[0].compareTo(d2[0]) <= 0) 
+					return true;
+			}
+			else if (d1[1].compareTo(d2[1]) < 0) 
+				return true;
+		}
+		else if (d1[2].compareTo(d2[2]) < 0) 
+			return true;
+		
+		return false;
+	}
+	
 }

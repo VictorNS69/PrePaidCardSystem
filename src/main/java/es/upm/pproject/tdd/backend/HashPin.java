@@ -5,7 +5,7 @@ import java.security.MessageDigest;
 
 public class HashPin {
 	private String pin;
-	public HashPin(String number) throws IncorrectPinFormatException {
+	public HashPin(String number) throws IncorrectPinFormatException { 
 		if (number == null)
 			throw new IncorrectPinFormatException();
 		

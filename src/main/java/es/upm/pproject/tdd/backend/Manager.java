@@ -15,7 +15,7 @@ public class Manager implements Interface{
 	public Manager (List <Card> list) {
 		for (Card c : list) {
 			this.cards.put(c.getNumber(), c);
-		}
+		} 
 		this.date = this.dateFormat(Calendar.getInstance());
 		//System.out.println(date);
 	}
