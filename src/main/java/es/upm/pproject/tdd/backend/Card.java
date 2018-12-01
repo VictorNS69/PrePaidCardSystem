@@ -33,7 +33,7 @@ public class Card {
 		this.amount = amount;
 		if (calendar == null) {
 			this. exD = this.setExpirationDate(Calendar.getInstance());
-			this.expirationDate = this.getPrettyExpirationDate();
+			this.expirationDate = this.dateFormat(this.exD);
 		}
 		else
 			this.expirationDate = calendar;
@@ -65,10 +65,10 @@ public class Card {
 	}
 
 	public String getPrettyExpirationDate() {
-		return this.dateFormat(this.exD);
+		return this.expirationDate;
 	}
 	
-	public Calendar getExpirationDate() {
+	private Calendar getExpirationDate() {
 		return this.exD;
 	}
 

@@ -1,6 +1,8 @@
 package es.upm.pproject.tdd.backend;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,16 +10,28 @@ import java.util.Map;
 
 public class Manager implements Interface{
 	private Map <Long, Card> cards = new HashMap <>();
-	private Calendar calendar = Calendar.getInstance();
+	private String date;
 
-	public Manager (List <Card> cards) {
-		for (Card c : cards) {
+	public Manager (List <Card> list) {
+		for (Card c : list) {
 			this.cards.put(c.getNumber(), c);
 		}
+		this.date = this.dateFormat(Calendar.getInstance());
+		//System.out.println(date);
+	}
+	
+	private String dateFormat(Calendar calendar) {
+		Date cal = calendar.getTime();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		return sdf.format(cal);
 	}
 	
 	public Card getCard(Long K) {
 		return cards.get(K);
+	}
+	
+	public String getDate() {
+		return this.date;
 	}
 	
 	@Override
@@ -36,17 +50,17 @@ public class Manager implements Interface{
 	@Override
 	public void chargeMoney(long number, float amount, String pin)
 			throws NotRegisteredException, IncorrectPinException, ExpiredCardException {
-		Card card = this.cards.get(number);
-		if (card == null) 
+		//Card card = this.getCard(number);
+		if (this.getCard(number) == null) 
 			throw new NotRegisteredException();
 		
-		if (card.getPin() != pin)
+		if (this.getCard(number).getPin() != pin)
 			throw new IncorrectPinException();
 		
-		if (card.getExpirationDate().compareTo(this.calendar)<0)
+		if (this.getCard(number).getPrettyExpirationDate().compareTo(this.date) <=0 )
 			throw new ExpiredCardException();
 		
-		card.setBalance(amount);
+		this.getCard(number).setBalance(amount);
 	}
 
 	@Override

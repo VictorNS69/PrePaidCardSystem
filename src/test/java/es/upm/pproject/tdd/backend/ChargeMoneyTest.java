@@ -3,7 +3,6 @@ package es.upm.pproject.tdd.backend;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.*;
-import es.upm.pproject.tdd.backend.*;
 
 public class ChargeMoneyTest {
 	private Manager manager;
@@ -12,7 +11,7 @@ public class ChargeMoneyTest {
 	
 	@BeforeEach
 	private void init() throws IncorrectPinFormatException{
-		Card card = new Card("Victor", "Nieves", "1234", 0);
+		Card card = new Card(null, "Victor", "Nieves", "1234", 0, null);
 		this.cardsList.add(card);
 		this.manager = new Manager(this.cardsList);
 		this.card = this.manager.getCard(card.getNumber());
@@ -21,21 +20,21 @@ public class ChargeMoneyTest {
     @Test
     public void testChargeMoneyOk_1() throws NotRegisteredException, 
     		IncorrectPinException, ExpiredCardException {
-        manager.chargeMoney(this.card.getNumber(), 10, this.card.getPin());
+        this.manager.chargeMoney(this.card.getNumber(), 10, this.card.getPin());
         assertEquals(10, this.card.getBalance());
     }
-    
+
     @Test
     public void testChargeMoneyOk_2() throws NotRegisteredException, 
     		IncorrectPinException, ExpiredCardException, IncorrectPinFormatException{
-    	Card card = new Card("Daniel", "Morgera", "1234", 0);
+    	Card card = new Card(null,"Daniel", "Morgera", "1234", 0, null);
 		this.cardsList.add(card);
 		this.init();
 		this.card = this.manager.getCard(card.getNumber());
-        manager.chargeMoney(this.card.getNumber(), 20, this.card.getPin());
+        this.manager.chargeMoney(this.card.getNumber(), 20, this.card.getPin());
         assertEquals(20, this.card.getBalance());
     }
-    
+
     @Test
     public void testChargeMoneyNullCard() throws NotRegisteredException, 
 	IncorrectPinException, ExpiredCardException {
@@ -43,7 +42,7 @@ public class ChargeMoneyTest {
 			this.manager.chargeMoney(12, 10, this.card.getPin());
 		});
     }
-    
+
     @Test
     public void testChargeMoneyIncorrectPin() throws NotRegisteredException, 
 	IncorrectPinException, ExpiredCardException {
@@ -51,13 +50,15 @@ public class ChargeMoneyTest {
 			this.manager.chargeMoney(this.card.getNumber(), 10, "ae22");
 		});
     }
-    
-    @Disabled
+
     @Test
     public void testChargeMoneyExpiredDate() throws NotRegisteredException, 
-	IncorrectPinException, ExpiredCardException {
+	IncorrectPinException, ExpiredCardException, IncorrectPinFormatException {
+    	Card card = new Card(null,"Daniel", "Morgera", "1234", 0, "01-01-1990");
+		this.cardsList.add(card);
+		this.init();
     	assertThrows(ExpiredCardException.class, ()->{
-			this.manager.chargeMoney(this.card.getNumber(), 10, this.card.getPin());
+			this.manager.chargeMoney(card.getNumber(), 10, card.getPin());
 		});
     }
 }
