@@ -7,7 +7,7 @@ import java.util.Map;
 
 
 public class Manager implements Interface{
-	private Map <Long, Card> cards = new HashMap<Long, Card>();
+	private Map <Long, Card> cards = new HashMap <>();
 	private Calendar calendar = Calendar.getInstance();
 
 	public Manager (List <Card> cards) {

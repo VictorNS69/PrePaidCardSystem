@@ -8,19 +8,37 @@ public class Card {
 	private long number;
 	private String name,  surname, pin;
 	private float balance = 0, amount;
-	private Calendar expirationDate;
+	private String expirationDate;
+	private Calendar exD;
 
-	public Card (String name, String surname, String pin, float amount) 
+	public Card (Long number, String name, String surname, String pin, float amount, String calendar) 
 			throws IncorrectPinFormatException{
-		this.number = this.generateNumberCard();
+		if (number == null)
+			this.number = this.generateNumberCard();
+		
+		else
+			this.number = number;
+		
 		this.name = name;
 		this.surname = surname;
-		HashPin hp = new HashPin(pin);
-		this.pin = hp.getHashPin();
+		
+		if (pin.length() == 4) {
+			HashPin hp = new HashPin(pin);
+			this.pin = hp.getHashPin();
+		}
+		else 
+			this.pin = pin;
+		
 		this.balance = this.balance + amount;
 		this.amount = amount;
-		this.expirationDate = this.setExpirationDate(Calendar.getInstance());
+		if (calendar == null) {
+			this. exD = this.setExpirationDate(Calendar.getInstance());
+			this.expirationDate = this.getPrettyExpirationDate();
+		}
+		else
+			this.expirationDate = calendar;
 	}
+	
 
 	public long getNumber() {
 		return this.number;
@@ -47,17 +65,21 @@ public class Card {
 	}
 
 	public String getPrettyExpirationDate() {
-		return this.dateFormat(this.expirationDate);
+		return this.dateFormat(this.exD);
 	}
 	
 	public Calendar getExpirationDate() {
-		return this.expirationDate;
+		return this.exD;
 	}
 
 	public void setBalance(float value) {
 		this.balance = this.balance + value;
 	}
 
+	public String toString() {
+		return this.number +" "+ this.name +" "+ this.surname+" "+ this.pin +" "+ this.balance +" "+ this.expirationDate;
+	}
+	
 	private long generateNumberCard() {
 		return (long)(Math.random()*Math.pow(10, 12)+ 000000000000L);
 	}
