@@ -10,11 +10,11 @@ public class ChargeMoneyTest {
 	private Card card;
 	
 	@BeforeEach
-	private void init() throws IncorrectPinFormatException{
+	private void init() throws IncorrectPinFormatException, IncorrectPinException, ExpiredCardException{
 		Card card = new Card(null, "Victor", "Nieves", "1234", 0, null);
 		this.cardsList.add(card);
 		this.manager = new Manager(this.cardsList);
-		this.card = this.manager.getCard(card.getNumber());
+		this.card = this.manager.getCard(card.getNumber()); 
 	}
 	
     @Test
@@ -54,10 +54,10 @@ public class ChargeMoneyTest {
     @Test
     public void testChargeMoneyExpiredDate() throws NotRegisteredException, 
 	IncorrectPinException, ExpiredCardException, IncorrectPinFormatException {
-    	Card card = new Card(null,"Daniel", "Morgera", "1234", 0, "01-01-1990");
-		this.cardsList.add(card);
-		this.init();
     	assertThrows(ExpiredCardException.class, ()->{
+    		Card card = new Card(null,"Daniel", "Morgera", "1234", 0, "01-01-1990");
+    		this.cardsList.add(card);
+    		this.init();
 			this.manager.chargeMoney(card.getNumber(), 10, card.getPin());
 		});
     }
