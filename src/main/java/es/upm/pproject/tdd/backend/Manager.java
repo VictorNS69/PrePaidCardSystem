@@ -34,10 +34,17 @@ public class Manager implements Interface{
 	}
 	
 	@Override
-	public void buyCard(String name, String surname, String pin, float amount) throws 
-	AlreadyRegisteredException {
-		// TODO Auto-generated method stub
+	public long buyCard(String name, String surname, String pin, float amount) throws 
+	AlreadyRegisteredException, IncorrectPinFormatException, IncorrectPinException, 
+	ExpiredCardException {
+		Card newCard = new Card(null, name, surname, pin, amount, null);
+		if (!this.cards.containsKey(newCard.getNumber())) {
+			this.cards.put(newCard.getNumber(), newCard);
+			return newCard.getNumber();
+		}
 		
+		else 
+			return this.buyCard(name, surname, pin, amount);
 	}
 
 	@Override

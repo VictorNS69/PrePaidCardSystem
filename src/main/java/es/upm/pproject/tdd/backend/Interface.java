@@ -8,9 +8,14 @@ public interface Interface{
 	 * @param surname
 	 * @param pin
 	 * @param amount
+	 * @return 
 	 * @throws AlreadyRegisteredException
+	 * @throws ExpiredCardException 
+	 * @throws IncorrectPinException 
+	 * @throws IncorrectPinFormatException 
 	 */
-	void buyCard(String name, String surname, String pin, float amount) throws AlreadyRegisteredException;
+	long buyCard(String name, String surname, String pin, float amount) throws AlreadyRegisteredException,
+	IncorrectPinFormatException, IncorrectPinException, ExpiredCardException;
 
 	/**The user can pay an amount of money by introducing the credit card number, the amount to pay
 	 * and the PIN. The system must check whether the user have enough money in the card and, if so,
@@ -38,8 +43,7 @@ public interface Interface{
 	 * @throws ExpiredCardException
 	 */
 	void chargeMoney(long number, float amount, String pin) throws NotRegisteredException, 
-	IncorrectPinException, 
-			ExpiredCardException;
+	IncorrectPinException, ExpiredCardException;
 
 	/**The user can change the PIN by introducing the old PIN and the new one. If the old PIN is
 	 * incorrect the system must show an error.
