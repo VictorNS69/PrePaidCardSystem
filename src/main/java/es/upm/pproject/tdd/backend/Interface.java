@@ -37,7 +37,8 @@ public interface Interface{
 	 * @throws IncorrectPinException
 	 * @throws ExpiredCardException
 	 */
-	void chargeMoney(long number, float amount, String pin) throws NotRegisteredException, IncorrectPinException, 
+	void chargeMoney(long number, float amount, String pin) throws NotRegisteredException, 
+	IncorrectPinException, 
 			ExpiredCardException;
 
 	/**The user can change the PIN by introducing the old PIN and the new one. If the old PIN is
@@ -54,8 +55,10 @@ public interface Interface{
 	 * @param pin
 	 * @throws NotRegisteredException
 	 * @throws IncorrectPinException
+	 * @throws ExpiredCardException
 	 */
-	void consultBalance(long number, String pin) throws NotRegisteredException, IncorrectPinException;
+	float consultBalance(long number, String pin) throws NotRegisteredException, 
+	IncorrectPinException, ExpiredCardException;
 
 	/** The user can consult the movements done with a card in the current session by introducing the
 	 * card number and the PIN. The movements must be shown in decreasing order, that is, the last
