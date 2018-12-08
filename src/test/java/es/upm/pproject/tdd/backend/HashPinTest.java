@@ -2,29 +2,28 @@ package es.upm.pproject.tdd.backend;
 
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
-import java.util.*;
-import es.upm.pproject.tdd.backend.*;
+
 
 public class HashPinTest {
 	
 	@Test
 	public void lessThan4DigitsTest() {
 		assertThrows(IncorrectPinFormatException.class, ()->{
-			HashPin hp = new  HashPin("1");
+			new  HashPin("1");
 		});
 	}
 	
 	@Test
 	public void moreThan4DigitsTest() {
 		assertThrows(IncorrectPinFormatException.class, ()->{
-			HashPin hp = new  HashPin("12345");
+			new  HashPin("12345");
 		});
 	}
 	
 	@Test
 	public void nullPinTest() {
 		assertThrows(IncorrectPinFormatException.class, ()->{
-			HashPin hp = new  HashPin(null);
+			new  HashPin(null);
 		});
 	}
 	
