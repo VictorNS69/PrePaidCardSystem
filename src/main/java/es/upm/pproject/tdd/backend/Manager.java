@@ -25,8 +25,8 @@ public class Manager implements Interface{
 		return sdf.format(cal);
 	}
 	
-	public Card getCard(Long K) {
-		return cards.get(K);
+	public Card getCard(Long k) {
+		return cards.get(k);
 	}
 	
 	public String getDate() {
@@ -50,8 +50,20 @@ public class Manager implements Interface{
 	@Override
 	public void pay(long number, float amount, String pin) throws NotRegisteredException,
 	IncorrectPinException, NotEnoughMoneyException, ExpiredCardException {
-		// TODO Auto-generated method stub
+		if (this.getCard(number) == null) 
+			throw new NotRegisteredException();
 		
+		if (this.getCard(number).getPin() != pin)
+			throw new IncorrectPinException();
+		
+		if (this.getCard(number).getPrettyExpirationDate().compareTo(this.date) <= 0 )
+			throw new ExpiredCardException();
+		
+		if (this.getCard(number).getBalance() < amount)
+			throw new NotEnoughMoneyException();
+		
+		else
+			this.getCard(number).setBalance(-1*amount);
 	}
 
 	@Override
