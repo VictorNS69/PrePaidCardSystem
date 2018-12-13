@@ -9,14 +9,13 @@ public class NewCardScreen extends JFrame {
     private JButton back;
     private JButton ok;
     private JTextField name, surname, pin, pin2, amount;
+    static StartScreen ventana = new StartScreen();
 
     public NewCardScreen(){
         super("Create new card");
         back = new JButton("Go back");
         ok = new JButton("Ok");
         centreWindow();
-        back.addActionListener(new ButtonListener());
-        ok.addActionListener(new ButtonListener());
         name = new JTextField(10);
         surname = new JTextField(10);
         pin = new JTextField(4);
@@ -60,6 +59,10 @@ public class NewCardScreen extends JFrame {
                     }
                     break;
                 case "Go back":
+                    EventQueue.invokeLater(() -> {
+                        ventana.setVisible(true);
+                        dispose();
+                    });
                     break;
                 default:
                     break;

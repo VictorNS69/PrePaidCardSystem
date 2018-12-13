@@ -43,14 +43,6 @@ public CardExists() {
 	setDefaultCloseOperation(EXIT_ON_CLOSE);
 }
 
-public static void main (String args[]) throws NumberFormatException, IOException, IncorrectPinFormatException, IncorrectPinException, ExpiredCardException {
-	Path path = FileSystems.getDefault().getPath("src/assets/data.txt").toAbsolutePath();
-	LoadFile carge = new LoadFile(path);
-	
-	
-	CardExists aplicacion = new CardExists(); 
-}
-
 class Handler implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String card = fieldCard.getText();
