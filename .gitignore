@@ -7,5 +7,6 @@ bin/
 TODO.txt
 .idea
 PrePaidSystem.iml
+.metadata
 
 *mainTesting.java
