@@ -5,6 +5,6 @@ src/target
 .project
 bin/
 TODO.txt
-
+.idea
 
 *mainTesting.java
