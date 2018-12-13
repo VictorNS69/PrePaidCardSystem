@@ -37,11 +37,19 @@ public class Manager implements Interface{
 	}
 	
 	/** Returns the card with specific key (card number).
+	 * Or null if it doesn't exist.
 	 * @param k
 	 * @return
 	 */
 	public Card getCard(Long k) {
-		return cards.get(k);
+		return this.cards.get(k);
+	}
+	
+	/**Returns the Map of cards.
+	 * @return
+	 */
+	public Map <Long, Card> getMap() {
+		return this.cards;
 	}
 	
 	/** Returns the today's date in a pretty format. 
@@ -146,9 +154,4 @@ public class Manager implements Interface{
 		// TODO Auto-generated method stub
 		
 	}
-	
-	public Map<Long, Card> getMap() {
-		return cards;
-	}
-	
 }
