@@ -40,10 +40,7 @@ public class StartScreen extends JFrame {
 
     public static void main(String[] args) throws IOException, IncorrectPinFormatException, NumberFormatException,
             IncorrectPinException, ExpiredCardException {
-        Path path = FileSystems.getDefault().getPath("src/assets/doc.txt").toAbsolutePath();
-        LoadFile load = new LoadFile(path);
-        ArrayList list = new ArrayList<>(load.getCards().values());
-        Manager manager = new Manager(list);
+        
         EventQueue.invokeLater(() -> {
             ventana.setVisible(true);
         });

@@ -1,9 +1,19 @@
 package es.upm.pproject.tdd.frontend;
 import es.upm.pproject.tdd.backend.*;
+import es.upm.pproject.tdd.exceptions.AlreadyRegisteredException;
+import es.upm.pproject.tdd.exceptions.ExpiredCardException;
+import es.upm.pproject.tdd.exceptions.IncorrectPinException;
+import es.upm.pproject.tdd.exceptions.IncorrectPinFormatException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.util.ArrayList;
 
 public class NewCardScreen extends JFrame {
     private JButton back;
@@ -54,8 +64,24 @@ public class NewCardScreen extends JFrame {
                     String p = pin.getText();
                     String p2 = pin2.getText();
                     String a = amount.getText();
+                    float aF = Float.valueOf(a).floatValue();
                     if (p == p2){
-
+                       Path path = FileSystems.getDefault().getPath("src/assets/doc.txt").toAbsolutePath();
+                       ArrayList l = new ArrayList();
+                       Manager manager = new Manager(l);
+                       try {
+						manager.buyCard(n, sur, p, aF);
+					} catch (AlreadyRegisteredException | IncorrectPinFormatException | IncorrectPinException
+							| ExpiredCardException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+                       try {
+						SaveFile save = new SaveFile(path, manager.getMap());
+					} catch (FileNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
                     }
                     break;
                 case "Go back":
