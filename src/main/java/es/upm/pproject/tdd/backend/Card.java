@@ -30,7 +30,10 @@ public class Card {
 			HashPin hp = new HashPin(pin);
 			this.pin = hp.getHashPin();
 		}
-		else 
+		else if (pin.length() == 12) 
+			this.pin = pin;
+		
+		else
 			throw new IncorrectPinFormatException();
 		
 		this.balance = this.balance + amount;
