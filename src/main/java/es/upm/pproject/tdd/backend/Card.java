@@ -25,15 +25,16 @@ public class Card {
 		
 		if (pin == null)
 			throw new IncorrectPinException();
-		
-		if (pin.length() == 4) {
+	
+		else if (pin.length() == 4) {
 			HashPin hp = new HashPin(pin);
 			this.pin = hp.getHashPin();
 		}
-		else if (pin.length() == 12) 
+		
+		else if (pin.length() > 4)
 			this.pin = pin;
 		
-		else
+		else 
 			throw new IncorrectPinFormatException();
 		
 		this.balance = this.balance + amount;
