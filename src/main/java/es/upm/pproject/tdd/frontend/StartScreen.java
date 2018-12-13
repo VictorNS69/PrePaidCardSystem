@@ -30,6 +30,7 @@ public class StartScreen extends JFrame {
     }
 
     public static void main(String[] args){
+        //Manager manager = new Manager();
         EventQueue.invokeLater(() ->{
             StartScreen ventana = new StartScreen();
             ventana.setVisible(true);
@@ -45,14 +46,10 @@ class ButtonListener implements ActionListener{
                 case "I already have a card":
                     break;
                 case "I don't have a card":
-                    NewCardScreen ventanaNueva = new NewCardScreen();
-                    break;
-                case "Ok":
-                    Toolkit.getDefaultToolkit().beep();
-                    break;
-                case "Go back":
-                    break;
-                default:
+                    EventQueue.invokeLater(() ->{
+                        NewCardScreen ventanaNueva = new NewCardScreen();
+                        ventanaNueva.setVisible(true);
+                    });
                     break;
             }
 

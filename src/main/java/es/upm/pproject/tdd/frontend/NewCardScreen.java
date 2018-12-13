@@ -2,6 +2,8 @@ package es.upm.pproject.tdd.frontend;
 import es.upm.pproject.tdd.backend.*;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class NewCardScreen extends JFrame {
     private JButton back;
@@ -32,8 +34,8 @@ public class NewCardScreen extends JFrame {
         add(amount);
         add(back);
         add(ok);
+        ok.addActionListener(new Handler());
         setLayout(new GridLayout(6,2));
-        setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
     public void centreWindow(){
@@ -41,5 +43,27 @@ public class NewCardScreen extends JFrame {
         int alto = Toolkit.getDefaultToolkit().getScreenSize().height;
         setBounds((ancho/2)-(getWidth()/2),(alto/2)-(getHeight()/2),600,350);
         setLocation((ancho/2)-(getWidth()/2),(alto/2)-(getHeight()/2));
+    }
+    class Handler implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String s = e.getActionCommand();
+            switch (s){
+                case "Ok":
+                    String n = name.getText();
+                    String sur = surname.getText();
+                    String p = pin.getText();
+                    String p2 = pin2.getText();
+                    String a = amount.getText();
+                    if (p == p2){
+
+                    }
+                    break;
+                case "Go back":
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
