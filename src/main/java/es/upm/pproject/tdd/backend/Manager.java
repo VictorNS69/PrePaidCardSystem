@@ -131,4 +131,8 @@ public class Manager implements Interface{
 		
 	}
 	
+	public Map<Long, Card> getMap() {
+		return cards;
+	}
+	
 }
