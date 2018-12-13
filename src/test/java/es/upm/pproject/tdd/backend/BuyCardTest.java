@@ -3,6 +3,7 @@ package es.upm.pproject.tdd.backend;
 import java.util.*;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
+import es.upm.pproject.tdd.exceptions.*;
 
 public class BuyCardTest {
 	private Manager manager;

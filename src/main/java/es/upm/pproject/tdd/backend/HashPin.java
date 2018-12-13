@@ -2,6 +2,7 @@ package es.upm.pproject.tdd.backend;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import es.upm.pproject.tdd.exceptions.*;
 
 public class HashPin {
 	private String pin;

@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import es.upm.pproject.tdd.exceptions.*;
 
 public class LoadFile {
 	private Queue <List>attributes = new LinkedList<List>();
