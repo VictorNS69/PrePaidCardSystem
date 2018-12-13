@@ -13,7 +13,7 @@ public class Card {
 	private Calendar exD;
 
 	public Card (Long number, String name, String surname, String pin, float amount, String calendar) 
-			throws IncorrectPinFormatException, IncorrectPinException, ExpiredCardException{
+			throws IncorrectPinException, ExpiredCardException{
 		if (number == null)
 			this.number = this.generateNumberCard(); 
 		
@@ -26,16 +26,8 @@ public class Card {
 		if (pin == null)
 			throw new IncorrectPinException();
 	
-		else if (pin.length() == 4) {
-			HashPin hp = new HashPin(pin);
-			this.pin = hp.getHashPin();
-		}
-		
-		else if (pin.length() > 4)
-			this.pin = pin;
-		
 		else 
-			throw new IncorrectPinFormatException();
+			this.pin = pin;
 		
 		this.balance = this.balance + amount;
 		this.amount = amount;
