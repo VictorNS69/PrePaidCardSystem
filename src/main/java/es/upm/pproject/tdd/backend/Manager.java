@@ -38,6 +38,10 @@ public class Manager implements Interface{
 	public long buyCard(String name, String surname, String pin, float amount) throws 
 	AlreadyRegisteredException, IncorrectPinFormatException, IncorrectPinException, 
 	ExpiredCardException {
+		if (pin == null)
+			throw new IncorrectPinException();
+		
+		pin = new HashPin(pin).getHashPin();	
 		Card newCard = new Card(null, name, surname, pin, amount, null);
 		if (!this.cards.containsKey(newCard.getNumber())) {
 			this.cards.put(newCard.getNumber(), newCard);
@@ -50,11 +54,16 @@ public class Manager implements Interface{
 
 	@Override
 	public void pay(long number, float amount, String pin) throws NotRegisteredException,
-	IncorrectPinException, NotEnoughMoneyException, ExpiredCardException {
+	IncorrectPinException, NotEnoughMoneyException, ExpiredCardException, IncorrectPinFormatException {
+		if (pin == null)
+			throw new IncorrectPinException();
+		
+		pin = new HashPin(pin).getHashPin();
+		
 		if (this.getCard(number) == null) 
 			throw new NotRegisteredException();
 		
-		if (this.getCard(number).getPin() != pin)
+		if (!this.getCard(number).getPin().equals(pin))
 			throw new IncorrectPinException();
 		
 		if (this.getCard(number).getPrettyExpirationDate().compareTo(this.date) <= 0 )
@@ -69,11 +78,17 @@ public class Manager implements Interface{
 
 	@Override
 	public void chargeMoney(long number, float amount, String pin)
-			throws NotRegisteredException, IncorrectPinException, ExpiredCardException {
+			throws NotRegisteredException, IncorrectPinException, ExpiredCardException, 
+			IncorrectPinFormatException {
+		if (pin == null)
+			throw new IncorrectPinException();
+		
+		pin = new HashPin(pin).getHashPin();
+		
 		if (this.getCard(number) == null) 
 			throw new NotRegisteredException();
 		
-		if (this.getCard(number).getPin() != pin)
+		if (!this.getCard(number).getPin().equals(pin))
 			throw new IncorrectPinException();
 		
 		if (this.getCard(number).getPrettyExpirationDate().compareTo(this.date) <= 0 )
@@ -91,11 +106,16 @@ public class Manager implements Interface{
 
 	@Override
 	public float consultBalance(long number, String pin) throws NotRegisteredException, 
-	IncorrectPinException, ExpiredCardException {
+	IncorrectPinException, ExpiredCardException, IncorrectPinFormatException {
+		if (pin == null)
+			throw new IncorrectPinException();
+		
+		pin = new HashPin(pin).getHashPin();
+		
 		if (this.getCard(number) == null) 
 			throw new NotRegisteredException();
 
-		if (this.getCard(number).getPin() != pin)
+		if (!this.getCard(number).getPin().equals(pin))
 			throw new IncorrectPinException();
 
 		if (this.getCard(number).getPrettyExpirationDate().compareTo(this.date) <= 0 )

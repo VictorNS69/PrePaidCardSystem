@@ -29,9 +29,10 @@ public interface Interface{
 	 * @throws IncorrectPinException
 	 * @throws NotEnoughMoneyException
 	 * @throws ExpiredCardException
+	 * @throws IncorrectPinFormatException 
 	 */
 	void pay(long number, float amount, String pin) throws NotRegisteredException, IncorrectPinException,
-			NotEnoughMoneyException, ExpiredCardException;
+			NotEnoughMoneyException, ExpiredCardException, IncorrectPinFormatException;
 
 	/**The user can charge some amount of money in a card. The form will ask the user for the credit
 	 * card number, the ammount of money and the PIN. The PIN must be checked before accepting the
@@ -42,9 +43,10 @@ public interface Interface{
 	 * @throws NotRegisteredException
 	 * @throws IncorrectPinException
 	 * @throws ExpiredCardException
+	 * @throws IncorrectPinFormatException 
 	 */
 	void chargeMoney(long number, float amount, String pin) throws NotRegisteredException, 
-	IncorrectPinException, ExpiredCardException;
+	IncorrectPinException, ExpiredCardException, IncorrectPinFormatException;
 
 	/**The user can change the PIN by introducing the old PIN and the new one. If the old PIN is
 	 * incorrect the system must show an error.
@@ -61,9 +63,10 @@ public interface Interface{
 	 * @throws NotRegisteredException
 	 * @throws IncorrectPinException
 	 * @throws ExpiredCardException
+	 * @throws IncorrectPinFormatException 
 	 */
 	float consultBalance(long number, String pin) throws NotRegisteredException, 
-	IncorrectPinException, ExpiredCardException;
+	IncorrectPinException, ExpiredCardException, IncorrectPinFormatException;
 
 	/** The user can consult the movements done with a card in the current session by introducing the
 	 * card number and the PIN. The movements must be shown in decreasing order, that is, the last

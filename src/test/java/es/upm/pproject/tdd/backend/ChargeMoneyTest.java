@@ -12,7 +12,8 @@ public class ChargeMoneyTest {
 	
 	@BeforeEach
 	private void init() throws IncorrectPinFormatException, IncorrectPinException, ExpiredCardException{
-		Card card = new Card(null, "Victor", "Nieves", "1234", 0, null);
+		String pin = new HashPin("1234").getHashPin();
+		Card card = new Card(null, "Victor", "Nieves", pin, 0, null);
 		this.cardsList.add(card);
 		this.manager = new Manager(this.cardsList);
 		this.card = this.manager.getCard(card.getNumber()); 
@@ -20,19 +21,20 @@ public class ChargeMoneyTest {
 	
     @Test
     public void testChargeMoneyOk_1() throws NotRegisteredException, 
-    		IncorrectPinException, ExpiredCardException {
-        this.manager.chargeMoney(this.card.getNumber(), 10, this.card.getPin());
+    		IncorrectPinException, ExpiredCardException, IncorrectPinFormatException {
+        this.manager.chargeMoney(this.card.getNumber(), 10, "1234");
         assertEquals(10, this.card.getBalance());
     }
 
     @Test
     public void testChargeMoneyOk_2() throws NotRegisteredException, 
     		IncorrectPinException, ExpiredCardException, IncorrectPinFormatException{
-    	Card card = new Card(null,"Daniel", "Morgera", "1234", 0, null);
+		String pin = new HashPin("1234").getHashPin();
+    	Card card = new Card(null,"Daniel", "Morgera", pin, 0, null);
 		this.cardsList.add(card);
 		this.init();
 		this.card = this.manager.getCard(card.getNumber());
-        this.manager.chargeMoney(this.card.getNumber(), 20, this.card.getPin());
+        this.manager.chargeMoney(this.card.getNumber(), 20, "1234");
         assertEquals(20, this.card.getBalance());
     }
 
@@ -40,7 +42,7 @@ public class ChargeMoneyTest {
     public void testChargeMoneyNullCard() throws NotRegisteredException, 
 	IncorrectPinException, ExpiredCardException {
     	assertThrows(NotRegisteredException.class, ()->{
-			this.manager.chargeMoney(12, 10, this.card.getPin());
+			this.manager.chargeMoney(12, 10, "1234");
 		});
     }
 
@@ -56,7 +58,8 @@ public class ChargeMoneyTest {
     public void testChargeMoneyExpiredDate() throws NotRegisteredException, 
 	IncorrectPinException, ExpiredCardException, IncorrectPinFormatException {
     	assertThrows(ExpiredCardException.class, ()->{
-    		Card card = new Card(null,"Daniel", "Morgera", "1234", 0, "01-01-1990");
+    		String pin = new HashPin("1234").getHashPin();
+    		Card card = new Card(null,"Daniel", "Morgera", pin, 0, "01-01-1990");
     		this.cardsList.add(card);
     		this.init();
 			this.manager.chargeMoney(card.getNumber(), 10, card.getPin());
