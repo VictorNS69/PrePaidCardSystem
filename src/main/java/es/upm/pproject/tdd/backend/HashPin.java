@@ -6,6 +6,10 @@ import es.upm.pproject.tdd.exceptions.*;
 
 public class HashPin {
 	private String pin;
+	/** Constructor. Hashes a String with SHA-256.
+	 * @param number
+	 * @throws IncorrectPinFormatException
+	 */
 	public HashPin(String number) throws IncorrectPinFormatException { 
 		if (number == null)
 			throw new IncorrectPinFormatException();

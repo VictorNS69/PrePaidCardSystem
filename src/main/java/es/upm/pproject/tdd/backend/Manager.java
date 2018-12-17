@@ -13,6 +13,11 @@ public class Manager implements Interface{
 	private Map <Long, Card> cards = new HashMap <>();
 	private String date;
 
+	/** Constructor. Creates a Map with the objects of the
+	 * list. This list must have only cards. Also sets the
+	 * date at the moment.
+	 * @param list
+	 */
 	public Manager (List <Card> list) {
 		for (Card c : list) {
 			this.cards.put(c.getNumber(), c);
@@ -20,16 +25,36 @@ public class Manager implements Interface{
 		this.date = this.dateFormat(Calendar.getInstance());
 	}
 	
+	/** Sets the format of the date to have it in a 
+	 * pretty way.
+	 * @param calendar
+	 * @return
+	 */
 	private String dateFormat(Calendar calendar) {
 		Date cal = calendar.getTime();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		return sdf.format(cal);
 	}
 	
+	/** Returns the card with specific key (card number).
+	 * Or null if it doesn't exist.
+	 * @param k
+	 * @return
+	 */
 	public Card getCard(Long k) {
-		return cards.get(k);
+		return this.cards.get(k);
 	}
 	
+	/**Returns the Map of cards.
+	 * @return
+	 */
+	public Map <Long, Card> getMap() {
+		return this.cards;
+	}
+	
+	/** Returns the today's date in a pretty format. 
+	 * @return
+	 */
 	public String getDate() {
 		return this.date;
 	}
@@ -47,7 +72,6 @@ public class Manager implements Interface{
 			this.cards.put(newCard.getNumber(), newCard);
 			return newCard.getNumber();
 		}
-		
 		else 
 			return this.buyCard(name, surname, pin, amount);
 	}
@@ -130,9 +154,4 @@ public class Manager implements Interface{
 		// TODO Auto-generated method stub
 		
 	}
-	
-	public Map<Long, Card> getMap() {
-		return cards;
-	}
-	
 }

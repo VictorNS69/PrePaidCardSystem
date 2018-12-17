@@ -16,6 +16,14 @@ public class LoadFile {
 	private Queue <List>attributes = new LinkedList<List>();
 	private Map <Long, Card> cards = new HashMap <>();
 	
+	/**Load a file from a path. This file must be well written
+	 * to load correctly the cards.
+	 * @param path
+	 * @throws IOException
+	 * @throws IncorrectPinFormatException
+	 * @throws IncorrectPinException
+	 * @throws ExpiredCardException
+	 */
 	public LoadFile(Path path) throws IOException, IncorrectPinFormatException,
 	IncorrectPinException, ExpiredCardException {
 		//Path path = FileSystems.getDefault().getPath("src/assets/doc.txt").toAbsolutePath();
