@@ -73,7 +73,7 @@ public class Manager implements Interface{
 			throw new NotEnoughMoneyException();
 		
 		else
-			this.getCard(number).setBalance(-1*amount);
+			this.getCard(number).setBalance(this.getCard(number).getAmount()-amount);
 	}
 
 	@Override
@@ -94,7 +94,7 @@ public class Manager implements Interface{
 		if (this.getCard(number).getPrettyExpirationDate().compareTo(this.date) <= 0 )
 			throw new ExpiredCardException();
 		
-		this.getCard(number).setBalance(amount);
+		this.getCard(number).setBalance(this.getCard(number).getAmount()+amount);
 	}
 
 	@Override

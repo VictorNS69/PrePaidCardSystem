@@ -80,7 +80,7 @@ public class Card {
 	}
 
 	public void setBalance(float value) {
-		this.balance = this.balance + value;
+		this.balance = value;
 	}
 
 	public String toString() {
