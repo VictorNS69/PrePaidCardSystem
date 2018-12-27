@@ -8,5 +8,5 @@ TODO.txt
 .idea
 PrePaidSystem.iml
 .metadata/
-
+*.class
 *mainTesting.java

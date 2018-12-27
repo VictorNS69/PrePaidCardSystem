@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import es.upm.pproject.tdd.exceptions.*;
 
-
 public class Manager implements PrePaidInterface{
 	private Map <Long, Card> cards = new HashMap <>();
 	private String date;
