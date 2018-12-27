@@ -9,7 +9,7 @@ import java.util.Map;
 import es.upm.pproject.tdd.exceptions.*;
 
 
-public class Manager implements Interface{
+public class Manager implements PrePaidInterface{
 	private Map <Long, Card> cards = new HashMap <>();
 	private String date;
 

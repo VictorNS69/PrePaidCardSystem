@@ -1,7 +1,7 @@
 package es.upm.pproject.tdd.backend;
 import es.upm.pproject.tdd.exceptions.*;
 
-public interface Interface{
+public interface PrePaidInterface{
 
 	/**The credit card number (12-digit) will be randomly generated and
 	 * the expiration date will be one year after the buying date. 
