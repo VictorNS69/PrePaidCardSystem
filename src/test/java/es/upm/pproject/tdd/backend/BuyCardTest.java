@@ -27,14 +27,6 @@ public class BuyCardTest {
 		assertNotNull(this.manager.getCard(number));
 	}
 	
-	@Disabled //how do we test this?
-	@Test
-	public void buyCardAlreadyExist() throws IncorrectPinFormatException, IncorrectPinException, 
-	ExpiredCardException, AlreadyRegisteredException {
-		long number = this.manager.buyCard("Victor", "Nieves", "1234", 100);
-		this.cardsList.add(card);
-		assertNotNull(this.manager.getCard(number));
-	}
 	
 	@Test
 	public void buyCardWrongPin_1() {
