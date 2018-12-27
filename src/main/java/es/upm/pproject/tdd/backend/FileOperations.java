@@ -52,6 +52,7 @@ public class FileOperations {
 		for (Map.Entry<Long, Card> entry :this.cards.entrySet()) {
 			String card = entry.getValue().toString();
 		    writer.write(card.replace(" ", "@"));
+		    writer.write("\n");
 		}
 		writer.close();
 	}
@@ -68,9 +69,9 @@ public class FileOperations {
 	private void makeCards() throws IncorrectPinException, ExpiredCardException{
 		List list;
 		while ((list = this.attributes.poll()) != null) {
-			Card card = new Card(Long.valueOf(list.get(0).toString()).longValue(), 
+			Card card = new Card(Long.parseLong(list.get(0).toString()), 
 					list.get(1).toString(), list.get(2).toString(), 
-					list.get(3).toString(), Float.valueOf(list.get(4).toString()).floatValue(), 
+					list.get(3).toString(), Float.parseFloat(list.get(4).toString()), 
 					list.get(5).toString());
 			this.cards.put(card.getNumber(), card);
 		}
