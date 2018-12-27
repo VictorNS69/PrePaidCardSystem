@@ -26,9 +26,8 @@ public class FileOperations {
 	 * @throws IncorrectPinException
 	 * @throws ExpiredCardException
 	 */
-	public void LoadFile(Path path) throws IOException, 
+	public Map<Long, Card> LoadFile(Path path) throws IOException, 
 	IncorrectPinException, ExpiredCardException {
-		//Path path = FileSystems.getDefault().getPath("src/assets/doc.txt").toAbsolutePath();
 		FileReader file = new FileReader(path.toString());
 		String line;
 		BufferedReader in = new BufferedReader(file);
@@ -37,6 +36,7 @@ public class FileOperations {
 		}
 		in.close();
 		this.makeCards();
+		return this.getCards();
 	}
 	
 	/** Saves all the cards from a Map type data into a 
@@ -80,7 +80,7 @@ public class FileOperations {
 	/** Returns all teh cards as a map.
 	 * @return
 	 */
-	public Map<Long, Card> getCards(){
+	private Map<Long, Card> getCards(){
 		return this.cards;
 	}
 }
