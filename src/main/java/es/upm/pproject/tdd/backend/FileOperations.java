@@ -1,8 +1,11 @@
 package es.upm.pproject.tdd.backend;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,7 +15,7 @@ import java.util.Map;
 import java.util.Queue;
 import es.upm.pproject.tdd.exceptions.*;
 
-public class LoadFile {
+public class FileOperations {
 	private Queue <List>attributes = new LinkedList<List>();
 	private Map <Long, Card> cards = new HashMap <>();
 	
@@ -23,7 +26,7 @@ public class LoadFile {
 	 * @throws IncorrectPinException
 	 * @throws ExpiredCardException
 	 */
-	public LoadFile(Path path) throws IOException, 
+	public void LoadFile(Path path) throws IOException, 
 	IncorrectPinException, ExpiredCardException {
 		//Path path = FileSystems.getDefault().getPath("src/assets/doc.txt").toAbsolutePath();
 		FileReader file = new FileReader(path.toString());
@@ -34,6 +37,23 @@ public class LoadFile {
 		}
 		in.close();
 		this.makeCards();
+	}
+	
+	/** Saves all the cards from a Map type data into a 
+	 * file in the path.
+	 * @param path
+	 * @param map
+	 * @throws FileNotFoundException
+	 */
+	public void SaveFile(Path path, Map <Long, Card> map) throws FileNotFoundException{
+		this.cards = map;
+		String file = new File(path.toString()).toString();
+		PrintWriter writer = new PrintWriter(file);
+		for (Map.Entry<Long, Card> entry :this.cards.entrySet()) {
+			String card = entry.getValue().toString();
+		    writer.write(card.replace(" ", "@"));
+		}
+		writer.close();
 	}
 	
 	private List<?> makeAttributes(String line) {
@@ -56,6 +76,9 @@ public class LoadFile {
 		}
 	}
 	
+	/** Returns all teh cards as a map.
+	 * @return
+	 */
 	public Map<Long, Card> getCards(){
 		return this.cards;
 	}
