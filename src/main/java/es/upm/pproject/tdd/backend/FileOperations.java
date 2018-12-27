@@ -36,7 +36,7 @@ public class FileOperations {
 		}
 		in.close();
 		this.makeCards();
-		return this.getCards();
+		return this.cards;
 	}
 	
 	/** Saves all the cards from a Map type data into a 
@@ -75,12 +75,5 @@ public class FileOperations {
 					list.get(5).toString());
 			this.cards.put(card.getNumber(), card);
 		}
-	}
-	
-	/** Returns all teh cards as a map.
-	 * @return
-	 */
-	private Map<Long, Card> getCards(){
-		return this.cards;
 	}
 }
