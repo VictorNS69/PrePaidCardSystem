@@ -9,12 +9,9 @@ Prepaid systems refers to services paid for in advance. In the case of pre-paid 
 
 - Alejandro Carmona Ayllon
 
-### How to run tests:
-In the directory where the _pom.xml_ is.
+### Main idea:
+![diagram.png](/.info/diagram.png)
 
-```
-$ mvn test
-```
 
 ### Methods:
 - Buy a card 
@@ -23,6 +20,13 @@ $ mvn test
 - Change PIN
 - Consult balance
 - Consult movements
+
+### How to run tests:
+In the directory where the _pom.xml_ is.
+
+```
+$ mvn test
+```
 
 ### Tools Used:
 ```
