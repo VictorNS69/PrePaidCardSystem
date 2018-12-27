@@ -20,11 +20,10 @@ public class LoadFile {
 	 * to load correctly the cards.
 	 * @param path
 	 * @throws IOException
-	 * @throws IncorrectPinFormatException
 	 * @throws IncorrectPinException
 	 * @throws ExpiredCardException
 	 */
-	public LoadFile(Path path) throws IOException, IncorrectPinFormatException,
+	public LoadFile(Path path) throws IOException, 
 	IncorrectPinException, ExpiredCardException {
 		//Path path = FileSystems.getDefault().getPath("src/assets/doc.txt").toAbsolutePath();
 		FileReader file = new FileReader(path.toString());

@@ -3,13 +3,9 @@ package es.upm.pproject.tdd.backend;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.nio.file.Path;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 
 public class SaveFile {
 	private Map <Long, Card> cards = new HashMap <>();
