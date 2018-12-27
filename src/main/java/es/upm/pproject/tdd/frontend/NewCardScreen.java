@@ -77,7 +77,7 @@ public class NewCardScreen extends JFrame {
 						e1.printStackTrace();
 					}
                        try {
-						SaveFile save = new SaveFile(path, manager.getMap());
+						new FileOperations().SaveFile(path, manager.getMap());
 					} catch (FileNotFoundException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
