@@ -65,8 +65,8 @@ public class Manager implements PrePaidInterface{
 		if (pin == null)
 			throw new IncorrectPinException();
 		
-		pin = new HashPin(pin).getHashPin();	
-		Card newCard = new Card(null, name, surname, pin, amount, null);
+		String hsPin = new HashPin(pin).getHashPin();	
+		Card newCard = new Card(null, name, surname, hsPin, amount, null);
 		if (!this.cards.containsKey(newCard.getNumber())) {
 			this.cards.put(newCard.getNumber(), newCard);
 			return newCard.getNumber();
@@ -81,12 +81,12 @@ public class Manager implements PrePaidInterface{
 		if (pin == null)
 			throw new IncorrectPinException();
 		
-		pin = new HashPin(pin).getHashPin();
+		String hsPin = new HashPin(pin).getHashPin();
 		
 		if (this.getCard(number) == null) 
 			throw new NotRegisteredException();
 		
-		if (!this.getCard(number).getPin().equals(pin))
+		if (!this.getCard(number).getPin().equals(hsPin))
 			throw new IncorrectPinException();
 		
 		if (this.getCard(number).getPrettyExpirationDate().compareTo(this.date) <= 0 )
@@ -106,12 +106,12 @@ public class Manager implements PrePaidInterface{
 		if (pin == null)
 			throw new IncorrectPinException();
 		
-		pin = new HashPin(pin).getHashPin();
+		String hsPin = new HashPin(pin).getHashPin();
 		
 		if (this.getCard(number) == null) 
 			throw new NotRegisteredException();
 		
-		if (!this.getCard(number).getPin().equals(pin))
+		if (!this.getCard(number).getPin().equals(hsPin))
 			throw new IncorrectPinException();
 		
 		if (this.getCard(number).getPrettyExpirationDate().compareTo(this.date) <= 0 )
@@ -121,10 +121,28 @@ public class Manager implements PrePaidInterface{
 	}
 
 	@Override
-	public void changePIN(String oldPin, String newPin) throws NotRegisteredException, 
-	IncorrectPinException {
-		// TODO Auto-generated method stub
+	public Card changePIN(long number, String oldPin, String newPin) throws NotRegisteredException, 
+	IncorrectPinException, ExpiredCardException, IncorrectPinFormatException {
+		if (oldPin == null || newPin == null)
+			throw new IncorrectPinException();
 		
+		String hsOldPin = new HashPin(oldPin).getHashPin();
+		String hsNewPin = new HashPin(newPin).getHashPin();
+		
+		if (this.getCard(number) == null) 
+			throw new NotRegisteredException();
+		
+		if (!this.getCard(number).getPin().equals(hsOldPin))
+			throw new IncorrectPinException();
+		
+		if (this.getCard(number).getPrettyExpirationDate().compareTo(this.date) <= 0 )
+			throw new ExpiredCardException();
+		
+		Card newCard = new Card(this.getCard(number).getNumber(), this.getCard(number).getName(), 
+				this.getCard(number).getSurname(), hsNewPin, this.getCard(number).getBalance(),
+				this.getCard(number).getPrettyExpirationDate());
+		this.cards.replace(number, newCard);
+		return this.cards.get(number);
 	}
 
 	@Override
@@ -133,12 +151,12 @@ public class Manager implements PrePaidInterface{
 		if (pin == null)
 			throw new IncorrectPinException();
 		
-		pin = new HashPin(pin).getHashPin();
+		String hsPin = new HashPin(pin).getHashPin();
 		
 		if (this.getCard(number) == null) 
 			throw new NotRegisteredException();
 
-		if (!this.getCard(number).getPin().equals(pin))
+		if (!this.getCard(number).getPin().equals(hsPin))
 			throw new IncorrectPinException();
 
 		if (this.getCard(number).getPrettyExpirationDate().compareTo(this.date) <= 0 )
@@ -153,4 +171,5 @@ public class Manager implements PrePaidInterface{
 		// TODO Auto-generated method stub
 		
 	}
+
 }

@@ -48,15 +48,6 @@ public interface PrePaidInterface{
 	void chargeMoney(long number, float amount, String pin) throws NotRegisteredException, 
 	IncorrectPinException, ExpiredCardException, IncorrectPinFormatException;
 
-	/**The user can change the PIN by introducing the old PIN and the new one. If the old PIN is
-	 * incorrect the system must show an error.
-	 * @param oldPin
-	 * @param newPin
-	 * @throws NotRegisteredException
-	 * @throws IncorrectPinException
-	 */
-	void changePIN(String oldPin, String newPin) throws NotRegisteredException, IncorrectPinException;
-
 	/**The user can check the balance of a card by introducing the card number and its PIN
 	 * @param number
 	 * @param pin
@@ -77,5 +68,19 @@ public interface PrePaidInterface{
 	 * @throws IncorrectPinException
 	 */
 	void consultMovements(long number, String pin) throws NotRegisteredException, IncorrectPinException;
+
+	/** The user can change the PIN by introducing the old PIN and the new one. If the old PIN is
+	 * incorrect the system must show an error.
+	 * @param number
+	 * @param oldPin
+	 * @param newPin
+	 * @return Card
+	 * @throws NotRegisteredException
+	 * @throws IncorrectPinException
+	 * @throws ExpiredCardException
+	 * @throws IncorrectPinFormatException
+	 */
+	Card changePIN(long number, String oldPin, String newPin) throws NotRegisteredException, 
+	IncorrectPinException, ExpiredCardException, IncorrectPinFormatException;
 
 }
