@@ -11,7 +11,8 @@ public class ChargeMoneyTest {
 	private Card card;
 	
 	@BeforeEach
-	private void init() throws IncorrectPinFormatException, IncorrectPinException, ExpiredCardException{
+	private void init() throws IncorrectPinFormatException, IncorrectPinException, 
+	ExpiredCardException{
 		String pin = new HashPin("1234").getHashPin();
 		Card card = new Card(null, "Victor", "Nieves", pin, 0, null);
 		this.cardsList.add(card);
@@ -21,14 +22,16 @@ public class ChargeMoneyTest {
 	
     @Test
     public void testChargeMoneyOk_1() throws NotRegisteredException, 
-    		IncorrectPinException, ExpiredCardException, IncorrectPinFormatException {
+    		IncorrectPinException, ExpiredCardException, IncorrectPinFormatException, 
+    		InvalidAmountException {
         this.manager.chargeMoney(this.card.getNumber(), 10, "1234");
         assertEquals(10, this.card.getBalance());
     }
 
     @Test
     public void testChargeMoneyOk_2() throws NotRegisteredException, 
-    		IncorrectPinException, ExpiredCardException, IncorrectPinFormatException{
+    		IncorrectPinException, ExpiredCardException, IncorrectPinFormatException,
+    		InvalidAmountException{
 		String pin = new HashPin("1234").getHashPin();
     	Card card = new Card(null,"Daniel", "Morgera", pin, 0, null);
 		this.cardsList.add(card);

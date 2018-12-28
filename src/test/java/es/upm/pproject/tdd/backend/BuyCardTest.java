@@ -21,7 +21,7 @@ public class BuyCardTest {
 	 
 	@Test
 	public void buyCardOk() throws IncorrectPinFormatException, IncorrectPinException, 
-	ExpiredCardException, AlreadyRegisteredException {
+	ExpiredCardException, AlreadyRegisteredException, InvalidAmountException {
 		long number = this.manager.buyCard("Victor", "Nieves", "1234", 120);
 		this.cardsList.add(card);
 		assertNotNull(this.manager.getCard(number));

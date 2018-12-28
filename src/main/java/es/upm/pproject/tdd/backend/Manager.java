@@ -61,12 +61,15 @@ public class Manager implements PrePaidInterface{
 	@Override
 	public long buyCard(String name, String surname, String pin, double amount) throws 
 	AlreadyRegisteredException, IncorrectPinFormatException, IncorrectPinException, 
-	ExpiredCardException {
+	ExpiredCardException, InvalidAmountException {
 		if (pin == null)
 			throw new IncorrectPinException();
 		
 		if (this.cards.size() >= Math.pow(10, 12)-1)
 			throw new AlreadyRegisteredException();
+		
+		if (amount <0)
+			throw new InvalidAmountException();
 		
 		String hsPin = new HashPin(pin).getHashPin();	
 		Card newCard = new Card(null, name, surname, hsPin, amount, null);
@@ -80,7 +83,7 @@ public class Manager implements PrePaidInterface{
 
 	@Override
 	public void pay(long number, double amount, String pin) throws NotRegisteredException,
-	IncorrectPinException, NotEnoughMoneyException, ExpiredCardException, IncorrectPinFormatException {
+	IncorrectPinException, NotEnoughMoneyException, ExpiredCardException, IncorrectPinFormatException, InvalidAmountException {
 		if (pin == null)
 			throw new IncorrectPinException();
 		
@@ -97,15 +100,18 @@ public class Manager implements PrePaidInterface{
 		
 		if (this.getCard(number).getBalance() < amount)
 			throw new NotEnoughMoneyException();
+
+		if (amount <= 0)
+			throw new InvalidAmountException();
 		
-		else
-			this.getCard(number).setBalance(this.getCard(number).getAmount()-amount);
+		this.getCard(number).setBalance(this.getCard(number).getAmount()-amount);
+
 	}
 
 	@Override
 	public void chargeMoney(long number, double amount, String pin)
 			throws NotRegisteredException, IncorrectPinException, ExpiredCardException, 
-			IncorrectPinFormatException {
+			IncorrectPinFormatException, InvalidAmountException {
 		if (pin == null)
 			throw new IncorrectPinException();
 		
@@ -119,6 +125,9 @@ public class Manager implements PrePaidInterface{
 		
 		if (this.getCard(number).getPrettyExpirationDate().compareTo(this.date) <= 0 )
 			throw new ExpiredCardException();
+		
+		if (amount <= 0)
+			throw new InvalidAmountException();
 		
 		this.getCard(number).setBalance(this.getCard(number).getAmount()+amount);
 	}

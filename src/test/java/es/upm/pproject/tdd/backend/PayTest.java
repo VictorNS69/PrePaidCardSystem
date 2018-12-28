@@ -11,7 +11,8 @@ public class PayTest {
 	private Card card;
 	
 	@BeforeEach
-	private void init() throws IncorrectPinFormatException, IncorrectPinException, ExpiredCardException{
+	private void init() throws IncorrectPinFormatException, IncorrectPinException, 
+	ExpiredCardException{
 		String pin = new HashPin("1234").getHashPin();
 		Card card = new Card(null, "Victor", "Nieves",pin, 100, null);
 		this.cardsList.add(card);
@@ -21,14 +22,15 @@ public class PayTest {
 	
 	@Test
 	public void payOk_1() throws NotRegisteredException, IncorrectPinException, 
-	NotEnoughMoneyException, ExpiredCardException, IncorrectPinFormatException {
+	NotEnoughMoneyException, ExpiredCardException, IncorrectPinFormatException, 
+	InvalidAmountException {
 		this.manager.pay(this.card.getNumber(), 10, "1234");
 		assertEquals(90, this.card.getBalance());
 	}
 	
 	@Test
 	public void payOk_2() throws NotRegisteredException, IncorrectPinException, 
-	NotEnoughMoneyException, ExpiredCardException, IncorrectPinFormatException {
+	NotEnoughMoneyException, ExpiredCardException, IncorrectPinFormatException, InvalidAmountException {
 		this.manager.pay(this.card.getNumber(), 100, "1234");
 		assertEquals(0, this.card.getBalance());
 	}

@@ -14,9 +14,10 @@ public interface PrePaidInterface{
 	 * @throws ExpiredCardException 
 	 * @throws IncorrectPinException 
 	 * @throws IncorrectPinFormatException 
+	 * @throws InvalidAmountException 
 	 */
 	long buyCard(String name, String surname, String pin, double amount) throws AlreadyRegisteredException,
-	IncorrectPinFormatException, IncorrectPinException, ExpiredCardException;
+	IncorrectPinFormatException, IncorrectPinException, ExpiredCardException, InvalidAmountException;
 
 	/**The user can pay an amount of money by introducing the credit card number, the amount to pay
 	 * and the PIN. The system must check whether the user have enough money in the card and, if so,
@@ -30,9 +31,10 @@ public interface PrePaidInterface{
 	 * @throws NotEnoughMoneyException
 	 * @throws ExpiredCardException
 	 * @throws IncorrectPinFormatException 
+	 * @throws InvalidAmountException 
 	 */
 	void pay(long number, double amount, String pin) throws NotRegisteredException, IncorrectPinException,
-			NotEnoughMoneyException, ExpiredCardException, IncorrectPinFormatException;
+			NotEnoughMoneyException, ExpiredCardException, IncorrectPinFormatException, InvalidAmountException;
 
 	/**The user can charge some amount of money in a card. The form will ask the user for the credit
 	 * card number, the ammount of money and the PIN. The PIN must be checked before accepting the
@@ -44,9 +46,10 @@ public interface PrePaidInterface{
 	 * @throws IncorrectPinException
 	 * @throws ExpiredCardException
 	 * @throws IncorrectPinFormatException 
+	 * @throws InvalidAmountException 
 	 */
 	void chargeMoney(long number, double amount, String pin) throws NotRegisteredException, 
-	IncorrectPinException, ExpiredCardException, IncorrectPinFormatException;
+	IncorrectPinException, ExpiredCardException, IncorrectPinFormatException, InvalidAmountException;
 
 	/**The user can check the balance of a card by introducing the card number and its PIN
 	 * @param number
