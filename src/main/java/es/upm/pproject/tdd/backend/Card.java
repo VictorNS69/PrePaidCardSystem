@@ -10,8 +10,8 @@ public class Card {
 	private String name;
 	private String surname;
 	private String pin;
-	private float balance = 0;
-	private float amount;
+	private double balance = 0;
+	private double amount;
 	private String expirationDate;
 	private Calendar exD;
 
@@ -27,7 +27,7 @@ public class Card {
 	 * @throws IncorrectPinException
 	 * @throws ExpiredCardException
 	 */
-	public Card (Long number, String name, String surname, String pin, float amount, String calendar) 
+	public Card (Long number, String name, String surname, String pin, double amount, String calendar) 
 			throws IncorrectPinException, ExpiredCardException{
 		if (number == null)
 			this.number = this.generateNumberCard(); 
@@ -92,14 +92,14 @@ public class Card {
 	/** Return the balance of the card.
 	 * @return
 	 */
-	public float getBalance () {
+	public double getBalance () {
 		return this.balance;
 	}
 
 	/** Return the amount of the card.
 	 * @return
 	 */
-	public float getAmount () {
+	public double getAmount () {
 		return this.amount;
 	}
 
@@ -113,7 +113,7 @@ public class Card {
 	/** Sets the balance adding the value of the parameter.
 	 * @param value
 	 */
-	public void setBalance(float value) {
+	public void setBalance(double value) {
 		this.balance = value;
 	}
 

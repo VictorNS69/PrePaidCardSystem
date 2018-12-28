@@ -59,7 +59,7 @@ public class Manager implements PrePaidInterface{
 	}
 	
 	@Override
-	public long buyCard(String name, String surname, String pin, float amount) throws 
+	public long buyCard(String name, String surname, String pin, double amount) throws 
 	AlreadyRegisteredException, IncorrectPinFormatException, IncorrectPinException, 
 	ExpiredCardException {
 		if (pin == null)
@@ -76,7 +76,7 @@ public class Manager implements PrePaidInterface{
 	}
 
 	@Override
-	public void pay(long number, float amount, String pin) throws NotRegisteredException,
+	public void pay(long number, double amount, String pin) throws NotRegisteredException,
 	IncorrectPinException, NotEnoughMoneyException, ExpiredCardException, IncorrectPinFormatException {
 		if (pin == null)
 			throw new IncorrectPinException();
@@ -100,7 +100,7 @@ public class Manager implements PrePaidInterface{
 	}
 
 	@Override
-	public void chargeMoney(long number, float amount, String pin)
+	public void chargeMoney(long number, double amount, String pin)
 			throws NotRegisteredException, IncorrectPinException, ExpiredCardException, 
 			IncorrectPinFormatException {
 		if (pin == null)
@@ -146,7 +146,7 @@ public class Manager implements PrePaidInterface{
 	}
 
 	@Override
-	public float consultBalance(long number, String pin) throws NotRegisteredException, 
+	public double consultBalance(long number, String pin) throws NotRegisteredException, 
 	IncorrectPinException, ExpiredCardException, IncorrectPinFormatException {
 		if (pin == null)
 			throw new IncorrectPinException();

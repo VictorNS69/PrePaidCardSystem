@@ -15,7 +15,7 @@ public interface PrePaidInterface{
 	 * @throws IncorrectPinException 
 	 * @throws IncorrectPinFormatException 
 	 */
-	long buyCard(String name, String surname, String pin, float amount) throws AlreadyRegisteredException,
+	long buyCard(String name, String surname, String pin, double amount) throws AlreadyRegisteredException,
 	IncorrectPinFormatException, IncorrectPinException, ExpiredCardException;
 
 	/**The user can pay an amount of money by introducing the credit card number, the amount to pay
@@ -31,7 +31,7 @@ public interface PrePaidInterface{
 	 * @throws ExpiredCardException
 	 * @throws IncorrectPinFormatException 
 	 */
-	void pay(long number, float amount, String pin) throws NotRegisteredException, IncorrectPinException,
+	void pay(long number, double amount, String pin) throws NotRegisteredException, IncorrectPinException,
 			NotEnoughMoneyException, ExpiredCardException, IncorrectPinFormatException;
 
 	/**The user can charge some amount of money in a card. The form will ask the user for the credit
@@ -45,7 +45,7 @@ public interface PrePaidInterface{
 	 * @throws ExpiredCardException
 	 * @throws IncorrectPinFormatException 
 	 */
-	void chargeMoney(long number, float amount, String pin) throws NotRegisteredException, 
+	void chargeMoney(long number, double amount, String pin) throws NotRegisteredException, 
 	IncorrectPinException, ExpiredCardException, IncorrectPinFormatException;
 
 	/**The user can check the balance of a card by introducing the card number and its PIN
@@ -56,7 +56,7 @@ public interface PrePaidInterface{
 	 * @throws ExpiredCardException
 	 * @throws IncorrectPinFormatException 
 	 */
-	float consultBalance(long number, String pin) throws NotRegisteredException, 
+	double consultBalance(long number, String pin) throws NotRegisteredException, 
 	IncorrectPinException, ExpiredCardException, IncorrectPinFormatException;
 
 	/** The user can consult the movements done with a card in the current session by introducing the
