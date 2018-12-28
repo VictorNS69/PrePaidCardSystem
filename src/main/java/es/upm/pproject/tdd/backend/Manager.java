@@ -65,6 +65,9 @@ public class Manager implements PrePaidInterface{
 		if (pin == null)
 			throw new IncorrectPinException();
 		
+		if (this.cards.size() >= Math.pow(10, 12)-1)
+			throw new AlreadyRegisteredException();
+		
 		String hsPin = new HashPin(pin).getHashPin();	
 		Card newCard = new Card(null, name, surname, hsPin, amount, null);
 		if (!this.cards.containsKey(newCard.getNumber())) {
