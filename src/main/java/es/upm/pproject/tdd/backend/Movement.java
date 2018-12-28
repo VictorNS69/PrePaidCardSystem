@@ -29,6 +29,7 @@ public class Movement {
 	InvalidAmountException {
 		if (sign != 0 && sign!=1)
 			throw new InvalidMovementException();
+		
 		this.date = Calendar.getInstance();
 		if (amount <= 0)
 			throw new InvalidAmountException();
