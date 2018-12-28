@@ -14,8 +14,8 @@ public class Movement {
 	
 	@Override
 	public String toString() {
-		Date date = this.date.getTime();
+		Date today = this.date.getTime();
 		SimpleDateFormat ft = new SimpleDateFormat ("dd.MM.yyyy 'at' HH:mm:ss");
-		return ft.format(date)+"    "+ this.amount;
+		return ft.format(today)+"    "+ this.amount;
 	}
 }

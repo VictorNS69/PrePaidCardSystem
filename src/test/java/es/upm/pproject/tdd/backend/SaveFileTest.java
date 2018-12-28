@@ -36,7 +36,7 @@ public class SaveFileTest {
 	public void SaveFileOk_1() throws IncorrectPinFormatException, IncorrectPinException, 
 	ExpiredCardException, AlreadyRegisteredException, FileNotFoundException {
 		Path path = FileSystems.getDefault().getPath("src/assets/test.txt").toAbsolutePath();
-		new FileOperations().SaveFile(path, this.map);
+		new FileOperations().saveFile(path, this.map);
 		assertTrue(new File ("src/assets/test.txt").exists());
 		assertNotEquals(0, new File ("src/assets/test.txt").length() );
 	}
@@ -51,7 +51,7 @@ public class SaveFileTest {
 		this.card = this.manager.getCard(card.getNumber());
 		this.map.put(this.card.getNumber(), this.card);		
 		Path path = FileSystems.getDefault().getPath("src/assets/test.txt").toAbsolutePath();
-		new FileOperations().SaveFile(path, this.map);
+		new FileOperations().saveFile(path, this.map);
 		assertTrue(new File ("src/assets/test.txt").exists());
 		assertNotEquals(0, new File ("src/assets/test.txt").length() );
 	}
@@ -68,7 +68,7 @@ public class SaveFileTest {
 			this.map.put(this.card.getNumber(), this.card);			
 		}
 		Path path = FileSystems.getDefault().getPath("src/assets/test.txt").toAbsolutePath();
-		new FileOperations().SaveFile(path, this.map);
+		new FileOperations().saveFile(path, this.map);
 		assertTrue(new File ("src/assets/test.txt").exists());
 		assertNotEquals(0, new File ("src/assets/test.txt").length() );
 	}
@@ -78,7 +78,7 @@ public class SaveFileTest {
 	ExpiredCardException, AlreadyRegisteredException, FileNotFoundException {
 		Map <Long, Card> mapNull = new HashMap<>();
 		Path path = FileSystems.getDefault().getPath("src/assets/test.txt").toAbsolutePath();
-		new FileOperations().SaveFile(path, mapNull);
+		new FileOperations().saveFile(path, mapNull);
 		assertEquals(0, new File ("src/assets/test.txt").length() );
 	}
 }

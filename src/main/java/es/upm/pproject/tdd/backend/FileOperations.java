@@ -16,7 +16,8 @@ import java.util.Queue;
 import es.upm.pproject.tdd.exceptions.*;
 
 public class FileOperations {
-	private Queue <List>attributes = new LinkedList<List>();
+	@SuppressWarnings("rawtypes")
+	private Queue <List>attributes = new LinkedList<>();
 	private Map <Long, Card> cards = new HashMap <>();
 	
 	/**Load a file from a path. This file must be well written
@@ -26,15 +27,15 @@ public class FileOperations {
 	 * @throws IncorrectPinException
 	 * @throws ExpiredCardException
 	 */
-	public Map<Long, Card> LoadFile(Path path) throws IOException, 
+	public Map<Long, Card> loadFile(Path path) throws IOException, 
 	IncorrectPinException, ExpiredCardException {
 		FileReader file = new FileReader(path.toString());
 		String line;
-		BufferedReader in = new BufferedReader(file);
-		while((line = in.readLine()) != null){
-		    this.attributes.add(this.makeAttributes(line));
+		try (BufferedReader in = new BufferedReader(file)){
+			while((line = in.readLine()) != null){
+			    this.attributes.add(this.makeAttributes(line));
+			}
 		}
-		in.close();
 		this.makeCards();
 		return this.cards;
 	}
@@ -45,7 +46,7 @@ public class FileOperations {
 	 * @param map
 	 * @throws FileNotFoundException
 	 */
-	public void SaveFile(Path path, Map <Long, Card> map) throws FileNotFoundException{
+	public void saveFile(Path path, Map <Long, Card> map) throws FileNotFoundException{
 		this.cards = map;
 		String file = new File(path.toString()).toString();
 		PrintWriter writer = new PrintWriter(file);
@@ -57,7 +58,9 @@ public class FileOperations {
 		writer.close();
 	}
 	
+	@SuppressWarnings("rawtypes")
 	private List<?> makeAttributes(String line) {
+		@SuppressWarnings("unchecked")
 		List<String> list = new ArrayList();
 		String[] parts = line.split("@");
 		for (int i = 0; i < parts.length; i++) {
@@ -66,6 +69,7 @@ public class FileOperations {
 		return list;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	private void makeCards() throws IncorrectPinException, ExpiredCardException{
 		List list;
 		while ((list = this.attributes.poll()) != null) {

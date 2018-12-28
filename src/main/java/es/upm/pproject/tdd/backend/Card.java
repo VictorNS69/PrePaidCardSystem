@@ -7,8 +7,11 @@ import es.upm.pproject.tdd.exceptions.*;
 
 public class Card {
 	private long number;
-	private String name,  surname, pin;
-	private float balance = 0, amount;
+	private String name;
+	private String surname;
+	private String pin;
+	private float balance = 0;
+	private float amount;
 	private String expirationDate;
 	private Calendar exD;
 
@@ -107,13 +110,6 @@ public class Card {
 		return this.expirationDate;
 	}
 	
-	/** Return the date of the card like a calendar type.
-	 * @return
-	 */
-	private Calendar getExpirationDate() {
-		return this.exD;
-	}
-
 	/** Sets the balance adding the value of the parameter.
 	 * @param value
 	 */

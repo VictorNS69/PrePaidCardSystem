@@ -25,14 +25,14 @@ public class LoadFileTest {
 		this.card = this.manager.getCard(card.getNumber());
 		this.map.put(this.card.getNumber(), this.card);
 		Path path = FileSystems.getDefault().getPath("src/assets/test.txt").toAbsolutePath();
-		new FileOperations().SaveFile(path, this.map);
+		new FileOperations().saveFile(path, this.map);
 	}
 	
 	@Test
 	public void LoadFileOk_1() throws IncorrectPinFormatException, IncorrectPinException, 
 	ExpiredCardException, AlreadyRegisteredException, IOException {
 		Path path = FileSystems.getDefault().getPath("src/assets/test.txt").toAbsolutePath();
-		Map <Long, Card> mapLoad = new FileOperations().LoadFile(path);
+		Map <Long, Card> mapLoad = new FileOperations().loadFile(path);
 		assertEquals(this.map.toString(), mapLoad.toString());
 	}
 	
@@ -48,8 +48,8 @@ public class LoadFileTest {
 			this.card = this.manager.getCard(card.getNumber());
 			this.map.put(this.card.getNumber(), this.card);			
 		}
-		new FileOperations().SaveFile(path, this.map);
-		Map <Long, Card> mapLoad = new FileOperations().LoadFile(path);
+		new FileOperations().saveFile(path, this.map);
+		Map <Long, Card> mapLoad = new FileOperations().loadFile(path);
 		assertEquals(this.map.toString(), mapLoad.toString());
 	}
 	
@@ -58,8 +58,8 @@ public class LoadFileTest {
 	ExpiredCardException, AlreadyRegisteredException, IOException {
 		Path path = FileSystems.getDefault().getPath("src/assets/test.txt").toAbsolutePath();
 		Map <Long, Card> mapNull = new HashMap<>();
-		new FileOperations().SaveFile(path, mapNull);
-		Map <Long, Card> mapLoad = new FileOperations().LoadFile(path);
+		new FileOperations().saveFile(path, mapNull);
+		Map <Long, Card> mapLoad = new FileOperations().loadFile(path);
 		assertEquals(mapNull.toString(), mapLoad.toString() );
 	}
 }

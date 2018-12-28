@@ -5,7 +5,7 @@ import java.security.MessageDigest;
 import es.upm.pproject.tdd.exceptions.*;
 
 public class HashPin {
-	private String pin;
+	private StringBuilder pin;
 	/** Constructor. Hashes a String with SHA-256.
 	 * @param number
 	 * @throws IncorrectPinFormatException
@@ -30,20 +30,19 @@ public class HashPin {
 			BigInteger no = new BigInteger(1, messageDigest); 
 
 			// Convert message digest into hex value 
-			String hashtext = no.toString(16); 
+			StringBuilder  hashtext = new StringBuilder(no.toString(16)); 
 
 			while (hashtext.length() < 32) { 
-				hashtext = "0" + hashtext; 
+				hashtext.append("0" + hashtext); 
 			} 
 			this.pin = hashtext;
 		} 
 		catch (Exception e) { 
 			this.pin = null;
-			e.printStackTrace();
 		} 
 	}
 
 	public String getHashPin() {
-		return this.pin;
+		return this.pin.toString();
 	}
 }
