@@ -8,7 +8,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 
-public class main_frontend extends JFrame{
+public class MainFrontend extends JFrame{
 	
 private JPanel contentpanel;
 
@@ -18,7 +18,7 @@ private JPanel contentpanel;
 			
 			public void run() {
 				try {
-				main_frontend frame = new main_frontend();
+				MainFrontend frame = new MainFrontend();
 				frame.setVisible(true);
 				}catch (Exception e) {
 					e.printStackTrace();
@@ -28,7 +28,7 @@ private JPanel contentpanel;
 		}
 		);
 	}
-public main_frontend(){
+public MainFrontend(){
 	//titulo del frame
 	setTitle("PrePaidSystem");
 	//modo de salida del frame
