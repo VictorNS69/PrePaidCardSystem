@@ -36,6 +36,8 @@ public class MainFrontend extends JFrame{
 					MainFrontend frame = new MainFrontend();
 					frame.setVisible(true);
 				}catch (Exception e) {
+					//esto hay que modificarlo, IMPORTANTE, si no se cambia por un logger
+					//el sonar dice que el proyecto no es evaluable
 					e.printStackTrace();
 				}
 			}
