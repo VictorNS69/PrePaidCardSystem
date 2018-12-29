@@ -1,7 +1,9 @@
 package es.upm.pproject.tdd.backend;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.*;
@@ -61,5 +63,38 @@ public class LoadFileTest {
 		new FileOperations().saveFile(path, mapNull);
 		Map <Long, Card> mapLoad = new FileOperations().loadFile(path);
 		assertEquals(mapNull.toString(), mapLoad.toString() );
+	}
+	
+	@Test
+	public void LoadFileExpiredDate_1() throws IncorrectPinException, ExpiredCardException, 
+	IncorrectPinFormatException, IOException {
+		Path path = FileSystems.getDefault().getPath("src/assets/test.txt").toAbsolutePath();
+		String savedCard = "785923770270@Victor@Nieves@3ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4@20.0@01-12-2000\n";
+		String file = new File(path.toString()).toString();
+		PrintWriter writer = new PrintWriter(file);
+		writer.write(savedCard);
+		writer.close();
+		Map <Long, Card> mapExp = new HashMap<>();
+		Map <Long, Card> mapLoad = new FileOperations().loadFile(path);
+		assertEquals(mapExp.toString(), mapLoad.toString());
+	}
+	
+	@Test
+	public void LoadFileExpiredDate_2() throws IncorrectPinException, ExpiredCardException, 
+	IncorrectPinFormatException, IOException {
+		Path path = FileSystems.getDefault().getPath("src/assets/test.txt").toAbsolutePath();
+		String savedCardFail = "785923770270@Victor@Nieves@3ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4@20.0@01-12-2000\n";
+		String pin = new HashPin("1234").getHashPin();
+		Card card = new Card (null, "Victor", "Nieves", pin,0, null);
+		String file = new File(path.toString()).toString();
+		PrintWriter writer = new PrintWriter(file);
+		String savedCard = card.toString().replace(" ", "@");
+		writer.write(savedCard+"\n");
+		writer.write(savedCardFail);
+		writer.close();
+		Map <Long, Card> mapExp = new HashMap<>();
+		mapExp.put(card.getNumber(), card);		
+		Map <Long, Card> mapLoad = new FileOperations().loadFile(path);
+		assertEquals(mapExp.toString(), mapLoad.toString());
 	}
 }

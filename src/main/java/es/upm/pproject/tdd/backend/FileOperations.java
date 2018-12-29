@@ -73,11 +73,16 @@ public class FileOperations {
 	private void makeCards() throws IncorrectPinException, ExpiredCardException{
 		List list;
 		while ((list = this.attributes.poll()) != null) {
-			Card card = new Card(Long.parseLong(list.get(0).toString()), 
-					list.get(1).toString(), list.get(2).toString(), 
-					list.get(3).toString(), Float.parseFloat(list.get(4).toString()), 
-					list.get(5).toString());
-			this.cards.put(card.getNumber(), card);
+			try {
+				Card card = new Card(Long.parseLong(list.get(0).toString()), 
+						list.get(1).toString(), list.get(2).toString(), 
+						list.get(3).toString(), Float.parseFloat(list.get(4).toString()), 
+						list.get(5).toString());
+				this.cards.put(card.getNumber(), card);
+			}
+			catch (ExpiredCardException e) {
+				continue;
+			}
 		}
 	}
 }
