@@ -10,7 +10,9 @@ import javax.swing.border.EmptyBorder;
 
 public class MainFrontend extends JFrame{
 	
-private JPanel contentpanel;
+	private JPanel contentPanel;
+	private JButton pruebaDialog;
+	private JButton pruebaBeep;
 
 	public static void main (String[] args) {
 		
@@ -24,7 +26,6 @@ private JPanel contentpanel;
 					e.printStackTrace();
 				}
 			}
-			
 		}
 		);
 	}
@@ -36,40 +37,50 @@ public MainFrontend(){
 	//posicion
 	setBounds(100,100,450,433);
 	//el contenedor
-	contentpanel = new JPanel();
+	contentPanel = new JPanel();
 	//borde del panel
-	contentpanel.setBorder(new EmptyBorder(5,5,5,5));
+	contentPanel.setBorder(new EmptyBorder(5,5,5,5));
 	//pongo el panel en la ventana???
-	setContentPane(contentpanel);
-	contentpanel.setLayout(null);
+	setContentPane(contentPanel);
+	contentPanel.setLayout(null);
 	//creo 1 boton
-	JButton prueba = new JButton("prueba");
+	pruebaDialog = new JButton("Dialog");
+	pruebaDialog.setBounds(10, 11, 100, 100);
 	//le doy la accion
-	prueba.addActionListener( new ActionListener() {
+	pruebaDialog.addActionListener( new ActionListener() {
 		public void actionPerformed(ActionEvent arg0) {
 			//creo un dialog de ejemplo
 			JDialog hola = new JDialog();
 			hola.setBounds(100,100,300,300);
 			hola.setVisible(true);
 			//hago que cuando se pulse el boton, este se haga invisible
-			prueba.setVisible(false);
-			//y llame a la funcion nuevobotton
-			nuevobotton();
+			pruebaDialog.setVisible(false);
+			//y llame a la funcion newButton
+			newButton();
 			
 		}	
 	}
 );
-	//doy tamaño y añado el boton a la ventana
-	prueba.setBounds(10, 11, 100, 100);
-	contentpanel.add(prueba);
+	contentPanel.add(pruebaDialog);
 	
 	
 }
-public void nuevobotton () {
+public void newButton () {
 	//esta funcion se encarga de pintar un nuevo boton en una posicion X (este boton tendra luego sus acciones)
-	JButton prueba2 = new JButton("prueba2");
-	prueba2.setBounds(10, 11, 100, 100);
-	contentpanel.add(prueba2);
+	pruebaBeep = new JButton("Beep");
+	pruebaBeep.setBounds(10, 11, 100, 100);
+	pruebaBeep.addActionListener( new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+			Toolkit.getDefaultToolkit().beep();
+			//hago que cuando se pulse el boton, este se haga invisible
+			pruebaBeep.setVisible(false);
+			//y llame a la funcion newButton
+			pruebaDialog.setVisible(true);
+			
+		}	
+	}
+);
+	contentPanel.add(pruebaBeep);
 }
 //esto puede ser util porque podemos hacer un main bien hecho y desde ahi ir editando funciones que lleven 
 //de una ventana del menu a otra y viceversa
