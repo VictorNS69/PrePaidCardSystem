@@ -173,44 +173,44 @@ public class MainFrontend extends JFrame {
 			}
 		});
 		//accion boton payB
-		buyNewCardB.addActionListener(new ActionListener() {
+		payB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				buttonVisible(false);
 				pay();
 			}
 		});
 		//accion boton changePinB
-		buyNewCardB.addActionListener(new ActionListener() {
+		changePinB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				buttonVisible(false);
 				changePin();
 			}
 		});
 		//accion boton consultBalanceB
-		buyNewCardB.addActionListener(new ActionListener() {
+		consultBalanceB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				buttonVisible(false);
 				consultBalance();
 			}
 		});
 		//accion boton chargeMoneyB
-		buyNewCardB.addActionListener(new ActionListener() {
+		chargeMoneyB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				buttonVisible(false);
 				chargeMoney();
 			}
 		});
 		//accion boton consultMovementsB
-		buyNewCardB.addActionListener(new ActionListener() {
+		consultMovementsB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				buttonVisible(false);
 				consultMovements();
 			}
 		});
 		//accion boton exitB
-		buyNewCardB.addActionListener(new ActionListener() {
+		exitB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				buttonVisible(false);
+				
 				
 			}
 		});
