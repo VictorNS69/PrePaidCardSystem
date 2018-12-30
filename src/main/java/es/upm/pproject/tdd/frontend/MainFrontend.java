@@ -9,6 +9,7 @@ import java.sql.Time;
 import java.nio.file.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -87,6 +88,7 @@ public class MainFrontend extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// tamanio
 		this.setSize(700, 480);
+		this.setResizable(false);
 		// centrado
 		Dimension window = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation((window.width / 2)-(this.getWidth() / 2),(window.height/2)-(this.getHeight()/2));
@@ -95,6 +97,7 @@ public class MainFrontend extends JFrame {
 		// pongo el panel en la ventana??
 		setContentPane(contentPanel);
 		contentPanel.setLayout(null);
+		
 		// cargo el mapa
 		try {
 			map = new FileOperations().loadFile(path);
@@ -285,6 +288,31 @@ public class MainFrontend extends JFrame {
 		amountL.setVisible(true);
 		pinL.setVisible(true);
 		confirmPinL.setVisible(true);
+		
+		okB.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+					
+				String name = nameT.getText();
+				String surname = surnameT.getText();
+				String amount = amountT.getText();
+				String pin = new String(pinP.getPassword());
+				String confirmPin = new String(confirmPinP.getPassword());
+				if(name.isEmpty()||surname.isEmpty()||amount.isEmpty()||pin.isEmpty()||confirmPin.isEmpty())
+					JOptionPane.showMessageDialog(contentPanel, "There is a field that is empty", "Dialog", JOptionPane.ERROR_MESSAGE);
+				else if (Pattern.matches("[a-zA-Z]+", name)==false || Pattern.matches("[a-zA-Z]+", surname)==false)
+					JOptionPane.showMessageDialog(contentPanel, "The name and surname can only contain letters", "Dialog", JOptionPane.ERROR_MESSAGE);
+				else if(Pattern.matches("[0-9]+(\\.[0-9]{1,2})?$", amount)==false) 
+					JOptionPane.showMessageDialog(contentPanel, "The amount can only contain numbers with decimals", "Dialog", JOptionPane.ERROR_MESSAGE);
+				else if(pin.length()!=4 || confirmPin.length()!=4)
+					JOptionPane.showMessageDialog(contentPanel, "The size of the pin should be 4 digits", "Dialog", JOptionPane.ERROR_MESSAGE);
+				else if(Pattern.matches("[0-9]+", pin)==false)
+					JOptionPane.showMessageDialog(contentPanel, "The password can only have digits", "Dialog", JOptionPane.ERROR_MESSAGE);				
+				else if(!(pin.equals(confirmPin)))
+					JOptionPane.showMessageDialog(contentPanel, "the password of the fields are different", "Dialog", JOptionPane.ERROR_MESSAGE);
+				else
+					JOptionPane.showMessageDialog(contentPanel, "funciono");
+			}
+		});
 	}
 	
 	public void changePin() {
