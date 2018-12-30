@@ -42,13 +42,14 @@ public class MainFrontend extends JFrame {
 	private JPasswordField pinP = new JPasswordField();
 	private JPasswordField newPinP = new JPasswordField();
 	private JPasswordField confirmPinP = new JPasswordField();
-	private JTextField cardNumberP = new JTextField();
+	private JTextField cardNumberT = new JTextField();
 	//labels?? esto a lo mejor no lo usamos
 	private JLabel nameL = new JLabel("Name");
 	private JLabel surnameL = new JLabel("Surname");
 	private JLabel amountL = new JLabel("Amount");
 	private JLabel pinL = new JLabel("PIN");
 	private JLabel confirmPinL = new JLabel("Confirm PIN");
+	private JLabel newPinL = new JLabel("New PIN");
 	private JLabel cardNumberL = new JLabel("Card number");
 
 	
@@ -127,7 +128,7 @@ public class MainFrontend extends JFrame {
 		contentPanel.add(pinP);
 		contentPanel.add(newPinP);
 		contentPanel.add(confirmPinP);
-		contentPanel.add(cardNumberP);
+		contentPanel.add(cardNumberT);
 		
 		//labels
 		contentPanel.add(nameL);
@@ -135,6 +136,7 @@ public class MainFrontend extends JFrame {
 		contentPanel.add(amountL);
 		contentPanel.add(pinL);
 		contentPanel.add(confirmPinL);
+		contentPanel.add(newPinL);
 		contentPanel.add(cardNumberL);
 
 
@@ -165,7 +167,7 @@ public class MainFrontend extends JFrame {
 		pinP.setVisible(false);
 		newPinP.setVisible(false);
 		confirmPinP.setVisible(false);
-		cardNumberP.setVisible(false);
+		cardNumberT.setVisible(false);
 		nameL.setVisible(false);
 		surnameL.setVisible(false);
 		amountL.setVisible(false);
@@ -219,10 +221,10 @@ public class MainFrontend extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				System.exit(0);
 			}
-		
 		});
+		
 		goBackB.addActionListener(new ActionListener() {
-			public void actionPerfomed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent arg0) {
 				goBackB.setVisible(false);
 				okB.setVisible(false);
 				nameT.setVisible(false);
@@ -235,9 +237,12 @@ public class MainFrontend extends JFrame {
 				amountL.setVisible(false);
 				pinL.setVisible(false);
 				confirmPinL.setVisible(false);
+				newPinL.setVisible(false);
+				cardNumberL.setVisible(false);
+				cardNumberT.setVisible(false);
+				newPinP.setVisible(false);
 				start();
 			}
-			
 		});
 
 		// llamo a la funcion donde va a empezar todo.
@@ -247,6 +252,8 @@ public class MainFrontend extends JFrame {
 
 	// funcion donde empieza todo
 	public void start() {
+		setTitle("Prepaid Card System");
+
 		// aparecen los botones
 		buttonVisible(true);
 		
@@ -254,6 +261,7 @@ public class MainFrontend extends JFrame {
 
 	public void buyNewCard() {
 		// TODO
+		setTitle("New Card");
 		nameT.setBounds(80, 50, 250, 70);
 		nameL.setBounds(80, 5, 250, 70);
 		surnameT.setBounds(370, 50, 250, 70);
@@ -264,8 +272,6 @@ public class MainFrontend extends JFrame {
 		pinL.setBounds(80, 185, 250, 70);
 		confirmPinP.setBounds(370, 230, 250, 70);
 		confirmPinL.setBounds(370, 185, 250, 70);
-
-		
 		
 		goBackB.setVisible(true);
 		okB.setVisible(true);
@@ -281,27 +287,53 @@ public class MainFrontend extends JFrame {
 		confirmPinL.setVisible(true);
 	}
 	
+	public void changePin() {
+		// TODO
+		setTitle("Change PIN");
+		cardNumberT.setBounds(80, 50, 250, 70);
+		cardNumberL.setBounds(80, 5, 250, 70);
+		pinP.setBounds(370, 50, 250, 70);
+		pinL.setBounds(370, 5, 250, 70);
+		newPinP.setBounds(80, 230, 250, 70);
+		newPinL.setBounds(80, 185, 250, 70);
+		confirmPinP.setBounds(370, 230, 250, 70);
+		confirmPinL.setBounds(370, 185, 250, 70);
+		
+		cardNumberT.setVisible(true);
+		pinP.setVisible(true);
+		newPinP.setVisible(true);
+		confirmPinP.setVisible(true);
+		goBackB.setVisible(true);
+		okB.setVisible(true);
+		cardNumberL.setVisible(true);
+		pinL.setVisible(true);
+		newPinL.setVisible(true);
+		confirmPinL.setVisible(true);
+		
+	}
+	
 	public void pay() {
+		setTitle("Pay");
 		// esta funcion se encarga de pintar un nuevo boton en una posicion X (este
 		// boton tendra luego sus acciones)
 		payB.setVisible(true);
-		
-
 	}
 	
-	public void changePin() {
-		// TODO
-	}
-
 	public void consultBalance() {
+		setTitle("Consult balance");
+
 		// TODO
 	}
 
 	public void consultMovements() {
+		setTitle("Consult movements");
+
 		// TODO
 	}
 
 	public void chargeMoney() {
+		setTitle("Charge money");
+
 		// TODO
 	}
 
