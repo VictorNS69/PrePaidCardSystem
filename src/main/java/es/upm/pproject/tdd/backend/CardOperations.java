@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import es.upm.pproject.tdd.exceptions.*;
 
-public class Manager implements PrePaidInterface{
+public class CardOperations implements PrePaidInterface{
 	private Map <Long, Card> cards = new HashMap <>();
 	private String date;
 
@@ -17,7 +17,7 @@ public class Manager implements PrePaidInterface{
 	 * date at the moment.
 	 * @param list
 	 */
-	public Manager (List <Card> list) {
+	public CardOperations (List <Card> list) {
 		for (Card c : list) {
 			this.cards.put(c.getNumber(), c);
 		} 

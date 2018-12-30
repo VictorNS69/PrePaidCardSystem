@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import es.upm.pproject.tdd.exceptions.*;
 
 public class BuyCardTest {
-	private Manager manager;
+	private CardOperations manager;
 	private List <Card> cardsList = new ArrayList<Card>();
 	private Card card;
 	
@@ -15,7 +15,7 @@ public class BuyCardTest {
 	ExpiredCardException{
 		Card card = new Card(null, "Victor", "Nieves", "1234", 100, null);
 		this.cardsList.add(card);
-		this.manager = new Manager(this.cardsList);
+		this.manager = new CardOperations(this.cardsList);
 		this.card = this.manager.getCard(card.getNumber()); 
 	}
 	 

@@ -6,7 +6,7 @@ import java.util.*;
 import es.upm.pproject.tdd.exceptions.*;
 
 public class ChargeMoneyTest {
-	private Manager manager;
+	private CardOperations manager;
 	private List <Card> cardsList = new ArrayList<Card>();
 	private Card card;
 	
@@ -16,7 +16,7 @@ public class ChargeMoneyTest {
 		String pin = new HashPin("1234").getHashPin();
 		Card card = new Card(null, "Victor", "Nieves", pin, 0, null);
 		this.cardsList.add(card);
-		this.manager = new Manager(this.cardsList);
+		this.manager = new CardOperations(this.cardsList);
 		this.card = this.manager.getCard(card.getNumber()); 
 	}
 	

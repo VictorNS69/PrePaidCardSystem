@@ -6,8 +6,8 @@ import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 import es.upm.pproject.tdd.exceptions.*;
 
-public class ManagerGettersTest {
-	private Manager manager;
+public class CardOperationsGettersTest {
+	private CardOperations manager;
 	private List <Card> cardsList = new ArrayList<Card>();
 	private Card card;
 	private Map<Long, Card> map = new HashMap<>();
@@ -18,7 +18,7 @@ public class ManagerGettersTest {
 	ExpiredCardException{
 		Card card = new Card(null, "Victor", "Nieves", "1234", 100, null);
 		this.cardsList.add(card);
-		this.manager = new Manager(this.cardsList);
+		this.manager = new CardOperations(this.cardsList);
 		this.map.put(card.getNumber(), card);
 		this.card = this.manager.getCard(card.getNumber()); 
 	}
