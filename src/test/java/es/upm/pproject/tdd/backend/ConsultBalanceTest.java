@@ -28,7 +28,7 @@ public class ConsultBalanceTest {
 	@Test
     public void cnsultBalanceOk_2() throws NotRegisteredException, 
     		IncorrectPinException, ExpiredCardException, IncorrectPinFormatException, 
-    		InvalidAmountException {
+    		InvalidAmountException, InvalidMovementException {
         this.manager.chargeMoney(this.card.getNumber(), 10, "1234");
         assertEquals(110, this.manager.consultBalance(this.card.getNumber(), "1234"));
     }
