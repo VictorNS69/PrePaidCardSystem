@@ -11,7 +11,6 @@ import es.upm.pproject.tdd.exceptions.*;
 
 public class SaveFileTest {
 	private CardOperations manager;
-	private List <Card> cardsList = new ArrayList<Card>();
 	private Map <Long, Card> map = new HashMap<>();
 	private Card card;
 	
@@ -20,10 +19,9 @@ public class SaveFileTest {
 	ExpiredCardException{
 		String pin = new HashPin("1234").getHashPin();
 		Card card = new Card(null, "Victor", "Nieves", pin, 100, null);
-		this.cardsList.add(card);
-		this.manager = new CardOperations(this.cardsList);
+		this.map.put(card.getNumber(), card);
+		this.manager = new CardOperations(this.map);
 		this.card = this.manager.getCard(card.getNumber());
-		this.map.put(this.card.getNumber(), this.card);
 	}
 
 	@AfterEach
@@ -46,10 +44,9 @@ public class SaveFileTest {
 	ExpiredCardException, AlreadyRegisteredException, FileNotFoundException {
 		String pin = new HashPin("1333").getHashPin();
 		Card card = new Card(null, "Daniel", "Morgera", pin, 10, null);
-		this.cardsList.add(card);
-		this.manager = new CardOperations(this.cardsList);
+		this.map.put(card.getNumber(), card);
+		this.manager = new CardOperations(this.map);
 		this.card = this.manager.getCard(card.getNumber());
-		this.map.put(this.card.getNumber(), this.card);		
 		Path path = FileSystems.getDefault().getPath("src/assets/test.txt").toAbsolutePath();
 		new FileOperations().saveFile(path, this.map);
 		assertTrue(new File ("src/assets/test.txt").exists());
@@ -62,11 +59,10 @@ public class SaveFileTest {
 		for (int i = 0; i< 100;i++) {
 			String pin = new HashPin("1234").getHashPin();
 			Card card = new Card(null, "name", "surname", pin, 10*i, null);
-			this.cardsList.add(card);
-			this.manager = new CardOperations(this.cardsList);
-			this.card = this.manager.getCard(card.getNumber());
-			this.map.put(this.card.getNumber(), this.card);			
+			this.map.put(card.getNumber(), card);
 		}
+		this.manager = new CardOperations(this.map);
+		this.card = this.manager.getCard(card.getNumber());
 		Path path = FileSystems.getDefault().getPath("src/assets/test.txt").toAbsolutePath();
 		new FileOperations().saveFile(path, this.map);
 		assertTrue(new File ("src/assets/test.txt").exists());

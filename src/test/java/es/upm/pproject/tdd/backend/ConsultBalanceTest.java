@@ -7,15 +7,15 @@ import es.upm.pproject.tdd.exceptions.*;
 
 public class ConsultBalanceTest {
 	private CardOperations manager;
-	private List <Card> cardsList = new ArrayList<Card>();
+	private Map <Long, Card> map = new HashMap<>();
 	private Card card;
 	
 	@BeforeEach
 	private void init() throws IncorrectPinFormatException, IncorrectPinException, ExpiredCardException{
 		String pin = new HashPin("1234").getHashPin();
 		Card card = new Card(null, "Victor", "Nieves", pin, 100, null);
-		this.cardsList.add(card);
-		this.manager = new CardOperations(this.cardsList);
+		this.map.put(card.getNumber(), card);
+		this.manager = new CardOperations(this.map);
 		this.card = this.manager.getCard(card.getNumber()); 
 	}
 	
@@ -38,7 +38,7 @@ public class ConsultBalanceTest {
 	IncorrectPinException, ExpiredCardException, IncorrectPinFormatException {
 		String pin = new HashPin("1234").getHashPin();
 		Card card = new Card(null,"Daniel", "Morgera", pin, 0, null);
-		this.cardsList.add(card);
+		this.map.put(card.getNumber(), card);
 		this.init();
 		assertEquals(0, this.manager.consultBalance(card.getNumber(),"1234"));
     }
@@ -65,7 +65,7 @@ public class ConsultBalanceTest {
 	    	assertThrows(ExpiredCardException.class, ()->{
 	    		String pin = new HashPin("1234").getHashPin();
 	    		Card card = new Card(null,"Daniel", "Morgera", pin, 0, "01-01-1990");
-	    		this.cardsList.add(card);
+	    		this.map.put(card.getNumber(), card);
 	    		this.init();
 				this.manager.consultBalance(card.getNumber(), "1234");
 			});

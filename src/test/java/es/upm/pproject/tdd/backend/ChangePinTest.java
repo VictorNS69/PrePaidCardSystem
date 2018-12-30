@@ -7,16 +7,16 @@ import es.upm.pproject.tdd.exceptions.*;
 
 public class ChangePinTest {
 	private CardOperations manager;
-	private List <Card> cardsList = new ArrayList<Card>();
 	private Card card;
+	private Map <Long, Card> map = new HashMap<>();
 	
 	@BeforeEach
 	private void init() throws IncorrectPinFormatException, IncorrectPinException,
 	ExpiredCardException{
 		String pin = new HashPin("1234").getHashPin();
 		Card card = new Card(null, "Victor", "Nieves", pin, 100, null);
-		this.cardsList.add(card);
-		this.manager = new CardOperations(this.cardsList);
+		this.map.put(card.getNumber(), card);
+		this.manager = new CardOperations(this.map);
 		this.card = this.manager.getCard(card.getNumber()); 
 	}
 	

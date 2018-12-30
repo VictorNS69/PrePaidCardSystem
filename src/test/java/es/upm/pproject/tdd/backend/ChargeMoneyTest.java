@@ -7,7 +7,7 @@ import es.upm.pproject.tdd.exceptions.*;
 
 public class ChargeMoneyTest {
 	private CardOperations manager;
-	private List <Card> cardsList = new ArrayList<Card>();
+	private Map <Long, Card> map = new HashMap<>();
 	private Card card;
 	
 	@BeforeEach
@@ -15,8 +15,8 @@ public class ChargeMoneyTest {
 	ExpiredCardException{
 		String pin = new HashPin("1234").getHashPin();
 		Card card = new Card(null, "Victor", "Nieves", pin, 0, null);
-		this.cardsList.add(card);
-		this.manager = new CardOperations(this.cardsList);
+		this.map.put(card.getNumber(), card);
+		this.manager = new CardOperations(this.map);
 		this.card = this.manager.getCard(card.getNumber()); 
 	}
 	
@@ -34,7 +34,7 @@ public class ChargeMoneyTest {
     		InvalidAmountException{
 		String pin = new HashPin("1234").getHashPin();
     	Card card = new Card(null,"Daniel", "Morgera", pin, 0, null);
-		this.cardsList.add(card);
+		this.map.put(card.getNumber(), card);
 		this.init();
 		this.card = this.manager.getCard(card.getNumber());
         this.manager.chargeMoney(this.card.getNumber(), 20, "1234");
@@ -63,7 +63,7 @@ public class ChargeMoneyTest {
     	assertThrows(ExpiredCardException.class, ()->{
     		String pin = new HashPin("1234").getHashPin();
     		Card card = new Card(null,"Daniel", "Morgera", pin, 0, "01-01-1990");
-    		this.cardsList.add(card);
+    		this.map.put(card.getNumber(), card);
     		this.init();
 			this.manager.chargeMoney(card.getNumber(), 10, card.getPin());
 		});
