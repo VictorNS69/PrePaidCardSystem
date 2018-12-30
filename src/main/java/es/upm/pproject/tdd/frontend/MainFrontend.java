@@ -25,8 +25,30 @@ public class MainFrontend extends JFrame {
 	private JPanel contentPanel;
 	// dejo los botones ya inicializados para asi solo tener que hacerlos visibles o
 	// no.
-	private JButton pruebaDialog = new JButton("Dialog");
-	private JButton pruebaBeep = new JButton("Beep");
+	private JButton buyNewCard = new JButton("Buy New Card");
+	private JButton pay = new JButton("Pay");
+	private JButton chargeMoney = new JButton("Charge Money");
+	private JButton changePin = new JButton("Change Pin");
+	private JButton consultBalance = new JButton("Consult Balance");
+	private JButton consultMovements = new JButton("Consult Movements");
+	private JButton exit = new JButton("Exit");
+	private JButton goBack = new JButton("Go Back");
+	private JButton ok = new JButton("OK");
+	//cuadros de texto
+	private JTextField name = new JTextField("Name");
+	private JTextField surname = new JTextField("Surname");
+	private JTextField amount = new JTextField("Amount");
+	private JPasswordField pin = new JPasswordField("Pin");
+	private JPasswordField newPin = new JPasswordField("New Pin");
+	private JPasswordField confirmPin = new JPasswordField("Confirm Pin");
+	private JTextField cardNumbre = new JTextField("Card Number");
+	//labels?? esto a lo mejor no lo usamos
+	private JLabel text1 = new JLabel();
+	private JLabel text2 = new JLabel();
+	private JLabel text3 = new JLabel();
+	private JLabel text4 = new JLabel();
+	private JLabel text5 = new JLabel();
+	
 
 	public static void main(String[] args) {
 
@@ -84,71 +106,71 @@ public class MainFrontend extends JFrame {
 		// inicia el programa, y el primer boton
 		// lo pinta pero el segundo se queda oculto hasta que pasas el raton por encima.
 		// es un bug
-		contentPanel.add(pruebaDialog);
-		contentPanel.add(pruebaBeep);
-		pruebaBeep.setVisible(false);
-		pruebaDialog.setVisible(false);
+		contentPanel.add(buyNewCard);
+		contentPanel.add(pay);
+		pay.setVisible(false);
+		buyNewCard.setVisible(false);
 		// llamo a la funcion donde va a empezar todo.
-		Main();
+		start();
 
 	}
 
 	// funcion donde empieza todo
-	public void Main() {
+	public void start() {
 		// aparece el boton
-		pruebaDialog.setVisible(true);
+		buyNewCard.setVisible(true);
 		// posicion del boton
-		pruebaDialog.setBounds(100, 110, 100, 100);
+		buyNewCard.setBounds(100, 110, 100, 100);
 		// le doy la accion
-		pruebaDialog.addActionListener(new ActionListener() {
+		buyNewCard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// esta linea de codigo sirve para probar que el mapa se carga correctamente.
 				// resultado exitoso
 				// JOptionPane.showMessageDialog(contentPanel,map.values().toString());
 				// hago que cuando se pulse el boton, este se haga invisible
-				pruebaDialog.setVisible(false);
+				buyNewCard.setVisible(false);
 				// y llame a la funcion newButton
-				Pay();
+				pay();
 
 			}
 		});
 	}
 
-	public void Pay() {
+	public void pay() {
 		// esta funcion se encarga de pintar un nuevo boton en una posicion X (este
 		// boton tendra luego sus acciones)
-		pruebaBeep.setVisible(true);
-		pruebaBeep.setBounds(10, 11, 100, 100);
-		pruebaBeep.addActionListener(new ActionListener() {
+		pay.setVisible(true);
+		pay.setBounds(10, 11, 100, 100);
+		pay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Toolkit.getDefaultToolkit().beep();
 				// hago que cuando se pulse el boton, este se haga invisible
-				pruebaBeep.setVisible(false);
+				pay.setVisible(false);
 				// y llame a la funcion newButton
-				Main();
+				start();
 
 			}
 		});
 
 	}
 
-	public void BuyNewCard() {
+	public void buyNewCard() {
 		// TODO
 	}
 
-	public void ChangePin() {
+	public void changePin() {
 		// TODO
 	}
 
-	public void ConsultBalance() {
+	public void consultBalance() {
 		// TODO
 	}
 
-	public void ConsultMovements() {
+	public void consultMovements() {
 		// TODO
 	}
 
-	public void ChargeMoney() {
+	public void chargeMoney() {
 		// TODO
 	}
 
