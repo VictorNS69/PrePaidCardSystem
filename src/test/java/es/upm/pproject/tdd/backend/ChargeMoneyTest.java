@@ -21,7 +21,7 @@ public class ChargeMoneyTest {
 	}
 	
     @Test
-    public void testChargeMoneyOk_1() throws NotRegisteredException, 
+    public void chargeMoneyOk_1() throws NotRegisteredException, 
     		IncorrectPinException, ExpiredCardException, IncorrectPinFormatException, 
     		InvalidAmountException {
         this.manager.chargeMoney(this.card.getNumber(), 10, "1234");
@@ -29,7 +29,7 @@ public class ChargeMoneyTest {
     }
 
     @Test
-    public void testChargeMoneyOk_2() throws NotRegisteredException, 
+    public void chargeMoneyOk_2() throws NotRegisteredException, 
     		IncorrectPinException, ExpiredCardException, IncorrectPinFormatException,
     		InvalidAmountException{
 		String pin = new HashPin("1234").getHashPin();
@@ -42,7 +42,7 @@ public class ChargeMoneyTest {
     }
 
     @Test
-    public void testChargeMoneyNullCard() throws NotRegisteredException, 
+    public void chargeMoneyNullCard() throws NotRegisteredException, 
 	IncorrectPinException, ExpiredCardException {
     	assertThrows(NotRegisteredException.class, ()->{
 			this.manager.chargeMoney(12, 10, "1234");
@@ -50,7 +50,7 @@ public class ChargeMoneyTest {
     }
 
     @Test
-    public void testChargeMoneyIncorrectPin() throws NotRegisteredException, 
+    public void chargeMoneyIncorrectPin() throws NotRegisteredException, 
 	IncorrectPinException, ExpiredCardException {
     	assertThrows(IncorrectPinException.class, ()->{
 			this.manager.chargeMoney(this.card.getNumber(), 10, "ae22");
@@ -58,7 +58,7 @@ public class ChargeMoneyTest {
     }
 
     @Test
-    public void testChargeMoneyExpiredDate() throws NotRegisteredException, 
+    public void chargeMoneyExpiredDate() throws NotRegisteredException, 
 	IncorrectPinException, ExpiredCardException, IncorrectPinFormatException {
     	assertThrows(ExpiredCardException.class, ()->{
     		String pin = new HashPin("1234").getHashPin();
@@ -68,4 +68,18 @@ public class ChargeMoneyTest {
 			this.manager.chargeMoney(card.getNumber(), 10, card.getPin());
 		});
     }
+    
+	@Test
+	public void chargeMoneyCardNullPin() {
+		assertThrows(IncorrectPinException.class, ()->{
+			this.manager.chargeMoney(this.card.getNumber(), 10, null);
+		});
+	}
+	
+	@Test 
+	public void chargeMoneyInvalidAmount() {
+		assertThrows(InvalidAmountException.class, ()->{
+			this.manager.chargeMoney(this.card.getNumber(), -10, "1234");
+		});
+	}
 }
