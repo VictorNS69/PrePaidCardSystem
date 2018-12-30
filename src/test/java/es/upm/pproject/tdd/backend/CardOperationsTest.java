@@ -6,7 +6,7 @@ import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 import es.upm.pproject.tdd.exceptions.*;
 
-public class CardOperationsGettersTest {
+public class CardOperationsTest {
 	private CardOperations manager;
 	private Card card;
 	private Map<Long, Card> map = new HashMap<>();
@@ -40,5 +40,17 @@ public class CardOperationsGettersTest {
 	@Test
 	public void managerGetMap() {
 		assertEquals(this.map.toString(), this.manager.getMap().toString());
+	}
+	
+	@Test
+	public void managerNull() {
+		this.manager = new CardOperations(null);
+		assertEquals(0, this.manager.getMap().size());
+	}
+	
+	@Test
+	public void managerVoid() {
+		this.manager = new CardOperations(new HashMap<>());
+		assertEquals(0, this.manager.getMap().size());
 	}
 }
