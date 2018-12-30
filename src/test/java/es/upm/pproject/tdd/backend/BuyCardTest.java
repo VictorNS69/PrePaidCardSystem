@@ -7,24 +7,22 @@ import es.upm.pproject.tdd.exceptions.*;
 
 public class BuyCardTest {
 	private CardOperations manager;
-	private List <Card> cardsList = new ArrayList<Card>();
-	private Card card;
+	private Map <Long, Card> map = new HashMap<>();
 	
 	@BeforeEach
 	private void init() throws IncorrectPinFormatException, IncorrectPinException,
 	ExpiredCardException{
 		Card card = new Card(null, "Victor", "Nieves", "1234", 100, null);
-		this.cardsList.add(card);
-		this.manager = new CardOperations(this.cardsList);
-		this.card = this.manager.getCard(card.getNumber()); 
+		this.map.put(card.getNumber(), card);
+		manager = new CardOperations(this.map);
 	}
 	 
 	@Test
 	public void buyCardOk() throws IncorrectPinFormatException, IncorrectPinException, 
 	ExpiredCardException, AlreadyRegisteredException, InvalidAmountException {
 		long number = this.manager.buyCard("Victor", "Nieves", "1234", 120);
-		this.cardsList.add(card);
 		assertNotNull(this.manager.getCard(number));
+		assertEquals(2, this.manager.getMap().size());
 	}
 	
 	

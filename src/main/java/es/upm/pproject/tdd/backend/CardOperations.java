@@ -4,12 +4,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import es.upm.pproject.tdd.exceptions.*;
 
 public class CardOperations implements PrePaidInterface{
-	private Map <Long, Card> cards = new HashMap <>();
+	private Map <Long, Card> cards;
 	private String date;
 
 	/** Constructor. Creates a Map with the objects of the
@@ -17,10 +16,12 @@ public class CardOperations implements PrePaidInterface{
 	 * date at the moment.
 	 * @param list
 	 */
-	public CardOperations (List <Card> list) {
-		for (Card c : list) {
-			this.cards.put(c.getNumber(), c);
-		} 
+	public CardOperations (Map <Long, Card> map) {
+		if (map == null)
+			this.cards = new HashMap<>();
+		else
+			this.cards = map;
+		
 		this.date = this.dateFormat(Calendar.getInstance());
 	}
 	
