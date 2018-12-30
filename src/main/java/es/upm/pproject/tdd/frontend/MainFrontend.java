@@ -25,23 +25,23 @@ public class MainFrontend extends JFrame {
 	private JPanel contentPanel;
 	// dejo los botones ya inicializados para asi solo tener que hacerlos visibles o
 	// no.
-	private JButton buyNewCard = new JButton("Buy New Card");
-	private JButton pay = new JButton("Pay");
-	private JButton chargeMoney = new JButton("Charge Money");
-	private JButton changePin = new JButton("Change Pin");
-	private JButton consultBalance = new JButton("Consult Balance");
-	private JButton consultMovements = new JButton("Consult Movements");
-	private JButton exit = new JButton("Exit");
-	private JButton goBack = new JButton("Go Back");
-	private JButton ok = new JButton("OK");
+	private JButton buyNewCardB = new JButton("Buy New Card");
+	private JButton payB = new JButton("Pay");
+	private JButton chargeMoneyB = new JButton("Charge Money");
+	private JButton changePinB = new JButton("Change Pin");
+	private JButton consultBalanceB = new JButton("Consult Balance");
+	private JButton consultMovementsB = new JButton("Consult Movements");
+	private JButton exitB = new JButton("Exit");
+	private JButton goBackB = new JButton("Go Back");
+	private JButton okB = new JButton("OK");
 	//cuadros de texto
-	private JTextField name = new JTextField("Name");
-	private JTextField surname = new JTextField("Surname");
-	private JTextField amount = new JTextField("Amount");
-	private JPasswordField pin = new JPasswordField("Pin");
-	private JPasswordField newPin = new JPasswordField("New Pin");
-	private JPasswordField confirmPin = new JPasswordField("Confirm Pin");
-	private JTextField cardNumbre = new JTextField("Card Number");
+	private JTextField nameT = new JTextField("Name");
+	private JTextField surnameT = new JTextField("Surname");
+	private JTextField amountT = new JTextField("Amount");
+	private JPasswordField pinP = new JPasswordField("Pin");
+	private JPasswordField newPinP = new JPasswordField("New Pin");
+	private JPasswordField confirmPinP = new JPasswordField("Confirm Pin");
+	private JTextField cardNumberP = new JTextField("Card Number");
 	//labels?? esto a lo mejor no lo usamos
 	private JLabel text1 = new JLabel();
 	private JLabel text2 = new JLabel();
@@ -82,7 +82,7 @@ public class MainFrontend extends JFrame {
 		// modo de salida del frame
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// tamanio
-		this.setSize(500, 500);
+		this.setSize(700, 480);
 		// centrado
 		Dimension window = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation((window.width / 2)-(this.getWidth() / 2),(window.height/2)-(this.getHeight()/2));
@@ -106,10 +106,37 @@ public class MainFrontend extends JFrame {
 		// inicia el programa, y el primer boton
 		// lo pinta pero el segundo se queda oculto hasta que pasas el raton por encima.
 		// es un bug
-		contentPanel.add(buyNewCard);
-		contentPanel.add(pay);
-		pay.setVisible(false);
-		buyNewCard.setVisible(false);
+		contentPanel.add(buyNewCardB);
+		contentPanel.add(payB);
+		contentPanel.add(changePinB);
+		contentPanel.add(consultBalanceB);
+		contentPanel.add(chargeMoneyB);
+		contentPanel.add(consultMovementsB);
+		contentPanel.add(exitB);
+		contentPanel.add(goBackB);
+		contentPanel.add(okB);
+
+		buyNewCardB.setBounds(80, 50, 250, 70);
+		changePinB.setBounds(370, 50, 250, 70);
+		payB.setBounds(80, 140, 250, 70);
+		consultBalanceB.setBounds(370, 140, 250, 70);
+		chargeMoneyB.setBounds(80, 230, 250, 70);
+		consultMovementsB.setBounds(370, 230, 250, 70);
+		exitB.setBounds(225, 340, 250, 70);
+		goBackB.setBounds(105, 340, 200, 70);
+		okB.setBounds(395, 340, 200, 70);
+
+
+		buyNewCardB.setVisible(false);
+		changePinB.setVisible(false);
+		payB.setVisible(false);
+		consultBalanceB.setVisible(false);
+		chargeMoneyB.setVisible(false);
+		consultMovementsB.setVisible(false);
+		exitB.setVisible(false);
+		goBackB.setVisible(false);
+		okB.setVisible(false);
+
 		// llamo a la funcion donde va a empezar todo.
 		start();
 
@@ -118,17 +145,25 @@ public class MainFrontend extends JFrame {
 	// funcion donde empieza todo
 	public void start() {
 		// aparece el boton
-		buyNewCard.setVisible(true);
+		buyNewCardB.setVisible(true);
+		changePinB.setVisible(true);
+		payB.setVisible(true);
+		consultBalanceB.setVisible(true);
+		chargeMoneyB.setVisible(true);
+		consultMovementsB.setVisible(true);
+		exitB.setVisible(true);
+		goBackB.setVisible(true);
+		okB.setVisible(true);
 		// posicion del boton
-		buyNewCard.setBounds(100, 110, 100, 100);
+		
 		// le doy la accion
-		buyNewCard.addActionListener(new ActionListener() {
+		buyNewCardB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// esta linea de codigo sirve para probar que el mapa se carga correctamente.
 				// resultado exitoso
 				// JOptionPane.showMessageDialog(contentPanel,map.values().toString());
 				// hago que cuando se pulse el boton, este se haga invisible
-				buyNewCard.setVisible(false);
+				buyNewCardB.setVisible(false);
 				// y llame a la funcion newButton
 				pay();
 
@@ -139,13 +174,13 @@ public class MainFrontend extends JFrame {
 	public void pay() {
 		// esta funcion se encarga de pintar un nuevo boton en una posicion X (este
 		// boton tendra luego sus acciones)
-		pay.setVisible(true);
-		pay.setBounds(10, 11, 100, 100);
-		pay.addActionListener(new ActionListener() {
+		payB.setVisible(true);
+		payB.setBounds(10, 11, 100, 100);
+		payB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Toolkit.getDefaultToolkit().beep();
 				// hago que cuando se pulse el boton, este se haga invisible
-				pay.setVisible(false);
+				payB.setVisible(false);
 				// y llame a la funcion newButton
 				start();
 
