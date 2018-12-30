@@ -1,4 +1,5 @@
 package es.upm.pproject.tdd.backend;
+
 import java.util.List;
 
 import es.upm.pproject.tdd.exceptions.*;
@@ -79,7 +80,7 @@ public interface PrePaidInterface{
 	 * @throws IncorrectPinFormatException 
 	 * @throws ExpiredCardException 
 	 */
-	List <?> consultMovements(long number, String pin) throws NotRegisteredException, IncorrectPinException,
+	List <Movement> consultMovements(long number, String pin) throws NotRegisteredException, IncorrectPinException,
 	IncorrectPinFormatException, ExpiredCardException;
 
 	/** The user can change the PIN by introducing the old PIN and the new one. If the old PIN is
