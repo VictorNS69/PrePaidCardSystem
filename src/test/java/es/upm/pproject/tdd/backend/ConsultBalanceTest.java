@@ -20,13 +20,13 @@ public class ConsultBalanceTest {
 	}
 	
 	@Test
-    public void testConsultBalanceOk_1() throws NotRegisteredException, 
+    public void consultBalanceOk_1() throws NotRegisteredException, 
     		IncorrectPinException, ExpiredCardException, IncorrectPinFormatException {
         assertEquals(100, this.manager.consultBalance(this.card.getNumber(), "1234"));
     }
 	
 	@Test
-    public void testConsultBalanceOk_2() throws NotRegisteredException, 
+    public void cnsultBalanceOk_2() throws NotRegisteredException, 
     		IncorrectPinException, ExpiredCardException, IncorrectPinFormatException, 
     		InvalidAmountException {
         this.manager.chargeMoney(this.card.getNumber(), 10, "1234");
@@ -34,7 +34,7 @@ public class ConsultBalanceTest {
     }
 	
 	@Test
-    public void testConsultBalanceOk_3() throws NotRegisteredException, 
+    public void cnsultBalanceOk_3() throws NotRegisteredException, 
 	IncorrectPinException, ExpiredCardException, IncorrectPinFormatException {
 		String pin = new HashPin("1234").getHashPin();
 		Card card = new Card(null,"Daniel", "Morgera", pin, 0, null);
@@ -44,15 +44,15 @@ public class ConsultBalanceTest {
     }
 	
 	 @Test
-	    public void testConsultBalanceNullCard() throws NotRegisteredException, 
+	    public void consultBalanceNullCard() throws NotRegisteredException, 
 		IncorrectPinException, ExpiredCardException {
 	    	assertThrows(NotRegisteredException.class, ()->{
 				this.manager.consultBalance(1, "1234");
 			});
 	    }
-
+	 
 	    @Test
-	    public void testConsultBalanceIncorrectPin() throws NotRegisteredException, 
+	    public void consultBalanceNullPin() throws NotRegisteredException, 
 		IncorrectPinException, ExpiredCardException {
 	    	assertThrows(IncorrectPinException.class, ()->{
 	    		this.manager.consultBalance(this.card.getNumber(), null);
@@ -60,7 +60,7 @@ public class ConsultBalanceTest {
 	    }
 
 	    @Test
-	    public void testConsultBalanceExpiredDate() throws NotRegisteredException, 
+	    public void consultBalanceExpiredDate() throws NotRegisteredException, 
 		IncorrectPinException, ExpiredCardException, IncorrectPinFormatException {
 	    	assertThrows(ExpiredCardException.class, ()->{
 	    		String pin = new HashPin("1234").getHashPin();
@@ -70,4 +70,11 @@ public class ConsultBalanceTest {
 				this.manager.consultBalance(card.getNumber(), "1234");
 			});
 	    }
+	    
+		@Test
+		public void consultBalanceIncorrectPin() {
+			assertThrows(IncorrectPinException.class, ()->{
+				this.manager.consultBalance(this.card.getNumber(), "1235");
+			});
+		}
 }

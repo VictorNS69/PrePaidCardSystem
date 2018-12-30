@@ -2,6 +2,8 @@ package es.upm.pproject.tdd.backend;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import es.upm.pproject.tdd.exceptions.*;
 
 public class HashPin {
@@ -37,7 +39,7 @@ public class HashPin {
 			} 
 			this.pin = hashtext;
 		} 
-		catch (Exception e) { 
+		catch (NoSuchAlgorithmException e) { 
 			this.pin = null;
 		} 
 	}

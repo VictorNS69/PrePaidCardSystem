@@ -44,7 +44,7 @@ public class PayTest {
 	}
 	
 	 @Test
-	    public void testPayNullCard() throws NotRegisteredException, 
+	    public void payNullCard() throws NotRegisteredException, 
 		IncorrectPinException, ExpiredCardException {
 	    	assertThrows(NotRegisteredException.class, ()->{
 				this.manager.pay(12, 10, "1234");
@@ -52,7 +52,7 @@ public class PayTest {
 	    }
 
 	    @Test
-	    public void testPayIncorrectPin() throws NotRegisteredException, 
+	    public void payIncorrectPin() throws NotRegisteredException, 
 		IncorrectPinException, ExpiredCardException {
 	    	assertThrows(IncorrectPinException.class, ()->{
 				this.manager.pay(this.card.getNumber(), 10, "ae22");
@@ -60,7 +60,7 @@ public class PayTest {
 	    }
 
 	    @Test
-	    public void testPayExpiredDate() throws NotRegisteredException, 
+	    public void payExpiredDate() throws NotRegisteredException, 
 		IncorrectPinException, ExpiredCardException, IncorrectPinFormatException {
 	    	assertThrows(ExpiredCardException.class, ()->{
 	    		String pin = new HashPin("1234").getHashPin();
@@ -70,4 +70,18 @@ public class PayTest {
 				this.manager.pay(card.getNumber(), 10,"1234");
 			});
 	    }
+	    
+		@Test
+		public void payNullPin() {
+			assertThrows(IncorrectPinException.class, ()->{
+	    		this.manager.pay(this.card.getNumber(), 20, null);
+			});
+		}
+		
+		@Test 
+		public void payInvalidAmount() {
+			assertThrows(InvalidAmountException.class, ()->{
+				this.manager.pay(this.card.getNumber(), -20, "1234");
+			});
+		}
 }

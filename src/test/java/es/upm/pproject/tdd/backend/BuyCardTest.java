@@ -39,4 +39,18 @@ public class BuyCardTest {
     		this.manager.buyCard("Daniel", "Morgera", "1538458965", 0);
 		});
 	}
+	
+	@Test
+	public void buyCardNullPin() {
+		assertThrows(IncorrectPinException.class, ()->{
+    		this.manager.buyCard("Daniel", "Morgera", null, 0);
+		});
+	}
+	
+	@Test 
+	public void buyCardInvalidAmount() {
+		assertThrows(InvalidAmountException.class, ()->{
+    		this.manager.buyCard("Daniel", "Morgera", "1234", -10);
+		});
+	}
 }

@@ -65,4 +65,32 @@ public class ChangePinTest {
 			this.manager.changePIN(this.card.getNumber(), "123456732", "0001");
 		});
 	}
+
+	@Test
+	public void changePinExpiredDate() throws NotRegisteredException, 
+	IncorrectPinException, ExpiredCardException, IncorrectPinFormatException {
+		assertThrows(ExpiredCardException.class, ()->{
+			String pin = new HashPin("1234").getHashPin();
+			Card card = new Card(null,"Daniel", "Morgera", pin, 0, "01-01-1990");
+			this.map.put(card.getNumber(), card);
+			this.init();
+			this.manager.changePIN(card.getNumber(), "1234", "0001");
+		});
+	}
+
+	@Test
+	public void changePinCardNull() {
+		assertThrows(NotRegisteredException.class, ()->{
+			String pin = new HashPin("1234").getHashPin();
+			Card card = new Card(null,"Daniel", "Morgera", pin, 0, null);
+			this.manager.changePIN(card.getNumber(), "1234", "0001");
+		});
+	}
+	
+	@Test
+	public void changePinIncorrectPin() {
+		assertThrows(IncorrectPinException.class, ()->{
+			this.manager.changePIN(this.card.getNumber(), "1235", "0001");
+		});
+	}
 }
