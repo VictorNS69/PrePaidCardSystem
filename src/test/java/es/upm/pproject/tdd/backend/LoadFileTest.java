@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import es.upm.pproject.tdd.exceptions.*;
 
 public class LoadFileTest {
-	private Manager manager;
+	private CardOperations manager;
 	private List <Card> cardsList = new ArrayList<Card>();
 	private Map <Long, Card> map = new HashMap<>();
 	private Card card;
@@ -23,7 +23,7 @@ public class LoadFileTest {
 		String pin = new HashPin("1234").getHashPin();
 		Card card = new Card(null, "Victor", "Nieves", pin, 100, null);
 		this.cardsList.add(card);
-		this.manager = new Manager(this.cardsList);
+		this.manager = new CardOperations(this.cardsList);
 		this.card = this.manager.getCard(card.getNumber());
 		this.map.put(this.card.getNumber(), this.card);
 		Path path = FileSystems.getDefault().getPath("src/assets/test.txt").toAbsolutePath();
@@ -46,7 +46,7 @@ public class LoadFileTest {
 			String pin = new HashPin("1234").getHashPin();
 			Card card = new Card(null, "name", "surname", pin, 10*i, null);
 			this.cardsList.add(card);
-			this.manager = new Manager(this.cardsList);
+			this.manager = new CardOperations(this.cardsList);
 			this.card = this.manager.getCard(card.getNumber());
 			this.map.put(this.card.getNumber(), this.card);			
 		}
