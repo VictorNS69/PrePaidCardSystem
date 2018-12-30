@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.nio.file.FileSystem;
+import java.sql.Time;
 import java.nio.file.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -106,6 +107,7 @@ public class MainFrontend extends JFrame {
 		// inicia el programa, y el primer boton
 		// lo pinta pero el segundo se queda oculto hasta que pasas el raton por encima.
 		// es un bug
+		//botones
 		contentPanel.add(buyNewCardB);
 		contentPanel.add(payB);
 		contentPanel.add(changePinB);
@@ -115,7 +117,17 @@ public class MainFrontend extends JFrame {
 		contentPanel.add(exitB);
 		contentPanel.add(goBackB);
 		contentPanel.add(okB);
+		
+		//textos
+		contentPanel.add(nameT);
+		contentPanel.add(surnameT);
+		contentPanel.add(amountT);
+		contentPanel.add(pinP);
+		contentPanel.add(newPinP);
+		contentPanel.add(confirmPinP);
+		contentPanel.add(cardNumberP);
 
+		//posicion botones inamovibles
 		buyNewCardB.setBounds(80, 50, 250, 70);
 		changePinB.setBounds(370, 50, 250, 70);
 		payB.setBounds(80, 140, 250, 70);
@@ -126,7 +138,7 @@ public class MainFrontend extends JFrame {
 		goBackB.setBounds(105, 340, 200, 70);
 		okB.setBounds(395, 340, 200, 70);
 
-
+		//inicializacion visibilidad todo a false
 		buyNewCardB.setVisible(false);
 		changePinB.setVisible(false);
 		payB.setVisible(false);
@@ -136,6 +148,13 @@ public class MainFrontend extends JFrame {
 		exitB.setVisible(false);
 		goBackB.setVisible(false);
 		okB.setVisible(false);
+		nameT.setVisible(false);
+		surnameT.setVisible(false);
+		amountT.setVisible(false);
+		pinP.setVisible(false);
+		newPinP.setVisible(false);
+		confirmPinP.setVisible(false);
+		cardNumberP.setVisible(false);
 
 		// llamo a la funcion donde va a empezar todo.
 		start();
@@ -144,44 +163,71 @@ public class MainFrontend extends JFrame {
 
 	// funcion donde empieza todo
 	public void start() {
-		// aparece el boton
-		buyNewCardB.setVisible(true);
-		changePinB.setVisible(true);
-		payB.setVisible(true);
-		consultBalanceB.setVisible(true);
-		chargeMoneyB.setVisible(true);
-		consultMovementsB.setVisible(true);
-		exitB.setVisible(true);
-		goBackB.setVisible(true);
-		okB.setVisible(true);
-		// posicion del boton
-		
-		// le doy la accion
+		// aparecen los botones
+		buttonVisible(true);
+		//accion boton buyNewCard
 		buyNewCardB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				// esta linea de codigo sirve para probar que el mapa se carga correctamente.
-				// resultado exitoso
-				// JOptionPane.showMessageDialog(contentPanel,map.values().toString());
-				// hago que cuando se pulse el boton, este se haga invisible
-				buyNewCardB.setVisible(false);
-				// y llame a la funcion newButton
-				pay();
-
+				buttonVisible(false);
+				buyNewCard();
 			}
 		});
+		//accion boton payB
+		buyNewCardB.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				buttonVisible(false);
+				pay();
+			}
+		});
+		//accion boton changePinB
+		buyNewCardB.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				buttonVisible(false);
+				changePin();
+			}
+		});
+		//accion boton consultBalanceB
+		buyNewCardB.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				buttonVisible(false);
+				consultBalance();
+			}
+		});
+		//accion boton chargeMoneyB
+		buyNewCardB.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				buttonVisible(false);
+				chargeMoney();
+			}
+		});
+		//accion boton consultMovementsB
+		buyNewCardB.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				buttonVisible(false);
+				consultMovements();
+			}
+		});
+		//accion boton exitB
+		buyNewCardB.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				buttonVisible(false);
+				
+			}
+		});
+		
 	}
 
 	public void pay() {
 		// esta funcion se encarga de pintar un nuevo boton en una posicion X (este
 		// boton tendra luego sus acciones)
 		payB.setVisible(true);
-		payB.setBounds(10, 11, 100, 100);
 		payB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Toolkit.getDefaultToolkit().beep();
 				// hago que cuando se pulse el boton, este se haga invisible
 				payB.setVisible(false);
 				// y llame a la funcion newButton
+				
 				start();
 
 			}
@@ -209,4 +255,13 @@ public class MainFrontend extends JFrame {
 		// TODO
 	}
 
+	public void buttonVisible (boolean option) {
+		buyNewCardB.setVisible(option);
+		changePinB.setVisible(option);
+		payB.setVisible(option);
+		consultBalanceB.setVisible(option);
+		chargeMoneyB.setVisible(option);
+		consultMovementsB.setVisible(option);
+		exitB.setVisible(option);
+	}
 }
