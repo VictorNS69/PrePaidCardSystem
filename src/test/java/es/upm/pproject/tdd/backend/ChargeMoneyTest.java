@@ -23,7 +23,7 @@ public class ChargeMoneyTest {
     @Test
     public void chargeMoneyOk_1() throws NotRegisteredException, 
     		IncorrectPinException, ExpiredCardException, IncorrectPinFormatException, 
-    		InvalidAmountException {
+    		InvalidAmountException, InvalidMovementException {
         this.manager.chargeMoney(this.card.getNumber(), 10, "1234");
         assertEquals(10, this.card.getBalance());
     }
@@ -31,7 +31,7 @@ public class ChargeMoneyTest {
     @Test
     public void chargeMoneyOk_2() throws NotRegisteredException, 
     		IncorrectPinException, ExpiredCardException, IncorrectPinFormatException,
-    		InvalidAmountException{
+    		InvalidAmountException, InvalidMovementException{
 		String pin = new HashPin("1234").getHashPin();
     	Card card = new Card(null,"Daniel", "Morgera", pin, 0, null);
 		this.map.put(card.getNumber(), card);
