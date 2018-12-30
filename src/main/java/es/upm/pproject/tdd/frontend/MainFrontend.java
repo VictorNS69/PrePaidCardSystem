@@ -36,19 +36,21 @@ public class MainFrontend extends JFrame {
 	private JButton goBackB = new JButton("Go Back");
 	private JButton okB = new JButton("OK");
 	//cuadros de texto
-	private JTextField nameT = new JTextField("Name");
-	private JTextField surnameT = new JTextField("Surname");
-	private JTextField amountT = new JTextField("Amount");
-	private JPasswordField pinP = new JPasswordField("Pin");
-	private JPasswordField newPinP = new JPasswordField("New Pin");
-	private JPasswordField confirmPinP = new JPasswordField("Confirm Pin");
-	private JTextField cardNumberP = new JTextField("Card Number");
+	private JTextField nameT = new JTextField();
+	private JTextField surnameT = new JTextField();
+	private JTextField amountT = new JTextField();
+	private JPasswordField pinP = new JPasswordField();
+	private JPasswordField newPinP = new JPasswordField();
+	private JPasswordField confirmPinP = new JPasswordField();
+	private JTextField cardNumberP = new JTextField();
 	//labels?? esto a lo mejor no lo usamos
-	private JLabel text1 = new JLabel();
-	private JLabel text2 = new JLabel();
-	private JLabel text3 = new JLabel();
-	private JLabel text4 = new JLabel();
-	private JLabel text5 = new JLabel();
+	private JLabel nameL = new JLabel("Name");
+	private JLabel surnameL = new JLabel("Surname");
+	private JLabel amountL = new JLabel("Amount");
+	private JLabel pinL = new JLabel("PIN");
+	private JLabel confirmPinL = new JLabel("Confirm PIN");
+	private JLabel cardNumberL = new JLabel("Card number");
+
 	
 
 	public static void main(String[] args) {
@@ -126,6 +128,15 @@ public class MainFrontend extends JFrame {
 		contentPanel.add(newPinP);
 		contentPanel.add(confirmPinP);
 		contentPanel.add(cardNumberP);
+		
+		//labels
+		contentPanel.add(nameL);
+		contentPanel.add(surnameL);
+		contentPanel.add(amountL);
+		contentPanel.add(pinL);
+		contentPanel.add(confirmPinL);
+		contentPanel.add(cardNumberL);
+
 
 		//posicion botones inamovibles
 		buyNewCardB.setBounds(80, 50, 250, 70);
@@ -155,16 +166,12 @@ public class MainFrontend extends JFrame {
 		newPinP.setVisible(false);
 		confirmPinP.setVisible(false);
 		cardNumberP.setVisible(false);
-
-		// llamo a la funcion donde va a empezar todo.
-		start();
-
-	}
-
-	// funcion donde empieza todo
-	public void start() {
-		// aparecen los botones
-		buttonVisible(true);
+		nameL.setVisible(false);
+		surnameL.setVisible(false);
+		amountL.setVisible(false);
+		pinL.setVisible(false);
+		confirmPinL.setVisible(false);
+		cardNumberL.setVisible(false);
 		//accion boton buyNewCard
 		buyNewCardB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -210,35 +217,78 @@ public class MainFrontend extends JFrame {
 		//accion boton exitB
 		exitB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				
+				System.exit(0);
 			}
-		});
 		
+		});
+		goBackB.addActionListener(new ActionListener() {
+			public void actionPerfomed(ActionEvent arg0) {
+				goBackB.setVisible(false);
+				okB.setVisible(false);
+				nameT.setVisible(false);
+				surnameT.setVisible(false);
+				amountT.setVisible(false);
+				pinP.setVisible(false);
+				confirmPinP.setVisible(false);
+				nameL.setVisible(false);
+				surnameL.setVisible(false);
+				amountL.setVisible(false);
+				pinL.setVisible(false);
+				confirmPinL.setVisible(false);
+				start();
+			}
+			
+		});
+
+		// llamo a la funcion donde va a empezar todo.
+		start();
+
 	}
 
-	public void pay() {
-		// esta funcion se encarga de pintar un nuevo boton en una posicion X (este
-		// boton tendra luego sus acciones)
-		payB.setVisible(true);
-		payB.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Toolkit.getDefaultToolkit().beep();
-				// hago que cuando se pulse el boton, este se haga invisible
-				payB.setVisible(false);
-				// y llame a la funcion newButton
-				
-				start();
-
-			}
-		});
-
+	// funcion donde empieza todo
+	public void start() {
+		// aparecen los botones
+		buttonVisible(true);
+		
 	}
 
 	public void buyNewCard() {
 		// TODO
-	}
+		nameT.setBounds(80, 50, 250, 70);
+		nameL.setBounds(80, 5, 250, 70);
+		surnameT.setBounds(370, 50, 250, 70);
+		surnameL.setBounds(370, 5, 250, 70);
+		amountT.setBounds(80, 140, 250, 70);
+		amountL.setBounds(80, 95, 250, 70);
+		pinP.setBounds(80, 230, 250, 70);
+		pinL.setBounds(80, 185, 250, 70);
+		confirmPinP.setBounds(370, 230, 250, 70);
+		confirmPinL.setBounds(370, 185, 250, 70);
 
+		
+		
+		goBackB.setVisible(true);
+		okB.setVisible(true);
+		nameT.setVisible(true);
+		surnameT.setVisible(true);
+		amountT.setVisible(true);
+		pinP.setVisible(true);
+		confirmPinP.setVisible(true);
+		nameL.setVisible(true);
+		surnameL.setVisible(true);
+		amountL.setVisible(true);
+		pinL.setVisible(true);
+		confirmPinL.setVisible(true);
+	}
+	
+	public void pay() {
+		// esta funcion se encarga de pintar un nuevo boton en una posicion X (este
+		// boton tendra luego sus acciones)
+		payB.setVisible(true);
+		
+
+	}
+	
 	public void changePin() {
 		// TODO
 	}
