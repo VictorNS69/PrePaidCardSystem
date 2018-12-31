@@ -22,6 +22,8 @@ public class MainFrontend extends JFrame {
 	Card card;
 	private final Path path = FileSystems.getDefault().getPath("src/assets/data.dat").toAbsolutePath();
 	private Map<Long, Card> map = new HashMap<>();
+	private FileOperations fileops = new FileOperations();
+	private CardOperations ops;
 
 	// apartado botones y demas
 	private JPanel contentPanel;
@@ -100,7 +102,8 @@ public class MainFrontend extends JFrame {
 		
 		// cargo el mapa
 		try {
-			map = new FileOperations().loadFile(path);
+			map = fileops.loadFile(path);
+			ops = new CardOperations(map);
 		} catch (ExpiredCardException | IOException | IncorrectPinException e) {
 			e.printStackTrace();
 		}
@@ -300,17 +303,40 @@ public class MainFrontend extends JFrame {
 				if(name.isEmpty()||surname.isEmpty()||amount.isEmpty()||pin.isEmpty()||confirmPin.isEmpty())
 					JOptionPane.showMessageDialog(contentPanel, "There is a field that is empty", "Dialog", JOptionPane.ERROR_MESSAGE);
 				else if (Pattern.matches("[a-zA-Z]+", name)==false || Pattern.matches("[a-zA-Z]+", surname)==false)
-					JOptionPane.showMessageDialog(contentPanel, "The name and surname can only contain letters", "Dialog", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(contentPanel, "The name and surname can only contain letters", "Error", JOptionPane.ERROR_MESSAGE);
 				else if(Pattern.matches("[0-9]+(\\.[0-9]{1,2})?$", amount)==false) 
-					JOptionPane.showMessageDialog(contentPanel, "The amount can only contain numbers with decimals", "Dialog", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(contentPanel, "The amount can only contain numbers with decimals", "Error", JOptionPane.ERROR_MESSAGE);
 				else if(pin.length()!=4 || confirmPin.length()!=4)
-					JOptionPane.showMessageDialog(contentPanel, "The size of the pin should be 4 digits", "Dialog", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(contentPanel, "The size of the pin should be 4 digits", "Error", JOptionPane.ERROR_MESSAGE);
 				else if(Pattern.matches("[0-9]+", pin)==false)
-					JOptionPane.showMessageDialog(contentPanel, "The password can only have digits", "Dialog", JOptionPane.ERROR_MESSAGE);				
+					JOptionPane.showMessageDialog(contentPanel, "The password can only have digits", "Error", JOptionPane.ERROR_MESSAGE);				
 				else if(!(pin.equals(confirmPin)))
-					JOptionPane.showMessageDialog(contentPanel, "the password of the fields are different", "Dialog", JOptionPane.ERROR_MESSAGE);
-				else
-					JOptionPane.showMessageDialog(contentPanel, "funciono");
+					JOptionPane.showMessageDialog(contentPanel, "the password of the fields are different", "Error", JOptionPane.ERROR_MESSAGE);
+				else {
+					long cardNumber = 0;
+					try {
+						cardNumber = ops.buyCard(name, surname, pin, Double.valueOf(amount));
+					} catch (NumberFormatException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (AlreadyRegisteredException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IncorrectPinFormatException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IncorrectPinException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (ExpiredCardException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (InvalidAmountException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					JOptionPane.showMessageDialog(contentPanel, "Dear "+name+" "+surname+", your card has been successfully created.\nAMOUNT: "+amount+"\nCARD NUMBER: "+cardNumber+"\nBALANCE: "+amount+"\nThanks for using our system!", "Success!", JOptionPane.INFORMATION_MESSAGE);
+				}
 			}
 		});
 	}
