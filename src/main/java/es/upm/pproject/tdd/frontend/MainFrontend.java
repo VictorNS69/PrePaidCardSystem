@@ -9,7 +9,11 @@ import java.sql.Time;
 import java.nio.file.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
+import java.util.logging.Logger;
+
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -19,7 +23,10 @@ import es.upm.pproject.tdd.exceptions.*;
 public class MainFrontend extends JFrame {
 
 	// apartado carga de datos
-	Card card;
+	private final static Logger LOGGER = Logger.getLogger(MainFrontend.class.getName());
+	private final static String ERR = "Error";
+	
+	private Card card;
 	private final Path path = FileSystems.getDefault().getPath("src/assets/data.dat").toAbsolutePath();
 	private Map<Long, Card> map = new HashMap<>();
 	private FileOperations fileops = new FileOperations();
@@ -66,10 +73,7 @@ public class MainFrontend extends JFrame {
 					MainFrontend frame = new MainFrontend();
 					frame.setVisible(true);
 				} catch (Exception e) {
-					// esto hay que modificarlo, IMPORTANTE, si no se cambia por un logger
-					// el sonar dice que el proyecto no es evaluable
-					e.printStackTrace();
-				}
+					LOGGER.log(Level.INFO, ERR, e);				}
 			}
 		});
 	}
@@ -85,7 +89,7 @@ public class MainFrontend extends JFrame {
 	 */
 	public MainFrontend() throws ExpiredCardException, IOException, IncorrectPinException {
 		// titulo del frame
-		setTitle("PrePaidSystem");
+		setTitle("PrePaid System");
 		// modo de salida del frame
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// tamanio
@@ -105,7 +109,7 @@ public class MainFrontend extends JFrame {
 			map = fileops.loadFile(path);
 			ops = new CardOperations(map);
 		} catch (ExpiredCardException | IOException | IncorrectPinException e) {
-			e.printStackTrace();
+			LOGGER.log(Level.INFO, ERR, e);
 		}
 
 
@@ -275,7 +279,6 @@ public class MainFrontend extends JFrame {
 	}
 
 	public void buyNewCard() {
-		// TODO
 		setTitle("New Card");
 		nameT.setBounds(80, 50, 250, 70);
 		nameL.setBounds(80, 5, 250, 70);
@@ -303,48 +306,41 @@ public class MainFrontend extends JFrame {
 		
 		okB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-					
 				String name = nameT.getText();
 				String surname = surnameT.getText();
 				String amount = amountT.getText();
 				String pin = new String(pinP.getPassword());
 				String confirmPin = new String(confirmPinP.getPassword());
 				if(name.isEmpty()||surname.isEmpty()||amount.isEmpty()||pin.isEmpty()||confirmPin.isEmpty())
-					JOptionPane.showMessageDialog(contentPanel, "There is a field that is empty", "Dialog", JOptionPane.ERROR_MESSAGE);
-				else if (Pattern.matches("[a-zA-Z]+", name)==false || Pattern.matches("[a-zA-Z]+", surname)==false)
-					JOptionPane.showMessageDialog(contentPanel, "The name and surname can only contain letters", "Error", JOptionPane.ERROR_MESSAGE);
-				else if(Pattern.matches("[0-9]+(\\.[0-9]{1,2})?$", amount)==false) 
-					JOptionPane.showMessageDialog(contentPanel, "The amount can only contain numbers with decimals", "Error", JOptionPane.ERROR_MESSAGE);
-				else if(pin.length()!=4 || confirmPin.length()!=4)
-					JOptionPane.showMessageDialog(contentPanel, "The size of the pin should be 4 digits", "Error", JOptionPane.ERROR_MESSAGE);
-				else if(Pattern.matches("[0-9]+", pin)==false)
-					JOptionPane.showMessageDialog(contentPanel, "The password can only have digits", "Error", JOptionPane.ERROR_MESSAGE);				
+					JOptionPane.showMessageDialog(contentPanel, "There is a field that is empty", "Dialog",
+							JOptionPane.ERROR_MESSAGE);
+				else if (!Pattern.matches("^[\\p{L} .-]+$", name)|| !Pattern.matches("^[\\p{L} .-]+$", surname))
+					JOptionPane.showMessageDialog(contentPanel, "The name and surname can only contain letters", ERR,
+							JOptionPane.ERROR_MESSAGE);
+				else if(!Pattern.matches("[0-9]+(\\.[0-9]{1,2})?$", amount)) 
+					JOptionPane.showMessageDialog(contentPanel, "The amount can only contain positive numbers with two decimals", ERR,
+							JOptionPane.ERROR_MESSAGE);
+				else if(pin.length()!=4 )
+					JOptionPane.showMessageDialog(contentPanel, "The size of the pin should be four digits", ERR,
+							JOptionPane.ERROR_MESSAGE);
+				else if(!Pattern.matches("[0-9]+", pin))
+					JOptionPane.showMessageDialog(contentPanel, "The password can only have digits", ERR,
+							JOptionPane.ERROR_MESSAGE);				
 				else if(!(pin.equals(confirmPin)))
-					JOptionPane.showMessageDialog(contentPanel, "the password of the fields are different", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(contentPanel, "The confrim pin is not the same as the in the pin", ERR,
+							JOptionPane.ERROR_MESSAGE);
 				else {
-					long cardNumber = 0;
 					try {
-						cardNumber = ops.buyCard(name, surname, pin, Double.valueOf(amount));
-					} catch (NumberFormatException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (AlreadyRegisteredException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (IncorrectPinFormatException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (IncorrectPinException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (ExpiredCardException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (InvalidAmountException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						long cardNumber = ops.buyCard(name, surname, pin, Double.valueOf(amount));
+						JOptionPane.showMessageDialog(contentPanel, "Dear "+name+" "+surname+
+								", your card has been successfully created.\nAMOUNT: "+amount+
+								"€\nCARD NUMBER: "+cardNumber+"\nBALANCE: "+amount+"€\nThanks for using our system!",
+								"Success!", JOptionPane.INFORMATION_MESSAGE);
+					} 
+					catch (NumberFormatException | AlreadyRegisteredException | IncorrectPinException |
+							IncorrectPinFormatException | ExpiredCardException | InvalidAmountException e) {
+						LOGGER.log(Level.INFO, ERR, e);
 					}
-					JOptionPane.showMessageDialog(contentPanel, "Dear "+name+" "+surname+", your card has been successfully created.\nAMOUNT: "+amount+"€\nCARD NUMBER: "+cardNumber+"\nBALANCE: "+amount+"€\nThanks for using our system!", "Success!", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
