@@ -247,6 +247,15 @@ public class MainFrontend extends JFrame {
 				cardNumberL.setVisible(false);
 				cardNumberT.setVisible(false);
 				newPinP.setVisible(false);
+				
+				nameT.setText("");
+				surnameT.setText("");
+				amountT.setText("");
+				cardNumberT.setText("");
+				pinP.setText("");
+				confirmPinP.setText("");
+				newPinP.setText("");
+				
 				start();
 			}
 		});
@@ -335,7 +344,7 @@ public class MainFrontend extends JFrame {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					JOptionPane.showMessageDialog(contentPanel, "Dear "+name+" "+surname+", your card has been successfully created.\nAMOUNT: "+amount+"\nCARD NUMBER: "+cardNumber+"\nBALANCE: "+amount+"\nThanks for using our system!", "Success!", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(contentPanel, "Dear "+name+" "+surname+", your card has been successfully created.\nAMOUNT: "+amount+"€\nCARD NUMBER: "+cardNumber+"\nBALANCE: "+amount+"€\nThanks for using our system!", "Success!", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
