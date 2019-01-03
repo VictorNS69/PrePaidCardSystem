@@ -219,6 +219,8 @@ public class MainFrontend extends JFrame {
 				try {
 					fileops.saveFile(path, map);
 				} catch (FileNotFoundException e) {
+					JOptionPane.showMessageDialog(contentPanel, e.getMessage(),
+							ERR, JOptionPane.ERROR_MESSAGE);
 					LOGGER.log(Level.INFO, ERR, e);
 				}
 				System.exit(0);
