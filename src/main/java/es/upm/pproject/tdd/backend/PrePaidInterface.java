@@ -38,7 +38,7 @@ public interface PrePaidInterface{
 	 * @throws InvalidMovementException 
 	 */
 	void pay(long number, double amount, String pin) throws NotRegisteredException, IncorrectPinException,
-			NotEnoughMoneyException, ExpiredCardException, IncorrectPinFormatException, InvalidAmountException,
+			NotEnoughMoneyException, IncorrectPinFormatException, InvalidAmountException,
 			InvalidMovementException;
 
 	/**The user can charge some amount of money in a card. The form will ask the user for the credit
@@ -55,7 +55,7 @@ public interface PrePaidInterface{
 	 * @throws InvalidMovementException 
 	 */
 	void chargeMoney(long number, double amount, String pin) throws NotRegisteredException, 
-	IncorrectPinException, ExpiredCardException, IncorrectPinFormatException, InvalidAmountException,
+	IncorrectPinException, IncorrectPinFormatException, InvalidAmountException,
 	InvalidMovementException;
 
 	/**The user can check the balance of a card by introducing the card number and its PIN
@@ -67,7 +67,7 @@ public interface PrePaidInterface{
 	 * @throws IncorrectPinFormatException 
 	 */
 	double consultBalance(long number, String pin) throws NotRegisteredException, 
-	IncorrectPinException, ExpiredCardException, IncorrectPinFormatException;
+	IncorrectPinException, IncorrectPinFormatException;
 
 	/** The user can consult the movements done with a card in the current session by introducing the
 	 * card number and the PIN. The movements must be shown in decreasing order, that is, the last
@@ -81,7 +81,7 @@ public interface PrePaidInterface{
 	 * @throws ExpiredCardException 
 	 */
 	List <Movement> consultMovements(long number, String pin) throws NotRegisteredException, IncorrectPinException,
-	IncorrectPinFormatException, ExpiredCardException;
+	IncorrectPinFormatException;
 
 	/** The user can change the PIN by introducing the old PIN and the new one. If the old PIN is
 	 * incorrect the system must show an error.
@@ -95,6 +95,6 @@ public interface PrePaidInterface{
 	 * @throws IncorrectPinFormatException
 	 */
 	Card changePIN(long number, String oldPin, String newPin) throws NotRegisteredException, 
-	IncorrectPinException, ExpiredCardException, IncorrectPinFormatException;
+	IncorrectPinException, IncorrectPinFormatException, ExpiredCardException;
 
 }

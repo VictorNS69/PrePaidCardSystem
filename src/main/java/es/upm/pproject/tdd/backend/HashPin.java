@@ -8,6 +8,7 @@ import es.upm.pproject.tdd.exceptions.*;
 
 public class HashPin {
 	private StringBuilder pin;
+	
 	/** Constructor. Hashes a String with SHA-256.
 	 * @param number
 	 * @throws IncorrectPinFormatException
@@ -44,6 +45,10 @@ public class HashPin {
 		} 
 	}
 
+	/** Prints the HashPin in a 
+	 * readable output.
+	 * @return
+	 */
 	public String getHashPin() {
 		return this.pin.toString();
 	}
