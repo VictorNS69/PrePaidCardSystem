@@ -29,7 +29,7 @@ public class ConsultMovementsTest {
 			sign = '-';
 		Date today = Calendar.getInstance().getTime();
 		SimpleDateFormat ft = new SimpleDateFormat ("dd.MM.yyyy 'at' HH:mm:ss");
-		return ft.format(today)+"\t"+ (char)sign + amount +"€";
+		return ft.format(today)+"   "+ (char)sign + amount +"€";
 	}
 	
 	@Test
