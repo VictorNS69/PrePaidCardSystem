@@ -322,7 +322,7 @@ public class MainFrontend extends JFrame {
 					} 
 					catch (NumberFormatException | AlreadyRegisteredException | IncorrectPinException |
 							IncorrectPinFormatException | ExpiredCardException | InvalidAmountException e) {
-						JOptionPane.showMessageDialog(contentPanel, e,
+						JOptionPane.showMessageDialog(contentPanel, e.getMessage(),
 								ERR, JOptionPane.ERROR_MESSAGE);
 						LOGGER.log(Level.INFO, ERR, e);
 					}
@@ -408,7 +408,7 @@ public class MainFrontend extends JFrame {
 						} catch (NumberFormatException | NotRegisteredException | IncorrectPinException
 								| NotEnoughMoneyException | ExpiredCardException | IncorrectPinFormatException
 								| InvalidAmountException | InvalidMovementException e) {
-							JOptionPane.showMessageDialog(contentPanel, e,
+							JOptionPane.showMessageDialog(contentPanel, e.getMessage(),
 									ERR, JOptionPane.ERROR_MESSAGE);
 							LOGGER.log(Level.INFO, ERR, e);
 						}		
