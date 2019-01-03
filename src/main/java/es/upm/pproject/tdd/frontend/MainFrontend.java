@@ -582,7 +582,7 @@ public class MainFrontend extends JFrame {
 		});
 	}
 
-	public void mainButtonsVisible (boolean option) {
+	private void mainButtonsVisible (boolean option) {
 		buyNewCardB.setVisible(option);
 		changePinB.setVisible(option);
 		payB.setVisible(option);
