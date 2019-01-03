@@ -55,4 +55,14 @@ public class CardTest {
     		new Card (null, "Victor", "Nieves", pin, 0, "11-11-1000");
     	});
     }
+
+    @Test 
+    public void testAmount() throws IncorrectPinException, IncorrectPinFormatException, ExpiredCardException  {
+    	String pin = new HashPin("0001").getHashPin();
+    	Card card = new Card (null, "Victor", "Nieves", pin, 0, "11-11-3999");
+    	long number = card.getNumber();
+    	assertEquals(0,  card.getAmount());
+    }
+
 }
+
