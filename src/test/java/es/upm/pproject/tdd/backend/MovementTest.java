@@ -14,7 +14,7 @@ public class MovementTest {
 		Movement mv = new Movement (0, 33.33);
 		Date today = Calendar.getInstance().getTime();
 		SimpleDateFormat ft = new SimpleDateFormat ("dd.MM.yyyy 'at' HH:mm:ss");
-		String expected = ft.format(today)+"\t"+ "-"+ 33.33 +"€";
+		String expected = ft.format(today)+"   "+ "-"+ 33.33 +"€";
 		assertEquals(expected, mv.toString());
 	}
 	
@@ -24,7 +24,7 @@ public class MovementTest {
 		Movement mv = new Movement (0, 1);
 		Date today = Calendar.getInstance().getTime();
 		SimpleDateFormat ft = new SimpleDateFormat ("dd.MM.yyyy 'at' HH:mm:ss");
-		String expected = ft.format(today)+"\t"+"-"+ 1.0 +"€";
+		String expected = ft.format(today)+"   "+"-"+ 1.0 +"€";
 		assertEquals(expected, mv.toString());
 	}
 	
@@ -34,7 +34,7 @@ public class MovementTest {
 		Movement mv = new Movement (1, 33.33);
 		Date today = Calendar.getInstance().getTime();
 		SimpleDateFormat ft = new SimpleDateFormat ("dd.MM.yyyy 'at' HH:mm:ss");
-		String expected = ft.format(today)+"\t"+ "+"+ 33.33 +"€";
+		String expected = ft.format(today)+"   "+ "+"+ 33.33 +"€";
 		assertEquals(expected, mv.toString());
 	}
 	
@@ -44,7 +44,7 @@ public class MovementTest {
 		Movement mv = new Movement (1, 1);
 		Date today = Calendar.getInstance().getTime();
 		SimpleDateFormat ft = new SimpleDateFormat ("dd.MM.yyyy 'at' HH:mm:ss");
-		String expected = ft.format(today)+"\t"+"+"+ 1.0 +"€";
+		String expected = ft.format(today)+"   "+"+"+ 1.0 +"€";
 		assertEquals(expected, mv.toString());
 	}
 	
