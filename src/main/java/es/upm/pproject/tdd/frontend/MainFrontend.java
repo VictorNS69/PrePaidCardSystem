@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -375,7 +376,7 @@ public class MainFrontend extends JFrame {
 					JOptionPane.showMessageDialog(contentPanel, "The password can only have digits", ERR,
 							JOptionPane.ERROR_MESSAGE);				
 				else if(!(newPin.equals(confirmPin)))
-					JOptionPane.showMessageDialog(contentPanel, "New Pin and Confirm Pin fields must match", ERR,
+					JOptionPane.showMessageDialog(contentPanel, "Both pin fields must match", ERR,
 							JOptionPane.ERROR_MESSAGE);
 				else {
 				actualCard = ops.getCard(Long.valueOf(cardNumberT.getText()));
@@ -446,7 +447,7 @@ public class MainFrontend extends JFrame {
 									"\nCARD NUMBER: "+cardNumber+"\nBALANCE: "+actualCard.getBalance()+"€\nThanks for using our system!",
 									"Success!", JOptionPane.INFORMATION_MESSAGE);
 						} catch (NumberFormatException | NotRegisteredException | IncorrectPinException
-								| NotEnoughMoneyException | ExpiredCardException | IncorrectPinFormatException
+								| NotEnoughMoneyException | IncorrectPinFormatException
 								| InvalidAmountException | InvalidMovementException e) {
 							JOptionPane.showMessageDialog(contentPanel, e.getMessage(),
 									ERR, JOptionPane.ERROR_MESSAGE);
@@ -465,8 +466,58 @@ public class MainFrontend extends JFrame {
 
 	public void consultMovements() {
 		setTitle("Consult movements");
-
-		// TODO
+		cardNumberT.setBounds(80, 140, 250, 70);
+		cardNumberL.setBounds(80, 95, 250, 70);
+		pinP.setBounds(370, 140, 250, 70);
+		pinL.setBounds(370, 95, 250, 70);
+		
+		cardNumberT.setVisible(true);
+		cardNumberL.setVisible(true);
+		pinP.setVisible(true);
+		pinL.setVisible(true);
+		goBackB.setVisible(true);
+		okB.setVisible(true);
+		
+		okB.addActionListener(okA = new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String cardNumber = cardNumberT.getText();
+				String pin = new String(pinP.getPassword());
+				if(cardNumber.isEmpty()||pin.isEmpty())
+					JOptionPane.showMessageDialog(contentPanel, "There is a field that is empty", "Dialog",
+							JOptionPane.ERROR_MESSAGE);
+				else if (cardNumber.length()!=12)
+					JOptionPane.showMessageDialog(contentPanel, "The card number must have 12 digits", ERR,
+							JOptionPane.ERROR_MESSAGE);
+				else if (!Pattern.matches("[0-9]+", cardNumber))
+					JOptionPane.showMessageDialog(contentPanel, "The card number can only have digits", ERR,
+							JOptionPane.ERROR_MESSAGE);
+				else if(pin.length()!=4 )
+					JOptionPane.showMessageDialog(contentPanel, "The size of the pin should be four digits", ERR,
+							JOptionPane.ERROR_MESSAGE);
+				else if(!Pattern.matches("[0-9]+", pin))
+					JOptionPane.showMessageDialog(contentPanel, "The password can only have digits", ERR,
+							JOptionPane.ERROR_MESSAGE);	
+				else {
+					actualCard = ops.getCard(Long.valueOf(cardNumber));
+					try {
+						List<Movement> mvmnt = ops.consultMovements(actualCard.getNumber(), pin);
+						String movs = "";
+						for (Movement m : mvmnt) {
+							movs = movs + m.toString() + "\n";
+						}
+						JOptionPane.showMessageDialog(contentPanel, 
+								"Dear "+actualCard.getName()+" "+actualCard.getSurname()
+								+"\nCARD NUMBER: "+cardNumber
+								+"\nBALANCE: "+actualCard.getBalance()
+								+"\nMOVEMENTS: \n"+movs
+								+"\nThanks for using our system!",
+								"Success!", JOptionPane.INFORMATION_MESSAGE);
+					} catch (NotRegisteredException | IncorrectPinException | IncorrectPinFormatException e) {
+						LOGGER.log(Level.INFO, ERR, e);
+					}
+				}
+			}
+		});
 	}
 
 	public void chargeMoney() {
@@ -514,15 +565,13 @@ public class MainFrontend extends JFrame {
 						actualCard = ops.getCard(Long.valueOf(cardNumber));
 						try {
 							ops.chargeMoney(Long.valueOf(cardNumber), Double.valueOf(amount), pin);
-							JOptionPane.showMessageDialog(contentPanel, "Deposit successfull\n"
-									+ "CARD NUMBER: "+actualCard.getNumber()
-									+"\nNAME: "+actualCard.getName()
-									+"\nSURNAME: "+actualCard.getSurname()
-									+"\nBALANCE: "+actualCard.getBalance()+
-									"\nThanks for using our system!",
+							JOptionPane.showMessageDialog(contentPanel, 
+									"Dear "+actualCard.getName()+" "+actualCard.getSurname()+
+									"\nCARD NUMBER: "+cardNumber
+									+"\nBALANCE: "+actualCard.getBalance()
+									+"€\nThanks for using our system!",
 									"Success!", JOptionPane.INFORMATION_MESSAGE);
-						} catch (NumberFormatException | NotRegisteredException | IncorrectPinException
-								| ExpiredCardException | IncorrectPinFormatException
+						} catch (NumberFormatException | NotRegisteredException | IncorrectPinException | IncorrectPinFormatException
 								| InvalidAmountException | InvalidMovementException e) {
 							JOptionPane.showMessageDialog(contentPanel, e.getMessage(),
 									ERR, JOptionPane.ERROR_MESSAGE);

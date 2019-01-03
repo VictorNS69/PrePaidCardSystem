@@ -47,6 +47,6 @@ public class Movement {
 	public String toString() {
 		Date today = this.date.getTime();
 		SimpleDateFormat ft = new SimpleDateFormat ("dd.MM.yyyy 'at' HH:mm:ss");
-		return ft.format(today)+"\t"+ this.sign + this.amount +"€";
+		return ft.format(today)+"   "+ this.sign + this.amount +"€";
 	}
 }
