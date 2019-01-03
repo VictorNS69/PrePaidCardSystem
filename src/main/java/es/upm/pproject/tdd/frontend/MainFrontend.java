@@ -303,7 +303,7 @@ public class MainFrontend extends JFrame {
 				else if(!Pattern.matches("[0-9]+(\\.[0-9]{1,2})?$", amount)) 
 					JOptionPane.showMessageDialog(contentPanel, "The amount can only contain positive numbers with two decimals", ERR,
 							JOptionPane.ERROR_MESSAGE);
-				else if(pin.length()!=4 )
+				else if(pin.length()!=4)
 					JOptionPane.showMessageDialog(contentPanel, "The size of the pin should be four digits", ERR,
 							JOptionPane.ERROR_MESSAGE);
 				else if(!Pattern.matches("[0-9]+", pin))
@@ -332,7 +332,6 @@ public class MainFrontend extends JFrame {
 	}
 	
 	public void changePin() {
-		// TODO
 		setTitle("Change PIN");
 		cardNumberT.setBounds(80, 50, 250, 70);
 		cardNumberL.setBounds(80, 5, 250, 70);
@@ -354,6 +353,47 @@ public class MainFrontend extends JFrame {
 		newPinL.setVisible(true);
 		confirmPinL.setVisible(true);
 		
+		okB.addActionListener(okA = new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String cardNumber = cardNumberT.getText();
+				String pin = new String(pinP.getPassword());
+				String newPin = new String(newPinP.getPassword());
+				String confirmPin = new String(confirmPinP.getPassword());
+				if(cardNumber.isEmpty()||pin.isEmpty()||newPin.isEmpty()||confirmPin.isEmpty())
+					JOptionPane.showMessageDialog(contentPanel, "There is a field that is empty", "Dialog",
+							JOptionPane.ERROR_MESSAGE);
+				else if(cardNumber.length()!=12)
+					JOptionPane.showMessageDialog(contentPanel, "The card number must have 12 digits", ERR,
+							JOptionPane.ERROR_MESSAGE);
+				else if (!Pattern.matches("[0-9]+", cardNumber))
+					JOptionPane.showMessageDialog(contentPanel, "The card number can only have digits", ERR,
+							JOptionPane.ERROR_MESSAGE);
+				else if(pin.length()!=4||newPin.length()!=4)
+					JOptionPane.showMessageDialog(contentPanel, "The size of the pin should be four digits", ERR,
+							JOptionPane.ERROR_MESSAGE);
+				else if(!Pattern.matches("[0-9]+", pin)||!Pattern.matches("[0-9]+", newPin))
+					JOptionPane.showMessageDialog(contentPanel, "The password can only have digits", ERR,
+							JOptionPane.ERROR_MESSAGE);				
+				else if(!(newPin.equals(confirmPin)))
+					JOptionPane.showMessageDialog(contentPanel, "New Pin and Confirm Pin fields must match", ERR,
+							JOptionPane.ERROR_MESSAGE);
+				else {
+				actualCard = ops.getCard(Long.valueOf(cardNumberT.getText()));
+				try {
+					ops.changePIN(Long.valueOf(cardNumber), pin, newPin);
+					JOptionPane.showMessageDialog(contentPanel, "Dear "+actualCard.getName()+" "+actualCard.getSurname()+
+							"\nPIN CHANGED SUCESSFULY\nThanks for using our system",
+							"Success!", JOptionPane.INFORMATION_MESSAGE);
+					
+				} catch (NumberFormatException | NotRegisteredException | IncorrectPinException | ExpiredCardException
+						| IncorrectPinFormatException e) {
+					JOptionPane.showMessageDialog(contentPanel, e.getMessage(),
+							ERR, JOptionPane.ERROR_MESSAGE);
+					LOGGER.log(Level.INFO, ERR, e);
+				}
+				}
+			}
+		});
 	}
 	
 	public void pay() {
