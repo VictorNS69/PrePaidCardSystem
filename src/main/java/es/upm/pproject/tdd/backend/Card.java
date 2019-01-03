@@ -122,7 +122,8 @@ public class Card {
 	 */
 	@Override
 	public String toString() {
-		return this.number +" "+ this.name +" "+ this.surname+" "+ this.pin +" "+ this.balance +" "+ this.expirationDate;
+		return this.number +" "+ this.name +" "+ this.surname+" "+
+	this.pin +" "+ this.balance +" "+ this.expirationDate;
 	}
 	
 	/** Generates a random number of 12 digits.

@@ -50,10 +50,9 @@ public class FileOperations {
 		this.cards = map;
 		String file = new File(path.toString()).toString();
 		PrintWriter writer = new PrintWriter(file);
-		for (Map.Entry<Long, Card> entry :this.cards.entrySet()) {
-			String card = entry.getValue().toString();
-		    writer.write(card.replace(" ", "@"));
-		    writer.write("\n");
+		for (Card card : this.cards.values()) {
+			writer.write(card.getNumber()+"@"+card.getName()+"@"+card.getSurname()+
+					"@"+card.getPin()+"@"+card.getBalance()+"@"+card.getPrettyExpirationDate());
 		}
 		writer.close();
 	}
