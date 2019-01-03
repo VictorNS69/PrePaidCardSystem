@@ -317,7 +317,7 @@ public class MainFrontend extends JFrame {
 				String pin = new String(pinP.getPassword());
 				String confirmPin = new String(confirmPinP.getPassword());
 				if(name.isEmpty()||surname.isEmpty()||amount.isEmpty()||pin.isEmpty()||confirmPin.isEmpty())
-					JOptionPane.showMessageDialog(contentPanel, "There is a field that is empty222", "Dialog",
+					JOptionPane.showMessageDialog(contentPanel, "There is a field that is empty", "Dialog",
 							JOptionPane.ERROR_MESSAGE);
 				else if (!Pattern.matches("^[\\p{L} .-]+$", name)|| !Pattern.matches("^[\\p{L} .-]+$", surname))
 					JOptionPane.showMessageDialog(contentPanel, "The name and surname can only contain letters", ERR,
@@ -332,7 +332,7 @@ public class MainFrontend extends JFrame {
 					JOptionPane.showMessageDialog(contentPanel, "The password can only have digits", ERR,
 							JOptionPane.ERROR_MESSAGE);				
 				else if(!(pin.equals(confirmPin)))
-					JOptionPane.showMessageDialog(contentPanel, "The confrim pin is not the same as the in the pin", ERR,
+					JOptionPane.showMessageDialog(contentPanel, "Both pin fields must match", ERR,
 							JOptionPane.ERROR_MESSAGE);
 				else {
 					try {
