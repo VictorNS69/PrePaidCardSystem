@@ -3,6 +3,7 @@ package es.upm.pproject.tdd.frontend;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.HashMap;
@@ -90,7 +91,7 @@ public class MainFrontend extends JFrame {
 	 */
 	public MainFrontend() throws ExpiredCardException, IOException, IncorrectPinException {
 		setTitle("PrePaid System");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.setSize(700, 480);
 		this.setResizable(false);
 		Dimension window = Toolkit.getDefaultToolkit().getScreenSize();
@@ -215,6 +216,11 @@ public class MainFrontend extends JFrame {
 		// action for the exit button
 		exitB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				try {
+					fileops.saveFile(path, map);
+				} catch (FileNotFoundException e) {
+					LOGGER.log(Level.INFO, ERR, e);
+				}
 				System.exit(0);
 			}
 		});
