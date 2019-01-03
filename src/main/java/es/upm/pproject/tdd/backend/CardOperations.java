@@ -63,6 +63,24 @@ public class CardOperations implements PrePaidInterface{
 		return this.date;
 	}
 
+	/* Compare if date1 is <= date2
+	 */
+	private boolean compareDate(String date1, String date2) {
+		String[] d1 = date1.split("-");
+		String[] d2 = date2.split("-");
+		if (d1[2].compareTo(d2[2]) == 0) {
+			if (d1[1].compareTo(d2[1]) == 0) {
+				if (d1[0].compareTo(d2[0]) <= 0) 
+					return true;
+			}
+			else if (d1[1].compareTo(d2[1]) < 0) 
+				return true;
+		}
+		else if (d1[2].compareTo(d2[2]) < 0) 
+			return true;
+		
+		return false;
+	}
 	@Override
 	public long buyCard(String name, String surname, String pin, double amount) throws 
 	AlreadyRegisteredException, IncorrectPinFormatException, IncorrectPinException, 
@@ -100,8 +118,8 @@ public class CardOperations implements PrePaidInterface{
 
 		if (!this.getCard(number).getPin().equals(hsPin))
 			throw new IncorrectPinException();
-
-		if (this.getCard(number).getPrettyExpirationDate().compareTo(this.date) <= 0 )
+		
+		if (this.compareDate(this.getCard(number).getPrettyExpirationDate(), this.date) )
 			throw new ExpiredCardException();
 
 		if (this.getCard(number).getBalance() < amount)
@@ -110,7 +128,7 @@ public class CardOperations implements PrePaidInterface{
 		if (amount <= 0)
 			throw new InvalidAmountException();
 
-		this.getCard(number).setBalance(this.getCard(number).getAmount()-amount);
+		this.getCard(number).setBalance(this.getCard(number).getBalance()-amount);
 		this.mvmnt.add(new Movement(0, amount));
 	}
 
@@ -129,13 +147,13 @@ public class CardOperations implements PrePaidInterface{
 		if (!this.getCard(number).getPin().equals(hsPin))
 			throw new IncorrectPinException();
 
-		if (this.getCard(number).getPrettyExpirationDate().compareTo(this.date) <= 0 )
+		if (this.compareDate(this.getCard(number).getPrettyExpirationDate(), this.date) )
 			throw new ExpiredCardException();
 
 		if (amount <= 0)
 			throw new InvalidAmountException();
 
-		this.getCard(number).setBalance(this.getCard(number).getAmount()+amount);
+		this.getCard(number).setBalance(this.getCard(number).getBalance()+amount);
 		this.mvmnt.add(new Movement(1, amount));
 	}
 
@@ -154,7 +172,7 @@ public class CardOperations implements PrePaidInterface{
 		if (!this.getCard(number).getPin().equals(hsOldPin))
 			throw new IncorrectPinException();
 
-		if (this.getCard(number).getPrettyExpirationDate().compareTo(this.date) <= 0 )
+		if (this.compareDate(this.getCard(number).getPrettyExpirationDate(), this.date) )
 			throw new ExpiredCardException();
 
 		Card newCard = new Card(this.getCard(number).getNumber(), this.getCard(number).getName(), 
@@ -198,7 +216,7 @@ public class CardOperations implements PrePaidInterface{
 		if (!this.getCard(number).getPin().equals(hsPin))
 			throw new IncorrectPinException();
 
-		if (this.getCard(number).getPrettyExpirationDate().compareTo(this.date) <= 0 )
+		if (this.compareDate(this.getCard(number).getPrettyExpirationDate(), this.date) )
 			throw new ExpiredCardException();
 
 		return this.mvmnt;
