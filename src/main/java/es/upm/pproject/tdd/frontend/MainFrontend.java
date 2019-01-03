@@ -31,7 +31,7 @@ public class MainFrontend extends JFrame {
 	// main panel
 	private JPanel contentPanel;
 	
-	// buttons
+	// button stuff
 	private JButton buyNewCardB = new JButton("Buy New Card");
 	private JButton payB = new JButton("Pay");
 	private JButton chargeMoneyB = new JButton("Charge Money");
@@ -44,8 +44,7 @@ public class MainFrontend extends JFrame {
 	
 	// action listeners
 	private ActionListener okA;
-	private ActionListener goBackA;
-	
+
 	// text fields and passwords
 	private JTextField nameT = new JTextField();
 	private JTextField surnameT = new JTextField();
@@ -220,7 +219,7 @@ public class MainFrontend extends JFrame {
 			}
 		});
 		// action for the goBack button
-		goBackB.addActionListener(goBackA = new ActionListener() {
+		goBackB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				goBackB.setVisible(false);
 				okB.setVisible(false);
@@ -316,9 +315,12 @@ public class MainFrontend extends JFrame {
 				else {
 					try {
 						long cardNumber = ops.buyCard(name, surname, pin, Double.valueOf(amount));
-						JOptionPane.showMessageDialog(contentPanel, "Dear "+name+" "+surname+
-								", your card has been successfully created.\nAMOUNT: "+amount+
-								"€\nCARD NUMBER: "+cardNumber+"\nBALANCE: "+amount+"€\nThanks for using our system!",
+						JOptionPane.showMessageDialog(contentPanel,
+								"Dear "+name+" "+surname+", your card has been successfully created."
+								+"\nAMOUNT: "+amount
+								+"€\nCARD NUMBER: "+cardNumber
+								+"\nBALANCE: "+amount
+								+"€\nThanks for using our system!",
 								"Success!", JOptionPane.INFORMATION_MESSAGE);
 					} 
 					catch (NumberFormatException | AlreadyRegisteredException | IncorrectPinException |
@@ -382,10 +384,11 @@ public class MainFrontend extends JFrame {
 				actualCard = ops.getCard(Long.valueOf(cardNumberT.getText()));
 				try {
 					ops.changePIN(Long.valueOf(cardNumber), pin, newPin);
-					JOptionPane.showMessageDialog(contentPanel, "Dear "+actualCard.getName()+" "+actualCard.getSurname()+
-							"\nPIN CHANGED SUCESSFULY\nThanks for using our system",
+					JOptionPane.showMessageDialog(contentPanel,
+							"Dear "+actualCard.getName()+" "+actualCard.getSurname()+
+							"\nPIN CHANGED SUCCESSFULLY"
+							+"\nThanks for using our system!",
 							"Success!", JOptionPane.INFORMATION_MESSAGE);
-					
 				} catch (NumberFormatException | NotRegisteredException | IncorrectPinException | ExpiredCardException
 						| IncorrectPinFormatException e) {
 					JOptionPane.showMessageDialog(contentPanel, e.getMessage(),
@@ -443,8 +446,14 @@ public class MainFrontend extends JFrame {
 						actualCard = ops.getCard(Long.valueOf(cardNumber));
 						try {
 							ops.pay(Long.valueOf(cardNumber), Double.valueOf(amount), pin);
-							JOptionPane.showMessageDialog(contentPanel, "Dear "+actualCard.getName()+" "+actualCard.getSurname()+
-									"\nCARD NUMBER: "+cardNumber+"\nBALANCE: "+actualCard.getBalance()+"€\nThanks for using our system!",
+							char [] buf= new char[4];
+							cardNumber.getChars(7, 11, buf, 0);
+							cardNumber= "XXXXXXXX"+new String(buf);
+							JOptionPane.showMessageDialog(contentPanel, 
+									"Dear "+actualCard.getName()+" "+actualCard.getSurname()+
+									"\nCARD NUMBER: "+cardNumber
+									+"\nBALANCE: "+actualCard.getBalance()
+									+"€\nThanks for using our system!",
 									"Success!", JOptionPane.INFORMATION_MESSAGE);
 						} catch (NumberFormatException | NotRegisteredException | IncorrectPinException
 								| NotEnoughMoneyException | IncorrectPinFormatException
@@ -498,9 +507,12 @@ public class MainFrontend extends JFrame {
 						char [] buf= new char[4];
 						cardNumber.getChars(7, 11, buf, 0);
 						cardNumber= "XXXXXXXX"+new String(buf);
-						JOptionPane.showMessageDialog(contentPanel, "Dear "+actualCard.getName()+" "+
-						actualCard.getSurname()+"\nAMOUNT : "+actualCard.getAmount()+"€\nCARD NUMBER : "+
-								cardNumber+"\nBALANCE : "+balance+"€\nThanks for using our system.",
+						JOptionPane.showMessageDialog(contentPanel,
+								"Dear "+actualCard.getName()+" "+actualCard.getSurname()
+								+"\nAMOUNT: "+actualCard.getAmount()
+								+"€\nCARD NUMBER: "+cardNumber
+								+"\nBALANCE: "+balance
+								+"€\nThanks for using our system!",
 								"Success!", JOptionPane.INFORMATION_MESSAGE);
 					} catch (NumberFormatException | NotRegisteredException | IncorrectPinException
 							 | IncorrectPinFormatException e) {
@@ -556,6 +568,9 @@ public class MainFrontend extends JFrame {
 						for (Movement m : mvmnt) {
 							movs = movs + m.toString() + "\n";
 						}
+						char [] buf= new char[4];
+						cardNumber.getChars(7, 11, buf, 0);
+						cardNumber= "XXXXXXXX"+new String(buf);
 						JOptionPane.showMessageDialog(contentPanel, 
 								"Dear "+actualCard.getName()+" "+actualCard.getSurname()
 								+"\nCARD NUMBER: "+cardNumber
@@ -616,6 +631,9 @@ public class MainFrontend extends JFrame {
 						actualCard = ops.getCard(Long.valueOf(cardNumber));
 						try {
 							ops.chargeMoney(Long.valueOf(cardNumber), Double.valueOf(amount), pin);
+							char [] buf= new char[4];
+							cardNumber.getChars(7, 11, buf, 0);
+							cardNumber= "XXXXXXXX"+new String(buf);
 							JOptionPane.showMessageDialog(contentPanel, 
 									"Dear "+actualCard.getName()+" "+actualCard.getSurname()+
 									"\nCARD NUMBER: "+cardNumber
