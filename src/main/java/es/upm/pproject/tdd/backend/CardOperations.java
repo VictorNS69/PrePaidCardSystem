@@ -62,29 +62,11 @@ public class CardOperations implements PrePaidInterface{
 	public String getDate() {
 		return this.date;
 	}
-
-	/* Compare if date1 is <= date2
-	 */
-	private boolean compareDate(String date1, String date2) {
-		String[] d1 = date1.split("-");
-		String[] d2 = date2.split("-");
-		if (d1[2].compareTo(d2[2]) == 0) {
-			if (d1[1].compareTo(d2[1]) == 0) {
-				if (d1[0].compareTo(d2[0]) <= 0) 
-					return true;
-			}
-			else if (d1[1].compareTo(d2[1]) < 0) 
-				return true;
-		}
-		else if (d1[2].compareTo(d2[2]) < 0) 
-			return true;
-		
-		return false;
-	}
+ 
 	@Override
 	public long buyCard(String name, String surname, String pin, double amount) throws 
 	AlreadyRegisteredException, IncorrectPinFormatException, IncorrectPinException, 
-	ExpiredCardException, InvalidAmountException {
+	InvalidAmountException, ExpiredCardException {
 		if (pin == null)
 			throw new IncorrectPinException();
 
@@ -106,7 +88,7 @@ public class CardOperations implements PrePaidInterface{
 
 	@Override
 	public void pay(long number, double amount, String pin) throws NotRegisteredException,
-	IncorrectPinException, NotEnoughMoneyException, ExpiredCardException, IncorrectPinFormatException, 
+	IncorrectPinException, NotEnoughMoneyException, IncorrectPinFormatException, 
 	InvalidAmountException, InvalidMovementException {
 		if (pin == null)
 			throw new IncorrectPinException();
@@ -118,9 +100,6 @@ public class CardOperations implements PrePaidInterface{
 
 		if (!this.getCard(number).getPin().equals(hsPin))
 			throw new IncorrectPinException();
-		
-		if (this.compareDate(this.getCard(number).getPrettyExpirationDate(), this.date) )
-			throw new ExpiredCardException();
 
 		if (this.getCard(number).getBalance() < amount)
 			throw new NotEnoughMoneyException();
@@ -134,7 +113,7 @@ public class CardOperations implements PrePaidInterface{
 
 	@Override
 	public void chargeMoney(long number, double amount, String pin)
-			throws NotRegisteredException, IncorrectPinException, ExpiredCardException, 
+			throws NotRegisteredException, IncorrectPinException, 
 			IncorrectPinFormatException, InvalidAmountException, InvalidMovementException {
 		if (pin == null)
 			throw new IncorrectPinException();
@@ -147,9 +126,6 @@ public class CardOperations implements PrePaidInterface{
 		if (!this.getCard(number).getPin().equals(hsPin))
 			throw new IncorrectPinException();
 
-		if (this.compareDate(this.getCard(number).getPrettyExpirationDate(), this.date) )
-			throw new ExpiredCardException();
-
 		if (amount <= 0)
 			throw new InvalidAmountException();
 
@@ -159,7 +135,7 @@ public class CardOperations implements PrePaidInterface{
 
 	@Override
 	public Card changePIN(long number, String oldPin, String newPin) throws NotRegisteredException, 
-	IncorrectPinException, ExpiredCardException, IncorrectPinFormatException {
+	IncorrectPinException, IncorrectPinFormatException, ExpiredCardException {
 		if (oldPin == null || newPin == null)
 			throw new IncorrectPinException();
 
@@ -172,9 +148,6 @@ public class CardOperations implements PrePaidInterface{
 		if (!this.getCard(number).getPin().equals(hsOldPin))
 			throw new IncorrectPinException();
 
-		if (this.compareDate(this.getCard(number).getPrettyExpirationDate(), this.date) )
-			throw new ExpiredCardException();
-
 		Card newCard = new Card(this.getCard(number).getNumber(), this.getCard(number).getName(), 
 				this.getCard(number).getSurname(), hsNewPin, this.getCard(number).getBalance(),
 				this.getCard(number).getPrettyExpirationDate());
@@ -184,7 +157,7 @@ public class CardOperations implements PrePaidInterface{
 
 	@Override
 	public double consultBalance(long number, String pin) throws NotRegisteredException, 
-	IncorrectPinException, ExpiredCardException, IncorrectPinFormatException {
+	IncorrectPinException, IncorrectPinFormatException {
 		if (pin == null)
 			throw new IncorrectPinException();
 
@@ -195,16 +168,13 @@ public class CardOperations implements PrePaidInterface{
 
 		if (!this.getCard(number).getPin().equals(hsPin))
 			throw new IncorrectPinException();
-
-		if (this.getCard(number).getPrettyExpirationDate().compareTo(this.date) <= 0 )
-			throw new ExpiredCardException();
 
 		return this.getCard(number).getBalance();
 	}
 
 	@Override
 	public List<Movement> consultMovements(long number, String pin) throws NotRegisteredException,
-	IncorrectPinException, IncorrectPinFormatException, ExpiredCardException {
+	IncorrectPinException, IncorrectPinFormatException {
 		if (pin == null)
 			throw new IncorrectPinException();
 
@@ -215,9 +185,6 @@ public class CardOperations implements PrePaidInterface{
 
 		if (!this.getCard(number).getPin().equals(hsPin))
 			throw new IncorrectPinException();
-
-		if (this.compareDate(this.getCard(number).getPrettyExpirationDate(), this.date) )
-			throw new ExpiredCardException();
 
 		return this.mvmnt;
 	}
