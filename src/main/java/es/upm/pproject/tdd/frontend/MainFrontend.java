@@ -460,8 +460,59 @@ public class MainFrontend extends JFrame {
 	
 	public void consultBalance() {
 		setTitle("Consult balance");
-
-		// TODO
+		
+		cardNumberT.setBounds(80, 140, 250, 70);
+		cardNumberL.setBounds(80, 95, 250, 70);
+		pinP.setBounds(370, 140, 250, 70);
+		pinL.setBounds(370, 95, 250, 70);
+		cardNumberT.setVisible(true);
+		cardNumberL.setVisible(true);
+		pinP.setVisible(true);
+		pinL.setVisible(true);
+		goBackB.setVisible(true);
+		okB.setVisible(true);
+		okB.addActionListener(okA = new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String pin = new String(pinP.getPassword());
+				String cardNumber = cardNumberT.getText();
+				
+				if(cardNumber.isEmpty()||pin.isEmpty())
+					JOptionPane.showMessageDialog(contentPanel, "There is a field that is empty", "Dialog",
+							JOptionPane.ERROR_MESSAGE);
+				else if (cardNumber.length()!=12)
+					JOptionPane.showMessageDialog(contentPanel, "The card number must have 12 digits", ERR,
+							JOptionPane.ERROR_MESSAGE);
+				else if (!Pattern.matches("[0-9]+", cardNumber))
+					JOptionPane.showMessageDialog(contentPanel, "The card number can only have digits", ERR,
+							JOptionPane.ERROR_MESSAGE);
+				else if(pin.length()!=4 )
+					JOptionPane.showMessageDialog(contentPanel, "The size of the pin should be four digits", ERR,
+							JOptionPane.ERROR_MESSAGE);
+				else if(!Pattern.matches("[0-9]+", pin))
+					JOptionPane.showMessageDialog(contentPanel, "The password can only have digits", ERR,
+							JOptionPane.ERROR_MESSAGE);	
+				else {
+					actualCard = ops.getCard(Long.valueOf(cardNumberT.getText()));
+					try {
+						double balance=ops.consultBalance(Long.valueOf(cardNumber), pin);
+						char [] buf= new char[4];
+						cardNumber.getChars(7, 11, buf, 0);
+						cardNumber= "XXXXXXXX"+new String(buf);
+						JOptionPane.showMessageDialog(contentPanel, "Dear "+actualCard.getName()+" "+
+						actualCard.getSurname()+"\nAMOUNT : "+actualCard.getAmount()+"€\nCARD NUMBER : "+
+								cardNumber+"\nBALANCE : "+balance+"€\nThanks for using our system.",
+								"Success!", JOptionPane.INFORMATION_MESSAGE);
+					} catch (NumberFormatException | NotRegisteredException | IncorrectPinException
+							 | IncorrectPinFormatException e) {
+						JOptionPane.showMessageDialog(contentPanel, e.getMessage(),
+								ERR, JOptionPane.ERROR_MESSAGE);
+						LOGGER.log(Level.INFO, ERR, e);
+					}
+				}
+				
+			}
+		});
+		
 	}
 
 	public void consultMovements() {
