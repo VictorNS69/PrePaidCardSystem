@@ -471,8 +471,66 @@ public class MainFrontend extends JFrame {
 
 	public void chargeMoney() {
 		setTitle("Charge money");
-
-		// TODO
+		cardNumberT.setBounds(80, 50, 250, 70);
+		cardNumberL.setBounds(80, 5, 250, 70);
+		pinP.setBounds(370, 50, 250, 70);
+		pinL.setBounds(370, 5, 250, 70);
+		amountT.setBounds(80, 230, 250, 70);
+		amountL.setBounds(80, 185, 250, 70);
+		
+		cardNumberT.setVisible(true);
+		cardNumberL.setVisible(true);
+		amountT.setVisible(true);
+		amountL.setVisible(true);
+		pinP.setVisible(true);
+		pinL.setVisible(true);
+		goBackB.setVisible(true);
+		okB.setVisible(true);
+		okB.addActionListener(okA = new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String amount = amountT.getText();
+				String pin = new String(pinP.getPassword());
+				String cardNumber = cardNumberT.getText();
+				
+				if(cardNumber.isEmpty()||amount.isEmpty()||pin.isEmpty())
+					JOptionPane.showMessageDialog(contentPanel, "There is a field that is empty", "Dialog",
+							JOptionPane.ERROR_MESSAGE);
+				else if (cardNumber.length()!=12)
+					JOptionPane.showMessageDialog(contentPanel, "The card number must have 12 digits", ERR,
+							JOptionPane.ERROR_MESSAGE);
+				else if (!Pattern.matches("[0-9]+", cardNumber))
+					JOptionPane.showMessageDialog(contentPanel, "The card number can only have digits", ERR,
+							JOptionPane.ERROR_MESSAGE);
+				else if(!Pattern.matches("[0-9]+(\\.[0-9]{1,2})?$", amount)) 
+					JOptionPane.showMessageDialog(contentPanel, "The amount can only contain positive numbers with two decimals", ERR,
+							JOptionPane.ERROR_MESSAGE);
+				else if(pin.length()!=4 )
+					JOptionPane.showMessageDialog(contentPanel, "The size of the pin should be four digits", ERR,
+							JOptionPane.ERROR_MESSAGE);
+				else if(!Pattern.matches("[0-9]+", pin))
+					JOptionPane.showMessageDialog(contentPanel, "The password can only have digits", ERR,
+							JOptionPane.ERROR_MESSAGE);				
+				else {
+						actualCard = ops.getCard(Long.valueOf(cardNumber));
+						try {
+							ops.chargeMoney(Long.valueOf(cardNumber), Double.valueOf(amount), pin);
+							JOptionPane.showMessageDialog(contentPanel, "Deposit successfull\n"
+									+ "CARD NUMBER: "+actualCard.getNumber()
+									+"\nNAME: "+actualCard.getName()
+									+"\nSURNAME: "+actualCard.getSurname()
+									+"\nBALANCE: "+actualCard.getBalance()+
+									"\nThanks for using our system!",
+									"Success!", JOptionPane.INFORMATION_MESSAGE);
+						} catch (NumberFormatException | NotRegisteredException | IncorrectPinException
+								| ExpiredCardException | IncorrectPinFormatException
+								| InvalidAmountException | InvalidMovementException e) {
+							JOptionPane.showMessageDialog(contentPanel, e.getMessage(),
+									ERR, JOptionPane.ERROR_MESSAGE);
+							LOGGER.log(Level.INFO, ERR, e);
+						}		
+				}
+			}	
+		});
 	}
 
 	public void mainButtonsVisible (boolean option) {
