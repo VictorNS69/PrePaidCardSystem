@@ -3,6 +3,9 @@ package es.upm.pproject.tdd.frontend;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.*;
@@ -99,6 +102,19 @@ public class MainFrontend extends JFrame {
 		contentPanel = new JPanel();
 		setContentPane(contentPanel);
 		contentPanel.setLayout(null);
+		
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent x) {
+				try {
+					fileops.saveFile(path, map);
+				} catch (FileNotFoundException e) {
+					JOptionPane.showMessageDialog(contentPanel, e.getMessage(),
+							ERR, JOptionPane.ERROR_MESSAGE);
+					LOGGER.log(Level.INFO, ERR, e);
+				}
+				System.exit(0);
+			}
+		});
 		// we load the file with the saved cards
 		try {
 			map = fileops.loadFile(path);
