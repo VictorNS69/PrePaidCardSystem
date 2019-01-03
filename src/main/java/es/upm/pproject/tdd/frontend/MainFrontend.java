@@ -41,11 +41,11 @@ public class MainFrontend extends JFrame {
 	private JButton goBackB = new JButton("Go Back");
 	private JButton okB = new JButton("OK");
 	
-	//action listeners
+	// action listeners
 	private ActionListener okA;
 	private ActionListener goBackA;
 	
-	//cuadros de texto
+	// text fields and passwords
 	private JTextField nameT = new JTextField();
 	private JTextField surnameT = new JTextField();
 	private JTextField amountT = new JTextField();
@@ -54,7 +54,7 @@ public class MainFrontend extends JFrame {
 	private JPasswordField confirmPinP = new JPasswordField();
 	private JTextField cardNumberT = new JTextField();
 	
-	//labels
+	// labels
 	private JLabel nameL = new JLabel("Name");
 	private JLabel surnameL = new JLabel("Surname");
 	private JLabel amountL = new JLabel("Amount");
@@ -89,39 +89,23 @@ public class MainFrontend extends JFrame {
 	 * @throws IncorrectPinException
 	 */
 	public MainFrontend() throws ExpiredCardException, IOException, IncorrectPinException {
-		// titulo del frame
 		setTitle("PrePaid System");
-		// modo de salida del frame
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		// tamanio
 		this.setSize(700, 480);
 		this.setResizable(false);
-		// centrado
 		Dimension window = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation((window.width / 2)-(this.getWidth() / 2),(window.height/2)-(this.getHeight()/2));
-		// el contenedor
 		contentPanel = new JPanel();
-		// pongo el panel en la ventana??
 		setContentPane(contentPanel);
 		contentPanel.setLayout(null);
-		
-		// cargo el mapa
+		// we load the file with the saved cards
 		try {
 			map = fileops.loadFile(path);
 			ops = new CardOperations(map);
 		} catch (ExpiredCardException | IOException | IncorrectPinException e) {
 			LOGGER.log(Level.INFO, ERR, e);
 		}
-
-
-
-		// hacemos aqui los "add" de esta forma estan ya los botones (quiza haya que
-		// hacerlos invisibles todos segun empieza
-		// porque haya un bug). el motivo de hacer esto aqui es que se buguea segun
-		// inicia el programa, y el primer boton
-		// lo pinta pero el segundo se queda oculto hasta que pasas el raton por encima.
-		// es un bug
-		//botones
+		// buttons 
 		contentPanel.add(buyNewCardB);
 		contentPanel.add(payB);
 		contentPanel.add(changePinB);
@@ -132,7 +116,7 @@ public class MainFrontend extends JFrame {
 		contentPanel.add(goBackB);
 		contentPanel.add(okB);
 		
-		//textos
+		// text fields
 		contentPanel.add(nameT);
 		contentPanel.add(surnameT);
 		contentPanel.add(amountT);
@@ -141,7 +125,7 @@ public class MainFrontend extends JFrame {
 		contentPanel.add(confirmPinP);
 		contentPanel.add(cardNumberT);
 		
-		//labels
+		// labels
 		contentPanel.add(nameL);
 		contentPanel.add(surnameL);
 		contentPanel.add(amountL);
@@ -151,7 +135,7 @@ public class MainFrontend extends JFrame {
 		contentPanel.add(cardNumberL);
 
 
-		//posicion botones inamovibles
+		// button positions
 		buyNewCardB.setBounds(80, 50, 250, 70);
 		changePinB.setBounds(370, 50, 250, 70);
 		payB.setBounds(80, 140, 250, 70);
@@ -162,7 +146,7 @@ public class MainFrontend extends JFrame {
 		goBackB.setBounds(105, 340, 200, 70);
 		okB.setBounds(395, 340, 200, 70);
 
-		//inicializacion visibilidad todo a false
+		// everything invisible
 		buyNewCardB.setVisible(false);
 		changePinB.setVisible(false);
 		payB.setVisible(false);
@@ -185,55 +169,56 @@ public class MainFrontend extends JFrame {
 		pinL.setVisible(false);
 		confirmPinL.setVisible(false);
 		cardNumberL.setVisible(false);
-		//accion boton buyNewCard
+		
+		// action for the buyCard button
 		buyNewCardB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				buttonVisible(false);
+				mainButtonsVisible(false);
 				buyNewCard();
 			}
 		});
-		//accion boton payB
+		// action for the pay button
 		payB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				buttonVisible(false);
+				mainButtonsVisible(false);
 				pay();
 			}
 		});
-		//accion boton changePinB
+		// action for the changePin button
 		changePinB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				buttonVisible(false);
+				mainButtonsVisible(false);
 				changePin();
 			}
 		});
-		//accion boton consultBalanceB
+		// action for the consultBalance button
 		consultBalanceB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				buttonVisible(false);
+				mainButtonsVisible(false);
 				consultBalance();
 			}
 		});
 		//accion boton chargeMoneyB
 		chargeMoneyB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				buttonVisible(false);
+				mainButtonsVisible(false);
 				chargeMoney();
 			}
 		});
-		//accion boton consultMovementsB
+		// action for the consultMovements button
 		consultMovementsB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				buttonVisible(false);
+				mainButtonsVisible(false);
 				consultMovements();
 			}
 		});
-		//accion boton exitB
+		// action for the exit button
 		exitB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.exit(0);
 			}
 		});
-		
+		// action for the goBack button
 		goBackB.addActionListener(goBackA = new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				goBackB.setVisible(false);
@@ -261,25 +246,18 @@ public class MainFrontend extends JFrame {
 				confirmPinP.setText("");
 				newPinP.setText("");
 				
-				goBackB.removeActionListener(goBackA);
 				okB.removeActionListener(okA);
 				
 				start();
 			}
 		});
-
-		// llamo a la funcion donde va a empezar todo.
 		start();
-
 	}
 
-	// funcion donde empieza todo
+	// starting function for the main screen
 	public void start() {
 		setTitle("Prepaid Card System");
-
-		// aparecen los botones
-		buttonVisible(true);
-		
+		mainButtonsVisible(true);	
 	}
 
 	public void buyNewCard() {
@@ -345,7 +323,7 @@ public class MainFrontend extends JFrame {
 					catch (NumberFormatException | AlreadyRegisteredException | IncorrectPinException |
 							IncorrectPinFormatException | ExpiredCardException | InvalidAmountException e) {
 						JOptionPane.showMessageDialog(contentPanel, e,
-								"Error", JOptionPane.ERROR_MESSAGE);
+								ERR, JOptionPane.ERROR_MESSAGE);
 						LOGGER.log(Level.INFO, ERR, e);
 					}
 				}
@@ -431,7 +409,7 @@ public class MainFrontend extends JFrame {
 								| NotEnoughMoneyException | ExpiredCardException | IncorrectPinFormatException
 								| InvalidAmountException | InvalidMovementException e) {
 							JOptionPane.showMessageDialog(contentPanel, e,
-									"Error", JOptionPane.ERROR_MESSAGE);
+									ERR, JOptionPane.ERROR_MESSAGE);
 							LOGGER.log(Level.INFO, ERR, e);
 						}		
 				}
@@ -457,7 +435,7 @@ public class MainFrontend extends JFrame {
 		// TODO
 	}
 
-	public void buttonVisible (boolean option) {
+	public void mainButtonsVisible (boolean option) {
 		buyNewCardB.setVisible(option);
 		changePinB.setVisible(option);
 		payB.setVisible(option);
