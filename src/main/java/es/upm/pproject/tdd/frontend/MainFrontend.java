@@ -4,38 +4,33 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.nio.file.FileSystem;
-import java.sql.Time;
 import java.nio.file.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
-import java.util.logging.Logger;
-
-
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import es.upm.pproject.tdd.backend.*;
 import es.upm.pproject.tdd.exceptions.*;
 
 public class MainFrontend extends JFrame {
 
-	// apartado carga de datos
+	// logger stuff
 	private final static Logger LOGGER = Logger.getLogger(MainFrontend.class.getName());
 	private final static String ERR = "Error";
 	
-	private Card card;
+	// data and backend stuff
+	private Card  actualCard;
 	private final Path path = FileSystems.getDefault().getPath("src/assets/data.dat").toAbsolutePath();
 	private Map<Long, Card> map = new HashMap<>();
 	private FileOperations fileops = new FileOperations();
 	private CardOperations ops;
 
-	// apartado botones y demas
+	// main panel
 	private JPanel contentPanel;
-	// dejo los botones ya inicializados para asi solo tener que hacerlos visibles o
-	// no.
+	
+	// buttons
 	private JButton buyNewCardB = new JButton("Buy New Card");
 	private JButton payB = new JButton("Pay");
 	private JButton chargeMoneyB = new JButton("Charge Money");
@@ -45,6 +40,11 @@ public class MainFrontend extends JFrame {
 	private JButton exitB = new JButton("Exit");
 	private JButton goBackB = new JButton("Go Back");
 	private JButton okB = new JButton("OK");
+	
+	//action listeners
+	private ActionListener okA;
+	private ActionListener goBackA;
+	
 	//cuadros de texto
 	private JTextField nameT = new JTextField();
 	private JTextField surnameT = new JTextField();
@@ -53,7 +53,8 @@ public class MainFrontend extends JFrame {
 	private JPasswordField newPinP = new JPasswordField();
 	private JPasswordField confirmPinP = new JPasswordField();
 	private JTextField cardNumberT = new JTextField();
-	//labels?? esto a lo mejor no lo usamos
+	
+	//labels
 	private JLabel nameL = new JLabel("Name");
 	private JLabel surnameL = new JLabel("Surname");
 	private JLabel amountL = new JLabel("Amount");
@@ -233,7 +234,7 @@ public class MainFrontend extends JFrame {
 			}
 		});
 		
-		goBackB.addActionListener(new ActionListener() {
+		goBackB.addActionListener(goBackA = new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				goBackB.setVisible(false);
 				okB.setVisible(false);
@@ -259,6 +260,9 @@ public class MainFrontend extends JFrame {
 				pinP.setText("");
 				confirmPinP.setText("");
 				newPinP.setText("");
+				
+				goBackB.removeActionListener(goBackA);
+				okB.removeActionListener(okA);
 				
 				start();
 			}
@@ -304,7 +308,8 @@ public class MainFrontend extends JFrame {
 		pinL.setVisible(true);
 		confirmPinL.setVisible(true);
 		
-		okB.addActionListener(new ActionListener() {
+		
+		okB.addActionListener(okA = new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String name = nameT.getText();
 				String surname = surnameT.getText();
@@ -312,7 +317,7 @@ public class MainFrontend extends JFrame {
 				String pin = new String(pinP.getPassword());
 				String confirmPin = new String(confirmPinP.getPassword());
 				if(name.isEmpty()||surname.isEmpty()||amount.isEmpty()||pin.isEmpty()||confirmPin.isEmpty())
-					JOptionPane.showMessageDialog(contentPanel, "There is a field that is empty", "Dialog",
+					JOptionPane.showMessageDialog(contentPanel, "There is a field that is empty222", "Dialog",
 							JOptionPane.ERROR_MESSAGE);
 				else if (!Pattern.matches("^[\\p{L} .-]+$", name)|| !Pattern.matches("^[\\p{L} .-]+$", surname))
 					JOptionPane.showMessageDialog(contentPanel, "The name and surname can only contain letters", ERR,
@@ -339,6 +344,8 @@ public class MainFrontend extends JFrame {
 					} 
 					catch (NumberFormatException | AlreadyRegisteredException | IncorrectPinException |
 							IncorrectPinFormatException | ExpiredCardException | InvalidAmountException e) {
+						JOptionPane.showMessageDialog(contentPanel, e,
+								"Error", JOptionPane.ERROR_MESSAGE);
 						LOGGER.log(Level.INFO, ERR, e);
 					}
 				}
@@ -373,9 +380,63 @@ public class MainFrontend extends JFrame {
 	
 	public void pay() {
 		setTitle("Pay");
-		// esta funcion se encarga de pintar un nuevo boton en una posicion X (este
-		// boton tendra luego sus acciones)
-		payB.setVisible(true);
+		
+		cardNumberT.setBounds(80, 50, 250, 70);
+		cardNumberL.setBounds(80, 5, 250, 70);
+		pinP.setBounds(370, 50, 250, 70);
+		pinL.setBounds(370, 5, 250, 70);
+		amountT.setBounds(80, 230, 250, 70);
+		amountL.setBounds(80, 185, 250, 70);
+		
+		cardNumberT.setVisible(true);
+		cardNumberL.setVisible(true);
+		amountT.setVisible(true);
+		amountL.setVisible(true);
+		pinP.setVisible(true);
+		pinL.setVisible(true);
+		goBackB.setVisible(true);
+		okB.setVisible(true);
+		okB.addActionListener(okA = new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String amount = amountT.getText();
+				String pin = new String(pinP.getPassword());
+				String cardNumber = cardNumberT.getText();
+				
+				if(cardNumber.isEmpty()||amount.isEmpty()||pin.isEmpty())
+					JOptionPane.showMessageDialog(contentPanel, "There is a field that is empty", "Dialog",
+							JOptionPane.ERROR_MESSAGE);
+				else if (cardNumber.length()!=12)
+					JOptionPane.showMessageDialog(contentPanel, "The card number must have 12 digits", ERR,
+							JOptionPane.ERROR_MESSAGE);
+				else if (!Pattern.matches("[0-9]+", cardNumber))
+					JOptionPane.showMessageDialog(contentPanel, "The card number can only have digits", ERR,
+							JOptionPane.ERROR_MESSAGE);
+				else if(!Pattern.matches("[0-9]+(\\.[0-9]{1,2})?$", amount)) 
+					JOptionPane.showMessageDialog(contentPanel, "The amount can only contain positive numbers with two decimals", ERR,
+							JOptionPane.ERROR_MESSAGE);
+				else if(pin.length()!=4 )
+					JOptionPane.showMessageDialog(contentPanel, "The size of the pin should be four digits", ERR,
+							JOptionPane.ERROR_MESSAGE);
+				else if(!Pattern.matches("[0-9]+", pin))
+					JOptionPane.showMessageDialog(contentPanel, "The password can only have digits", ERR,
+							JOptionPane.ERROR_MESSAGE);				
+				else {
+						actualCard = ops.getCard(Long.valueOf(cardNumber));
+						try {
+							ops.pay(Long.valueOf(cardNumber), Double.valueOf(amount), pin);
+							JOptionPane.showMessageDialog(contentPanel, "Dear "+actualCard.getName()+" "+actualCard.getSurname()+
+									"\nCARD NUMBER: "+cardNumber+"\nBALANCE: "+actualCard.getBalance()+"€\nThanks for using our system!",
+									"Success!", JOptionPane.INFORMATION_MESSAGE);
+						} catch (NumberFormatException | NotRegisteredException | IncorrectPinException
+								| NotEnoughMoneyException | ExpiredCardException | IncorrectPinFormatException
+								| InvalidAmountException | InvalidMovementException e) {
+							JOptionPane.showMessageDialog(contentPanel, e,
+									"Error", JOptionPane.ERROR_MESSAGE);
+							LOGGER.log(Level.INFO, ERR, e);
+						}		
+				}
+			}	
+		});
 	}
 	
 	public void consultBalance() {
