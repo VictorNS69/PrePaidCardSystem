@@ -640,7 +640,7 @@ public class MainFrontend extends JFrame {
 						try {
 							ops.chargeMoney(Long.valueOf(cardNumber), Double.valueOf(amount), pin);
 							char [] buf= new char[4];
-							cardNumber.getChars(7, 11, buf, 0);
+							cardNumber.getChars(8, 11, buf, 0);
 							cardNumber= "XXXXXXXX"+new String(buf);
 							JOptionPane.showMessageDialog(contentPanel, 
 									"Dear "+actualCard.getName()+" "+actualCard.getSurname()+

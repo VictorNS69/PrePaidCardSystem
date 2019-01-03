@@ -52,7 +52,7 @@ public class FileOperations {
 		PrintWriter writer = new PrintWriter(file);
 		for (Card card : this.cards.values()) {
 			writer.write(card.getNumber()+"@"+card.getName()+"@"+card.getSurname()+
-					"@"+card.getPin()+"@"+card.getBalance()+"@"+card.getPrettyExpirationDate());
+					"@"+card.getPin()+"@"+card.getBalance()+"@"+card.getPrettyExpirationDate()+"\n");
 		}
 		writer.close();
 	}
