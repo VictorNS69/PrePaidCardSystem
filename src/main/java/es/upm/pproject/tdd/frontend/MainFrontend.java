@@ -104,6 +104,8 @@ public class MainFrontend extends JFrame {
 			map = fileops.loadFile(path);
 			ops = new CardOperations(map);
 		} catch (ExpiredCardException | IOException | IncorrectPinException e) {
+			JOptionPane.showMessageDialog(contentPanel, e.getMessage(),
+					ERR, JOptionPane.ERROR_MESSAGE);
 			LOGGER.log(Level.INFO, ERR, e);
 		}
 		// buttons 
