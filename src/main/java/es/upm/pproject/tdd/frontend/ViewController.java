@@ -165,7 +165,7 @@ public class ViewController {
 				cardNumber= "XXXXXXXX"+new String(buf);
 				view.showDialog(
 						"Dear "+actualCard.getName()+" "+actualCard.getSurname()
-						+"€\nCARD NUMBER: "+cardNumber
+						+"\nCARD NUMBER: "+cardNumber
 						+"\nBALANCE: "+df.format(balance)
 						+"€\nThanks for using our system!",
 						"Success!");
