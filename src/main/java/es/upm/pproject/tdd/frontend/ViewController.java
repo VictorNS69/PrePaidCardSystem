@@ -2,6 +2,7 @@ package es.upm.pproject.tdd.frontend;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.math.RoundingMode;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.text.DecimalFormat;
@@ -35,7 +36,8 @@ public class ViewController {
 		fileops = new FileOperations();	
 		path = FileSystems.getDefault().getPath("src/assets/data.dat").toAbsolutePath();
 		map = new HashMap<>();
-		df = new DecimalFormat("#.00");
+		df = new DecimalFormat("0.00");
+		df.setRoundingMode(RoundingMode.DOWN);
 	}
 	
 	public void loadData() {
