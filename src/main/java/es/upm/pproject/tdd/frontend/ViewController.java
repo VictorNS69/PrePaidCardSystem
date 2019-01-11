@@ -62,12 +62,13 @@ public class ViewController {
 			view.showErrorWindow("Both pin fields must match");
 		else {
 			try {
+				double amountD = Double.parseDouble(amount);
 				ops = new CardOperations(map);
 				long cardNumber = ops.buyCard(name, surname, pin, Double.valueOf(amount));
 				String s = "Dear "+name+" "+surname+", your card has been successfully created."
-						+"\nAMOUNT: "+amount
+						+"\nAMOUNT: "+df.format(amountD)
 						+"€\nCARD NUMBER: "+cardNumber
-						+"\nBALANCE: "+amount
+						+"\nBALANCE: "+df.format(amountD)
 						+"€\nThanks for using our system!";
 				view.showDialog(s, "Success!");
 			} 
@@ -130,7 +131,7 @@ public class ViewController {
 					view.showDialog( 
 							"Dear "+actualCard.getName()+" "+actualCard.getSurname()+
 							"\nCARD NUMBER: "+cardNumber
-							+"\nBALANCE: "+actualCard.getBalance()
+							+"\nBALANCE: "+df.format(actualCard.getBalance())
 							+"€\nThanks for using our system!",
 							"Success!");
 				} catch (NumberFormatException | NotRegisteredException | IncorrectPinException
@@ -163,7 +164,7 @@ public class ViewController {
 				view.showDialog(
 						"Dear "+actualCard.getName()+" "+actualCard.getSurname()
 						+"€\nCARD NUMBER: "+cardNumber
-						+"\nBALANCE: "+balance
+						+"\nBALANCE: "+df.format(balance)
 						+"€\nThanks for using our system!",
 						"Success!");
 			} catch (NumberFormatException | NotRegisteredException | IncorrectPinException
@@ -198,7 +199,7 @@ public class ViewController {
 				view.showDialog( 
 						"Dear "+actualCard.getName()+" "+actualCard.getSurname()
 						+"\nCARD NUMBER: "+cardNumber
-						+"\nBALANCE: "+actualCard.getBalance()
+						+"\nBALANCE: "+df.format(actualCard.getBalance())
 						+"€\nMOVEMENTS: \n"+movs
 						+"\nThanks for using our system!",
 						"Success!");
@@ -231,7 +232,7 @@ public class ViewController {
 					view.showDialog( 
 							"Dear "+actualCard.getName()+" "+actualCard.getSurname()+
 							"\nCARD NUMBER: "+cardNumber
-							+"\nBALANCE: "+actualCard.getBalance()
+							+"\nBALANCE: "+df.format(actualCard.getBalance())
 							+"€\nThanks for using our system!",
 							"Success!");
 				} catch (NumberFormatException | NotRegisteredException | IncorrectPinException | IncorrectPinFormatException
