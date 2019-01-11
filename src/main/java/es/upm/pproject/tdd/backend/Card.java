@@ -1,5 +1,6 @@
 package es.upm.pproject.tdd.backend;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -14,6 +15,7 @@ public class Card {
 	private double amount;
 	private String expirationDate;
 	private Calendar exD;
+	private DecimalFormat df;
 
 	/** Constructor. Create a new card.
 	 *  number and calendar parameters can be null.
@@ -29,6 +31,7 @@ public class Card {
 	 */
 	public Card (Long number, String name, String surname, String pin, double amount, String calendar) 
 			throws IncorrectPinException, ExpiredCardException{
+		df = new DecimalFormat("#.00");
 		if (number == null)
 			this.number = this.generateNumberCard(); 
 		
@@ -93,14 +96,14 @@ public class Card {
 	 * @return
 	 */
 	public double getBalance () {
-		return this.balance;
+		return Double.valueOf(df.format(this.balance));
 	}
 
 	/** Return the amount of the card.
 	 * @return
 	 */
 	public double getAmount () {
-		return this.amount;
+		return Double.valueOf(df.format(this.amount));
 	}
 
 	/** Return the date of the card in a pretty way.
