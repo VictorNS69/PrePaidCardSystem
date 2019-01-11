@@ -1,6 +1,5 @@
 package es.upm.pproject.tdd.backend;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
