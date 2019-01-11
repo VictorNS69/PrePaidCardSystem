@@ -89,6 +89,7 @@ public class MainWindow extends JFrame {
 		contentPanel.setLayout(null);
 		controller = new ViewController(this);
 		addWindowListener(new WindowAdapter() {
+			@Override
 			public void windowClosing(WindowEvent x) {
 				controller.close();
 			}
@@ -194,9 +195,7 @@ public class MainWindow extends JFrame {
 				consultMovements();
 		});
 		// action for the exit button
-		exitB.addActionListener(event -> {
-				controller.close();
-		});
+		exitB.addActionListener(event -> controller.close());
 		// action for the goBack button
 		goBackB.addActionListener(event -> {
 				goBackB.setVisible(false);

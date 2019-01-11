@@ -30,7 +30,7 @@ public class ViewController {
 	private Card actualCard;
 	private DecimalFormat df;
 	
-	public ViewController(MainWindow frame) throws ExpiredCardException, IOException, IncorrectPinException {
+	public ViewController(MainWindow frame) {
 		view = frame;
 		fileops = new FileOperations();	
 		path = FileSystems.getDefault().getPath("src/assets/data.dat").toAbsolutePath();
