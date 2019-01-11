@@ -28,6 +28,12 @@ public class LoadFileTest {
 		new FileOperations().saveFile(path, this.map);
 	}
 	
+	@AfterEach
+	private void removeFile() {
+		File file = new File("src/assets/test.txt");
+		file.delete();
+	}
+	
 	@Test
 	public void LoadFileOk_1() throws IncorrectPinFormatException, IncorrectPinException, 
 	ExpiredCardException, AlreadyRegisteredException, IOException {
