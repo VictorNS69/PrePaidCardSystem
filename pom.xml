@@ -12,9 +12,9 @@
         <java.version>1.8</java.version>
         <junit.jupiter.version>5.2.0</junit.jupiter.version>
         <junit.platform.version>1.2.0</junit.platform.version>
-		<sonar.login>150375</sonar.login>
-        <sonar.password>150375</sonar.password>
-        <sonar.host.url>http://costa.ls.fi.upm.es:9000/sonar</sonar.host.url>
+		<sonar.login>null</sonar.login>
+        <sonar.password>null</sonar.password>
+        <sonar.host.url>null</sonar.host.url>
         <sonar.projectName>${project.groupId}:${project.artifactId}</sonar.projectName>
         <sonar.projectKey>${project.groupId}:${project.artifactId}:${sonar.login}</sonar.projectKey>	
 	<sonar.coverage.exclusions>**/frontend/*</sonar.coverage.exclusions>
