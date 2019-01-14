@@ -36,6 +36,10 @@ $ mvn test
 
 ### Structure of the project:
 ```
+├── .gitignore
+├── .info
+│   ├── diagram.png
+│   └── prepaid.pdf
 ├── LICENSE
 ├── pom.xml
 ├── PrePaidSystem.jar
