@@ -23,7 +23,7 @@ Prepaid systems refers to services paid for in advance. In the case of pre-paid 
 
 ### How to run the application:
 ```
-java -jar PrePaidSystem.jar
+$ java -jar PrePaidSystem.jar
 ```
 Or running [MainWindow.java](/src/main/java/es/upm/pproject/tdd/frontend/MainWindow.java)
 
@@ -33,6 +33,11 @@ In the directory where the _pom.xml_ is.
 ```
 $ mvn test
 ```
+## Note:
+```
+$ mvn verify
+```
+Will not work because there is no user, password and server assigned.
 
 ### Structure of the project:
 ```
