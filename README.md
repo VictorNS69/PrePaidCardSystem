@@ -21,6 +21,11 @@ Prepaid systems refers to services paid for in advance. In the case of pre-paid 
 - Consult balance
 - Consult movements
 
+### How to run the application:
+```
+java -jar PrePaidSystem.jar
+```
+Or run [MainWindow.java](/src/main/java/es/upm/pproject/tdd/frontend/MainWindow.java)
 ### How to run tests:
 In the directory where the _pom.xml_ is.
 
