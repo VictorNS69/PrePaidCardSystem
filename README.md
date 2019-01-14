@@ -25,7 +25,8 @@ Prepaid systems refers to services paid for in advance. In the case of pre-paid 
 ```
 java -jar PrePaidSystem.jar
 ```
-Or run [MainWindow.java](/src/main/java/es/upm/pproject/tdd/frontend/MainWindow.java)
+Or running [MainWindow.java](/src/main/java/es/upm/pproject/tdd/frontend/MainWindow.java)
+
 ### How to run tests:
 In the directory where the _pom.xml_ is.
 
@@ -33,6 +34,61 @@ In the directory where the _pom.xml_ is.
 $ mvn test
 ```
 
+### Structure of the project:
+```
+├── LICENSE
+├── pom.xml
+├── PrePaidSystem.jar
+├── README.md
+├── src
+│   ├── assets
+│   │   └── data.dat
+│   ├── main
+│   │   └── java
+│   │       └── es
+│   │           └── upm
+│   │               └── pproject
+│   │                   └── tdd
+│   │                       ├── backend
+│   │                       │   ├── Card.java
+│   │                       │   ├── CardOperations.java
+│   │                       │   ├── FileOperations.java
+│   │                       │   ├── HashPin.java
+│   │                       │   ├── Movement.java
+│   │                       │   └── PrePaidInterface.java
+│   │                       ├── exceptions
+│   │                       │   ├── AlreadyRegisteredException.java
+│   │                       │   ├── ExpiredCardException.java
+│   │                       │   ├── IncorrectPinException.java
+│   │                       │   ├── IncorrectPinFormatException.java
+│   │                       │   ├── InvalidAmountException.java
+│   │                       │   ├── InvalidMovementException.java
+│   │                       │   ├── NotEnoughMoneyException.java
+│   │                       │   └── NotRegisteredException.java
+│   │                       └── frontend
+│   │                           ├── MainWindow.java
+│   │                           └── ViewController.java
+│   └── test
+│       └── java
+│           └── es
+│               └── upm
+│                   └── pproject
+│                       └── tdd
+│                           └── backend
+│                               ├── BuyCardTest.java
+│                               ├── CardOperationsTest.java
+│                               ├── CardTest.java
+│                               ├── ChangePinTest.java
+│                               ├── ChargeMoneyTest.java
+│                               ├── ConsultBalanceTest.java
+│                               ├── ConsultMovementsTest.java
+│                               ├── HashPinTest.java
+│                               ├── LoadFileTest.java
+│                               ├── MovementTest.java
+│                               ├── PayTest.java
+│                               └── SaveFileTest.java
+
+```
 ### Tools Used:
 ```
 - Java 1.8
